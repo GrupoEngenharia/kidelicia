@@ -1,31 +1,42 @@
 package br.com.fatec.model;
 
 public abstract class Funcionario {
-    //private int id;
+    private int id;
     private String nome;
     private String email;
     private String cpf;
-    //private String login;
-    //private String senha;
+    private String login;
+    private String senha;
     private String funcao;
     private String telefone;
-    private String sexo;
+    private String sexo;   
+    private String rg;
 
-    public Funcionario() {
-    }
-
-    public Funcionario(String nome, String email, String cpf, String funcao, String telefone, String sexo) {
-        //this.id = id;
+    public Funcionario(int id, String nome, String email, String cpf, String login, String senha, String funcao, String telefone, String sexo, String rg) {
+        this.id = id;
         this.nome = nome;
         this.email = email;
         this.cpf = cpf;
-        //this.login = login;
-        //this.senha = senha;
+        this.login = login;
+        this.senha = senha;
         this.funcao = funcao;
         this.telefone = telefone;
         this.sexo = sexo;
+        this.rg = rg;
     }
 
+    public Funcionario() {
+    }
+    
+    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -51,6 +62,22 @@ public abstract class Funcionario {
         this.cpf = cpf;
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
     public String getFuncao() {
         return funcao;
     }
@@ -74,8 +101,14 @@ public abstract class Funcionario {
     public void setSexo(String sexo) {
         this.sexo = sexo;
     }
-    
-    
+
+    public String getRg() {
+        return rg;
+    }
+
+    public void setRg(String rg) {
+        this.rg = rg;
+    }
     
     
     
