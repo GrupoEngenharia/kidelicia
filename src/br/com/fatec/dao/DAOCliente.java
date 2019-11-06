@@ -1,30 +1,33 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package br.com.fatec.dao;
+
 import Database.Db;
-import br.com.fatec.model.Funcionario;
+import br.com.fatec.model.Cliente;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DAOFuncionario implements DAO{
-    
+/**
+ *
+ * @author aluno
+ */
+public class DAOCliente implements DAO<Cliente>{
+
     @Override
-    public boolean inserir(Funcionario dado) {
-    
+    public boolean inserir(Cliente dado) {
         try {
-            String querry = "INSERT into Funcionario (id, nome, email, cpf, login, senha, funcao, telefone, sexo, rg) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            String querry = "INSERT into Funcionario (idCliente, nome, telefone, email) values (?, ?, ?, ?);";
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
             Db.abreConexao();
-                pst.setInt(1, dado.getId());
+                pst.setInt(1, dado.getIdCliente());
                 pst.setString(2, dado.getNome());
-                pst.setString(3, dado.getEmail());
-                pst.setString(4, dado.getCpf());
-                pst.setString(5, dado.getLogin());
-                pst.setString(6, dado.getSenha());
-                pst.setString(7, dado.getFuncao());
-                pst.setString(8, dado.getTelefone());
-                pst.setString(9, dado.getSexo());
-                pst.setString(10, dado.getRg());
+                pst.setString(3, dado.getTelefone());
+                pst.setString(4, dado.getEmail());
                 pst.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -36,18 +39,19 @@ public class DAOFuncionario implements DAO{
     }
 
     @Override
-    public boolean alterar(Object dado) {
+    public boolean alterar(Cliente dado) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public boolean excluir(Object dado) {
+    public boolean excluir(Cliente dado) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Object buscar(Object dado) {
+    public Cliente buscar(Cliente dado) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
     
 }
