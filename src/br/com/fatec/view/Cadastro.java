@@ -60,8 +60,8 @@ public class Cadastro extends javax.swing.JFrame {
         txt_nasc = new javax.swing.JFormattedTextField();
         lbl_nasc1 = new javax.swing.JLabel();
         lbl_funcao = new javax.swing.JLabel();
-        cmb_sexo = new javax.swing.JComboBox<>();
-        cmb_funcao = new javax.swing.JComboBox<>();
+        cmb_sexo = new javax.swing.JComboBox<String>();
+        cmb_funcao = new javax.swing.JComboBox<String>();
         btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -147,9 +147,9 @@ public class Cadastro extends javax.swing.JFrame {
         lbl_funcao.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_funcao.setText("Função");
 
-        cmb_sexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Feminino", "Masculino" }));
+        cmb_sexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Feminino", "Masculino" }));
 
-        cmb_funcao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Caixa", "Cozinheiro", "Garçom", "Gerente" }));
+        cmb_funcao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Caixa", "Cozinheiro", "Garçom", "Gerente" }));
 
         btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBuscar.setText("BUSCAR");

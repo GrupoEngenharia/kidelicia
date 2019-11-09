@@ -221,4 +221,11 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextField txt_email;
     private javax.swing.JPasswordField txt_senha;
     // End of variables declaration//GEN-END:variables
+
+public void limpaCampos(){
+    txt_email.setText("");
+    txt_senha.setText("");
+    txt_email.requestFocus();
+}
+    
 }

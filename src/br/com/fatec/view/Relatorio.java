@@ -32,7 +32,7 @@ public class Relatorio extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         lbl_caixa = new javax.swing.JLabel();
         btn_grealatorio = new javax.swing.JButton();
-        cmb_status1 = new javax.swing.JComboBox<>();
+        cmb_status1 = new javax.swing.JComboBox<String>();
         lbl_filtro = new javax.swing.JLabel();
         btn_voltar = new javax.swing.JButton();
 
@@ -79,7 +79,7 @@ public class Relatorio extends javax.swing.JFrame {
         btn_grealatorio.setText("GERAR RELATÓRIO");
 
         cmb_status1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        cmb_status1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Relatório de Vendas" }));
+        cmb_status1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Relatório de Vendas" }));
         cmb_status1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmb_status1ActionPerformed(evt);

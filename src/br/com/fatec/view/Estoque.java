@@ -240,4 +240,14 @@ public class Estoque extends javax.swing.JFrame {
     private javax.swing.JTextField txt_produto;
     private javax.swing.JTextField txt_qtd;
     // End of variables declaration//GEN-END:variables
+
+public void preencheCampos(){
+    txt_id.setText("");
+    txt_preco.setText("");
+    txt_precototal.setText("");
+    txt_produto.setText("");
+    txt_qtd.setText("");
+    txt_id.requestFocus();
+}
+    
 }

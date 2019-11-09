@@ -42,8 +42,8 @@ public class Pedidos extends javax.swing.JFrame {
         btn_salvar = new javax.swing.JButton();
         lbl_email2 = new javax.swing.JLabel();
         lbl_comandas = new javax.swing.JLabel();
-        cmb_status = new javax.swing.JComboBox<>();
-        cmb_status1 = new javax.swing.JComboBox<>();
+        cmb_status = new javax.swing.JComboBox<String>();
+        cmb_status1 = new javax.swing.JComboBox<String>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(950, 710));
@@ -127,7 +127,7 @@ public class Pedidos extends javax.swing.JFrame {
         lbl_comandas.setText("Comandas:");
 
         cmb_status.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        cmb_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Todas", "Em Andamento", "Finalizadas", "Pendentes" }));
+        cmb_status.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Todas", "Em Andamento", "Finalizadas", "Pendentes" }));
         cmb_status.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmb_statusActionPerformed(evt);
@@ -135,7 +135,7 @@ public class Pedidos extends javax.swing.JFrame {
         });
 
         cmb_status1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        cmb_status1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Em Andamento", "Finalizado", "Pendente" }));
+        cmb_status1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Em Andamento", "Finalizado", "Pendente" }));
         cmb_status1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmb_status1ActionPerformed(evt);
