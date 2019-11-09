@@ -8,7 +8,7 @@ public class Db {
     public static String servidor,nomeBanco,usuario,senha;
     public static int porta;
     public static Connection conexao = null;
-    
+    //atributos do banco
     static{
         servidor = "localhost";
         nomeBanco = "db_lanchonete";
