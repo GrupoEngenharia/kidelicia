@@ -17,14 +17,14 @@ import java.util.logging.Logger;
  *
  * @author aluno
  */
-public class DAOCliente implements DAO<Cliente>{
+public class DAOCliente implements DAO<Cliente> {
 
     @Override
     public boolean inserir(Cliente dado) {
         try {
             String querry = "INSERT into Funcionario (idCliente, nome, telefone, email) values (?, ?, ?, ?);";
-            PreparedStatement pst = Db.conexao.prepareStatement(querry);
             Db.abreConexao();
+            PreparedStatement pst = Db.conexao.prepareStatement(querry);
             pst.setInt(1, dado.getIdCliente());
             pst.setString(2, dado.getNome());
             pst.setString(3, dado.getTelefone());
@@ -35,70 +35,86 @@ public class DAOCliente implements DAO<Cliente>{
             Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                Db.fecharConexao();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return false;
     }
 
     @Override
     public boolean alterar(Cliente dado) {
-        try{
+        try {
             String querry = "UPDATE cliente values(?, ?, ?) where idCliente = ?;";
-            PreparedStatement pst = Db.conexao.prepareStatement(querry);
             Db.abreConexao();
+            PreparedStatement pst = Db.conexao.prepareStatement(querry);
             pst.setString(1, dado.getNome());
             pst.setString(2, dado.getTelefone());
             pst.setString(3, dado.getEmail());
             pst.setInt(4, dado.getIdCliente());
             pst.execute();
-            Db.fecharConexao();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                Db.fecharConexao();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        return false;      
+        return false;
     }
 
     @Override
     public boolean excluir(Cliente dado) {
-        try{
+        try {
             String quarry = "DELETE CLIENTE where idCliente = ?;";
-            PreparedStatement pst = Db.conexao.prepareStatement(quarry);
             Db.abreConexao();
+            PreparedStatement pst = Db.conexao.prepareStatement(quarry);
             pst.setInt(1, dado.getIdCliente());
-            Db.fecharConexao();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                Db.fecharConexao();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return false;
     }
 
     @Override
     public Cliente buscar(Cliente dado) {
-        try{
+        Cliente cliente = null;
+        try {
             String quarry = "Select * from Cliente whwre idCliente = ?;";
-            PreparedStatement pst = Db.conexao.prepareStatement(quarry);
             Db.abreConexao();
+            PreparedStatement pst = Db.conexao.prepareStatement(quarry);
             pst.setInt(1, dado.getIdCliente());
             ResultSet resp = pst.executeQuery();
-            if(resp.next()){
-                Cliente cliente = new Cliente();
+            if (resp.next()) {
+                cliente = new Cliente();
                 cliente.setNome(resp.getString("Nome"));
                 cliente.setTelefone(resp.getString("Telefone"));
                 cliente.setEmail(resp.getString("Email"));
                 return cliente;
-            }    
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return cliente;
     }
 
-    
 }

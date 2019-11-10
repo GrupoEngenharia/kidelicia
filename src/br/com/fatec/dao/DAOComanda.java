@@ -16,16 +16,16 @@ import java.util.logging.Logger;
  *
  * @author CJ
  */
-public class DAOComanda implements DAO<Comanda>{
+public class DAOComanda implements DAO<Comanda> {
 
     @Override
     public boolean inserir(Comanda dado) {
-        try{
+        try {
             String querry = "INSERT INTO Comanda (id) values (?);";
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
             Db.abreConexao();
             //pst.setString(1, dado.getIdComanda());//n tem ainda
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
@@ -47,5 +47,5 @@ public class DAOComanda implements DAO<Comanda>{
     public Comanda buscar(Comanda dado) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

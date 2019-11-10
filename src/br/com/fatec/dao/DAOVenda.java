@@ -22,8 +22,8 @@ public class DAOVenda implements DAO<Venda>{
     public boolean inserir(Venda dado) {
         try{
             String querry = "INSERT INTO Venda (Comanda, Cliente, Produtos) values (?, ?, ?);";
-            PreparedStatement pst = Db.conexao.prepareStatement(querry);
             Db.abreConexao();
+            PreparedStatement pst = Db.conexao.prepareStatement(querry);
             //pst.setString(1, dado.getComanda());//???
             pst.setString(2, querry);
             pst.setString(3, querry);

@@ -1,6 +1,6 @@
 package br.com.fatec.model;
 
-public abstract class Funcionario {
+public class Funcionario {
     private int id;
     private String nome;
     private String email;
