@@ -129,30 +129,25 @@
                               </Group>
                               <Component id="txt_email" alignment="0" min="-2" pref="362" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="404" max="-2" attributes="0"/>
                           <Component id="lbl_cadastro" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="180" max="32767" attributes="0"/>
+                  <EmptySpace pref="228" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lbl_sexo" min="-2" max="-2" attributes="0"/>
-                          <Component id="cmb_sexo" min="-2" pref="110" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="184" pref="184" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="lbl_funcao" min="-2" max="-2" attributes="0"/>
-                                  <Component id="cmb_funcao" alignment="0" min="-2" pref="151" max="-2" attributes="0"/>
-                              </Group>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="288" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lbl_funcao" min="-2" max="-2" attributes="0"/>
+                              <Component id="cmb_funcao" alignment="0" min="-2" pref="151" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="-2" pref="104" max="-2" attributes="0"/>
                           <Component id="btn_voltar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="165" max="-2" attributes="0"/>
                           <Component id="btn_alterar" min="-2" max="-2" attributes="0"/>
@@ -209,15 +204,9 @@
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="lbl_sexo" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="lbl_funcao" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="lbl_funcao" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="cmb_sexo" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="cmb_funcao" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="cmb_funcao" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
@@ -308,6 +297,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="ALTERAR"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_alterarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn_salvar">
           <Properties>
@@ -343,14 +335,6 @@
             <Property name="text" type="java.lang.String" value="jPasswordField1"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lbl_sexo">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="18" style="0"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Sexo"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JLabel" name="lbl_funcao">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -358,20 +342,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Fun&#xe7;&#xe3;o"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="cmb_sexo">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="3">
-                <StringItem index="0" value="Selecione"/>
-                <StringItem index="1" value="Feminino"/>
-                <StringItem index="2" value="Masculino"/>
-              </StringArray>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JComboBox" name="cmb_funcao">
           <Properties>

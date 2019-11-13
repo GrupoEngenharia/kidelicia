@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 public class Cadastro extends javax.swing.JFrame {
     private Funcionario funcionario;
     private DAOFuncionario dao;
+    private int idFuncionario;
 
     /**
      * Creates new form Comanda
@@ -55,10 +56,8 @@ public class Cadastro extends javax.swing.JFrame {
         txt_cpf = new javax.swing.JFormattedTextField();
         lbl_senha = new javax.swing.JLabel();
         txt_senha = new javax.swing.JPasswordField();
-        lbl_sexo = new javax.swing.JLabel();
         lbl_funcao = new javax.swing.JLabel();
-        cmb_sexo = new javax.swing.JComboBox<String>();
-        cmb_funcao = new javax.swing.JComboBox<String>();
+        cmb_funcao = new javax.swing.JComboBox<>();
         btnBuscar = new javax.swing.JButton();
         lbl_nasc2 = new javax.swing.JLabel();
         txt_login = new javax.swing.JFormattedTextField();
@@ -125,6 +124,11 @@ public class Cadastro extends javax.swing.JFrame {
 
         btn_alterar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_alterar.setText("ALTERAR");
+        btn_alterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_alterarActionPerformed(evt);
+            }
+        });
 
         btn_salvar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_salvar.setText("GRAVAR");
@@ -142,15 +146,10 @@ public class Cadastro extends javax.swing.JFrame {
 
         txt_senha.setText("jPasswordField1");
 
-        lbl_sexo.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        lbl_sexo.setText("Sexo");
-
         lbl_funcao.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_funcao.setText("Função");
 
-        cmb_sexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Feminino", "Masculino" }));
-
-        cmb_funcao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Caixa", "Cozinheiro", "Garçom", "Gerente" }));
+        cmb_funcao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Caixa", "Cozinheiro", "Garçom", "Gerente" }));
 
         btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBuscar.setText("BUSCAR");
@@ -191,24 +190,20 @@ public class Cadastro extends javax.swing.JFrame {
                                     .addComponent(lbl_rg)
                                     .addComponent(txt_rg, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txt_celular, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(48, 48, 48))
+                            .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(404, 404, 404)
                         .addComponent(lbl_cadastro)))
-                .addContainerGap(180, Short.MAX_VALUE))
+                .addContainerGap(228, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(104, 104, 104)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lbl_sexo)
-                        .addComponent(cmb_sexo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(184, 184, 184)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lbl_funcao)
-                                .addComponent(cmb_funcao, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(288, 288, 288)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_funcao)
+                            .addComponent(cmb_funcao, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(104, 104, 104)
                         .addComponent(btn_voltar)
                         .addGap(165, 165, 165)
                         .addComponent(btn_alterar)
@@ -253,13 +248,9 @@ public class Cadastro extends javax.swing.JFrame {
                                 .addGap(10, 10, 10)
                                 .addComponent(txt_senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(40, 40, 40)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbl_sexo)
-                            .addComponent(lbl_funcao))
+                        .addComponent(lbl_funcao)
                         .addGap(7, 7, 7)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cmb_sexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmb_funcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cmb_funcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbl_nasc2)
@@ -285,10 +276,10 @@ public class Cadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_emailActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        boolean camposPreenchidos = validarPreenchimentoCampos();
+
         Funcionario funcionarioAux;
         
-        if (camposPreenchidos){
+        if (txt_cpf.getText().equals("")){
             JOptionPane.showMessageDialog(rootPane,"Preencha os campos corretamente");
         } else {
             setFuncionario();
@@ -297,12 +288,12 @@ public class Cadastro extends javax.swing.JFrame {
             
             if (funcionarioAux == null)
                 JOptionPane.showMessageDialog(rootPane, "Funcionário não existe");
-            else
-                preencheCasmposFuncionario(funcionarioAux);
-
+            else {
+                preencheCamposFuncionario(funcionarioAux);
+                idFuncionario = funcionarioAux.getId();
+            }
         }
         
-        limparCampos();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
@@ -317,7 +308,23 @@ public class Cadastro extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "Erro ao tentar cadastrar o funcionário!!!");
         } else
             JOptionPane.showMessageDialog(rootPane, "Preencha os campos corretamente!!!");
+        
+        limparCampos();
     }//GEN-LAST:event_btn_salvarActionPerformed
+
+    private void btn_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_alterarActionPerformed
+        // TODO add your handling code here:
+        if (!validarPreenchimentoCampos()){
+            setFuncionario();
+            if (dao.alterar(funcionario))
+                JOptionPane.showMessageDialog(rootPane, "Funcionário atualizado com sucesso!!!");
+            else
+                JOptionPane.showMessageDialog(rootPane, "Erro ao atualizar os dados funcionário!!!");
+        } else
+            JOptionPane.showMessageDialog(rootPane, "Preencha os campos corretamente!!!");
+        
+        limparCampos();
+    }//GEN-LAST:event_btn_alterarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -361,7 +368,6 @@ public class Cadastro extends javax.swing.JFrame {
     private javax.swing.JButton btn_salvar;
     private javax.swing.JButton btn_voltar;
     private javax.swing.JComboBox<String> cmb_funcao;
-    private javax.swing.JComboBox<String> cmb_sexo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbl_cadastro;
@@ -374,7 +380,6 @@ public class Cadastro extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_nome;
     private javax.swing.JLabel lbl_rg;
     private javax.swing.JLabel lbl_senha;
-    private javax.swing.JLabel lbl_sexo;
     private javax.swing.JTextField txt_celular;
     private javax.swing.JFormattedTextField txt_cpf;
     private javax.swing.JTextField txt_email;
@@ -390,7 +395,7 @@ public class Cadastro extends javax.swing.JFrame {
     }
     
     public boolean validarPreenchimentoCampos(){
-        if (txt_celular.getText().equals("") || txt_cpf.getText().equals("") || txt_email.getText().equals("") || txt_nome.getText().equals("") || txt_rg.getText().equals("") || txt_senha.getText().equals("") || (cmb_funcao.getSelectedIndex() == 0) || (cmb_sexo.getSelectedIndex() == 0))
+        if (txt_celular.getText().equals("") || txt_cpf.getText().equals("") || txt_email.getText().equals("") || txt_nome.getText().equals("") || txt_rg.getText().equals("") || txt_senha.getText().equals("") || (cmb_funcao.getSelectedIndex() == 0))// || (cmb_sexo.getSelectedIndex() == 0))
             return true;
         else
             return false;
@@ -405,7 +410,7 @@ public class Cadastro extends javax.swing.JFrame {
         txt_rg.setText("");
         txt_senha.setText("");
         cmb_funcao.setSelectedIndex(0);
-        cmb_sexo.setSelectedIndex(0);
+        //cmb_sexo.setSelectedIndex(0);
         txt_cpf.requestFocus();
     }
     
@@ -418,13 +423,13 @@ public class Cadastro extends javax.swing.JFrame {
         funcionario.setNome(txt_nome.getText());
         funcionario.setRg(txt_rg.getText());
         funcionario.setSenha(txt_senha.getText());
-        funcionario.setSexo(cmb_sexo.getSelectedItem().toString());
+        //funcionario.setSexo(cmb_sexo.getSelectedItem().toString());
         funcionario.setTelefone(txt_celular.getText());
         funcionario.setLogin(txt_login.getText());
         funcionario.setSenha(txt_senha.getText());
     }
     
-    public void preencheCasmposFuncionario(Funcionario f){
+    public void preencheCamposFuncionario(Funcionario f){
         txt_celular.setText(f.getTelefone());
         txt_cpf.setText(f.getCpf());
         txt_email.setText(f.getEmail());
@@ -432,7 +437,8 @@ public class Cadastro extends javax.swing.JFrame {
         txt_rg.setText(f.getRg());
         txt_senha.setText(f.getSenha());
         cmb_funcao.setSelectedItem(f.getFuncao());
-        cmb_sexo.setSelectedItem(f.getSexo());
+        txt_login.setText(f.getLogin());
+        //cmb_sexo.setSelectedItem(f.getSexo());
     }
 
 }
