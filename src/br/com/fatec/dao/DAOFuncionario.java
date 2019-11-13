@@ -103,10 +103,10 @@ public class DAOFuncionario implements DAO<Funcionario> {
     public Funcionario buscar(Funcionario dado) {
         Funcionario funcionario = null;
         try {
-            String querry = "SELECT * from funcionario where cpf = ?";
+            String querry = "SELECT * from funcionario where email = ?";
             Db.abreConexao();
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
-            pst.setString(1, dado.getCpf());
+            pst.setString(1, dado.getEmail());
             ResultSet resp = pst.executeQuery();
             if (resp.next()) {
                 funcionario = new Funcionario();

@@ -350,7 +350,7 @@
                 <StringItem index="0" value="Selecione"/>
                 <StringItem index="1" value="Caixa"/>
                 <StringItem index="2" value="Cozinheiro"/>
-                <StringItem index="3" value="Gar&#xe7;om"/>
+                <StringItem index="3" value="Garcom"/>
                 <StringItem index="4" value="Gerente"/>
               </StringArray>
             </Property>

@@ -5,17 +5,27 @@
  */
 package br.com.fatec.view;
 
+import br.com.fatec.dao.DAOFuncionario;
+import br.com.fatec.model.Funcionario;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Simone Velosa
  */
 public class Login extends javax.swing.JFrame {
-
+       private Funcionario funcionario;
+       private Administracao adm;
+       private Caixa c;
+       private Pedidos p;
+       private Comanda comanda;
+       private DAOFuncionario dao;
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
+        preparaFormulario();
     }
 
     /**
@@ -168,6 +178,18 @@ public class Login extends javax.swing.JFrame {
 
     private void btn_entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_entrarActionPerformed
         // TODO add your handling code here:
+        Funcionario funcionarioAux;
+        if (validarPreenchimentoCamposLogin())
+            JOptionPane.showMessageDialog(rootPane, "Preencha os campos corretamente!!!");
+        else {
+            setFuncionario();
+            funcionarioAux = dao.buscar(funcionario);
+            if (funcionarioAux == null)
+                JOptionPane.showMessageDialog(rootPane, "Funcionário inexistente, tente novamente");
+            else {
+                definirPerfil(funcionarioAux.getFuncao());
+            }
+        }
     }//GEN-LAST:event_btn_entrarActionPerformed
 
     private void btn_sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sairActionPerformed
@@ -227,5 +249,51 @@ public void limpaCampos(){
     txt_senha.setText("");
     txt_email.requestFocus();
 }
+
+public boolean validarPreenchimentoCamposLogin(){
+    if (txt_email.getText().equals("") || txt_senha.getText().equals(""))
+        return true;
+    else
+        return false;
+}
+
+public void preparaFormulario(){
+    dao = new DAOFuncionario();
     
+    txt_email.setText("");
+    txt_senha.setText("");
+    txt_email.requestFocus();
+}
+
+public void setFuncionario(){
+    funcionario = new Funcionario();
+    
+    funcionario.setEmail(txt_email.getText());
+    funcionario.setSenha(txt_senha.getText());
+}
+
+public void definirPerfil(String funcao){
+    switch(funcao.toUpperCase()){
+        case "CAIXA":
+            c = new Caixa();
+            c.setVisible(true);
+            break;
+        case "GERENTE":
+            adm = new Administracao();
+            adm.setVisible(true);
+            break;
+        case "GARCOM":
+            comanda = new Comanda();
+            comanda.setVisible(true);
+            break;
+        case "COZINHEIRO":
+            p = new Pedidos();
+            p.setVisible(true);
+            break;
+        default:
+            break;
+            
+    }
+}
+        
 }
