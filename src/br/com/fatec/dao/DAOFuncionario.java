@@ -14,7 +14,7 @@ public class DAOFuncionario implements DAO<Funcionario> {
     public boolean inserir(Funcionario dado) {
 
         try {
-            String querry = "INSERT into Funcionario (nome, email, cpf, login, senha, funcao, telefone, sexo, rg) values (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            String querry = "INSERT into Funcionario (nome, email, cpf, login, senha, funcao, telefone, rg) values (?, ?, ?, ?, ?, ?, ?, ?)";
             Db.abreConexao();
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
             //Não se colca idFuncionario pois no banco esta auto_increment
@@ -25,20 +25,21 @@ public class DAOFuncionario implements DAO<Funcionario> {
             pst.setString(5, dado.getSenha());
             pst.setString(6, dado.getFuncao());
             pst.setString(7, dado.getTelefone());
-            pst.setString(8, dado.getSexo());
-            pst.setString(9, dado.getRg());
+            //pst.setString(8, dado.getSexo());
+            pst.setString(8, dado.getRg());
             pst.executeUpdate();
+            Db.fecharConexao();
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro SQL: " + ex.getMessage());
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                Db.fecharConexao();
-            } catch (SQLException ex) {
-                Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            System.out.println("Erro Class: " + ex.getMessage());
+        }
+        
+        try {
+            Db.fecharConexao();
+        } catch (SQLException ex) {
+            System.out.println("Erro SQL: " + ex.getMessage());
         }
         return false;
     }
