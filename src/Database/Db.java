@@ -8,10 +8,10 @@ public class Db {
     public static String servidor,nomeBanco,usuario,senha;
     public static int porta;
     public static Connection conexao = null;
-    
+    //teste
     static{
         servidor = "localhost";
-        nomeBanco = "db_lanchonete";
+        nomeBanco = "bd_lanchonete";
         usuario = "root";
         senha = "";
         porta = 3306;

@@ -11,6 +11,7 @@ public class Funcionario {
     private String telefone;
     private String sexo;   
     private String rg;
+    private String dataNasc;
 
     public Funcionario(int id, String nome, String email, String cpf, String login, String senha, String funcao, String telefone, String sexo, String rg) {
         this.id = id;
@@ -108,8 +109,6 @@ public class Funcionario {
 
     public void setRg(String rg) {
         this.rg = rg;
-    }
-    
-    
+    }   
     
 }

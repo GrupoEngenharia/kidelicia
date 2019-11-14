@@ -5,11 +5,9 @@
  */
 package br.com.fatec.view;
 
+import br.com.fatec.dao.DAOFuncionario;
 import br.com.fatec.model.Funcionario;
-import br.com.fatec.model.Caixa;
-import br.com.fatec.model.Cozinheiro;
-import br.com.fatec.model.Garcom;
-import br.com.fatec.model.Gerente;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,6 +16,8 @@ import javax.swing.JOptionPane;
  */
 public class Cadastro extends javax.swing.JFrame {
     private Funcionario funcionario;
+    private DAOFuncionario dao;
+    private int idFuncionario;
 
     /**
      * Creates new form Comanda
@@ -56,13 +56,11 @@ public class Cadastro extends javax.swing.JFrame {
         txt_cpf = new javax.swing.JFormattedTextField();
         lbl_senha = new javax.swing.JLabel();
         txt_senha = new javax.swing.JPasswordField();
-        lbl_sexo = new javax.swing.JLabel();
-        txt_nasc = new javax.swing.JFormattedTextField();
-        lbl_nasc1 = new javax.swing.JLabel();
         lbl_funcao = new javax.swing.JLabel();
-        cmb_sexo = new javax.swing.JComboBox<String>();
-        cmb_funcao = new javax.swing.JComboBox<String>();
+        cmb_funcao = new javax.swing.JComboBox<>();
         btnBuscar = new javax.swing.JButton();
+        lbl_nasc2 = new javax.swing.JLabel();
+        txt_login = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(950, 710));
@@ -126,9 +124,19 @@ public class Cadastro extends javax.swing.JFrame {
 
         btn_alterar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_alterar.setText("ALTERAR");
+        btn_alterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_alterarActionPerformed(evt);
+            }
+        });
 
         btn_salvar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btn_salvar.setText("SALVAR");
+        btn_salvar.setText("GRAVAR");
+        btn_salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_salvarActionPerformed(evt);
+            }
+        });
 
         btn_voltar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_voltar.setText("VOLTAR");
@@ -138,18 +146,10 @@ public class Cadastro extends javax.swing.JFrame {
 
         txt_senha.setText("jPasswordField1");
 
-        lbl_sexo.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        lbl_sexo.setText("Sexo");
-
-        lbl_nasc1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        lbl_nasc1.setText("Data Nascimento");
-
         lbl_funcao.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_funcao.setText("Função");
 
-        cmb_sexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Feminino", "Masculino" }));
-
-        cmb_funcao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Caixa", "Cozinheiro", "Garçom", "Gerente" }));
+        cmb_funcao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Caixa", "Cozinheiro", "Garcom", "Gerente" }));
 
         btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBuscar.setText("BUSCAR");
@@ -158,6 +158,9 @@ public class Cadastro extends javax.swing.JFrame {
                 btnBuscarActionPerformed(evt);
             }
         });
+
+        lbl_nasc2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lbl_nasc2.setText("Login");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -171,43 +174,42 @@ public class Cadastro extends javax.swing.JFrame {
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(lbl_nome)
                                 .addComponent(txt_nome, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE))
-                            .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbl_email)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbl_nasc1)
-                                    .addComponent(txt_nasc, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(111, 111, 111)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbl_sexo)
-                                    .addComponent(cmb_sexo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lbl_comanda)
-                                    .addComponent(txt_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txt_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl_nasc2)
+                                    .addComponent(txt_login, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(111, 111, 111)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lbl_celular)
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(txt_senha, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
                                         .addComponent(lbl_senha))
-                                    .addComponent(lbl_funcao)
-                                    .addComponent(cmb_funcao, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lbl_rg)
                                     .addComponent(txt_rg, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_celular, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(txt_celular, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(404, 404, 404)
                         .addComponent(lbl_cadastro)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(228, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(104, 104, 104)
-                .addComponent(btn_voltar)
-                .addGap(165, 165, 165)
-                .addComponent(btn_alterar)
-                .addGap(140, 140, 140)
-                .addComponent(btn_salvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(288, 288, 288)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_funcao)
+                            .addComponent(cmb_funcao, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGap(104, 104, 104)
+                        .addComponent(btn_voltar)
+                        .addGap(165, 165, 165)
+                        .addComponent(btn_alterar)
+                        .addGap(140, 140, 140)
+                        .addComponent(btn_salvar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                 .addComponent(btnBuscar)
                 .addGap(124, 124, 124))
         );
@@ -236,24 +238,25 @@ public class Cadastro extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_senha)
                     .addComponent(lbl_email))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(txt_senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(40, 40, 40)
+                        .addComponent(lbl_funcao)
+                        .addGap(7, 7, 7)
+                        .addComponent(cmb_funcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(txt_senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(55, 55, 55)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_sexo)
-                    .addComponent(lbl_nasc1)
-                    .addComponent(lbl_funcao))
-                .addGap(7, 7, 7)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_nasc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmb_sexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmb_funcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbl_nasc2)
+                        .addGap(7, 7, 7)
+                        .addComponent(txt_login, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_voltar)
                     .addComponent(btn_salvar)
@@ -273,22 +276,55 @@ public class Cadastro extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_emailActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        boolean camposPreenchidos = validarPreenchimentoCampos();
+
+        Funcionario funcionarioAux;
         
-        if (camposPreenchidos){
+        if (txt_cpf.getText().equals("")){
             JOptionPane.showMessageDialog(rootPane,"Preencha os campos corretamente");
-            return;
         } else {
-            String tipoFuncionario = retornarTipoFuncionario();
-            if(tipoFuncionario.equals(""))
-                JOptionPane.showMessageDialog(rootPane, "Seleciona uma função válida");
+            setFuncionario();
+            
+            funcionarioAux = dao.buscar(funcionario);
+            
+            if (funcionarioAux == null)
+                JOptionPane.showMessageDialog(rootPane, "Funcionário não existe");
             else {
-                //cadastrar
+                preencheCamposFuncionario(funcionarioAux);
+                idFuncionario = funcionarioAux.getId();
             }
         }
         
-        
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
+        // TODO add your handling code here:
+        funcionario = new Funcionario();
+        
+        if (!validarPreenchimentoCampos()){
+            setFuncionario();
+            if (dao.inserir(funcionario))
+                JOptionPane.showMessageDialog(rootPane, "Funcionário cadastrado com sucesso!!!");
+            else
+                JOptionPane.showMessageDialog(rootPane, "Erro ao tentar cadastrar o funcionário!!!");
+        } else
+            JOptionPane.showMessageDialog(rootPane, "Preencha os campos corretamente!!!");
+        
+        limparCampos();
+    }//GEN-LAST:event_btn_salvarActionPerformed
+
+    private void btn_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_alterarActionPerformed
+        // TODO add your handling code here:
+        if (!validarPreenchimentoCampos()){
+            setFuncionario();
+            if (dao.alterar(funcionario))
+                JOptionPane.showMessageDialog(rootPane, "Funcionário atualizado com sucesso!!!");
+            else
+                JOptionPane.showMessageDialog(rootPane, "Erro ao atualizar os dados funcionário!!!");
+        } else
+            JOptionPane.showMessageDialog(rootPane, "Preencha os campos corretamente!!!");
+        
+        limparCampos();
+    }//GEN-LAST:event_btn_alterarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -332,7 +368,6 @@ public class Cadastro extends javax.swing.JFrame {
     private javax.swing.JButton btn_salvar;
     private javax.swing.JButton btn_voltar;
     private javax.swing.JComboBox<String> cmb_funcao;
-    private javax.swing.JComboBox<String> cmb_sexo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbl_cadastro;
@@ -341,83 +376,69 @@ public class Cadastro extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_email;
     private javax.swing.JLabel lbl_funcao;
     private javax.swing.JLabel lbl_kidelicia;
-    private javax.swing.JLabel lbl_nasc1;
+    private javax.swing.JLabel lbl_nasc2;
     private javax.swing.JLabel lbl_nome;
     private javax.swing.JLabel lbl_rg;
     private javax.swing.JLabel lbl_senha;
-    private javax.swing.JLabel lbl_sexo;
     private javax.swing.JTextField txt_celular;
     private javax.swing.JFormattedTextField txt_cpf;
     private javax.swing.JTextField txt_email;
-    private javax.swing.JFormattedTextField txt_nasc;
+    private javax.swing.JFormattedTextField txt_login;
     private javax.swing.JTextField txt_nome;
     private javax.swing.JTextField txt_rg;
     private javax.swing.JPasswordField txt_senha;
     // End of variables declaration//GEN-END:variables
 
     public void prepararFormulario(){
-        txt_celular.setText("");
-        txt_cpf.setText("");
-        txt_email.setText("");
-        txt_nasc.setText("");
-        txt_nome.setText("");
-        txt_rg.setText("");
-        txt_senha.setText("");
-        cmb_funcao.setSelectedIndex(0);
-        cmb_sexo.setSelectedIndex(0);
-        txt_cpf.requestFocus();
+        dao = new DAOFuncionario();
+        limparCampos();
     }
     
     public boolean validarPreenchimentoCampos(){
-        if (txt_celular.getText().equals("") ||
-                txt_cpf.getText().equals("") ||
-                txt_email.getText().equals("") ||
-                txt_nasc.getText().equals("") ||
-                txt_nome.getText().equals("") ||
-                txt_rg.getText().equals("") ||
-                txt_senha.getText().equals("") ||
-                (cmb_funcao.getSelectedIndex() == 0) ||
-                (cmb_sexo.getSelectedIndex() == 0))
-                
+        if (txt_celular.getText().equals("") || txt_cpf.getText().equals("") || txt_email.getText().equals("") || txt_nome.getText().equals("") || txt_rg.getText().equals("") || txt_senha.getText().equals("") || (cmb_funcao.getSelectedIndex() == 0))// || (cmb_sexo.getSelectedIndex() == 0))
             return true;
         else
             return false;
     }
     
-    public String retornarTipoFuncionario(){
-        String funcao = (String) cmb_funcao.getSelectedItem();
-        
-        switch(funcao.toUpperCase()){
-            case "CAIXA":
-                funcionario = new Caixa();
-                preencheFuncionario();
-                break;
-            case "GARÇOM":
-                funcionario = new Garcom();
-                preencheFuncionario();
-                break;
-            case "COZINHEIRO":
-                funcionario = new Cozinheiro();
-                preencheFuncionario();
-                break;
-            case "GERENTE":
-                funcionario = new Gerente();
-                preencheFuncionario();
-                break;
-            default:
-                funcao = "";
-                break;
-        }
-        return funcao;
+       
+    public void limparCampos(){
+        txt_celular.setText("");
+        txt_cpf.setText("");
+        txt_email.setText("");
+        txt_nome.setText("");
+        txt_rg.setText("");
+        txt_senha.setText("");
+        cmb_funcao.setSelectedIndex(0);
+        //cmb_sexo.setSelectedIndex(0);
+        txt_cpf.requestFocus();
     }
     
-    public void preencheFuncionario(){
+    public void setFuncionario(){
+        funcionario = new Funcionario();
+        
         funcionario.setCpf(txt_cpf.getText());
         funcionario.setEmail(txt_email.getText());
         funcionario.setFuncao(cmb_funcao.getSelectedItem().toString());
         funcionario.setNome(txt_nome.getText());
-        funcionario.setSexo(cmb_sexo.getSelectedItem().toString());
+        funcionario.setRg(txt_rg.getText());
+        funcionario.setSenha(txt_senha.getText());
+        //funcionario.setSexo(cmb_sexo.getSelectedItem().toString());
         funcionario.setTelefone(txt_celular.getText());
+        funcionario.setLogin(txt_login.getText());
+        funcionario.setSenha(txt_senha.getText());
+    }
+    
+    public void preencheCamposFuncionario(Funcionario f){
+        txt_celular.setText(f.getTelefone());
+        txt_cpf.setText(f.getCpf());
+        txt_email.setText(f.getEmail());
+        txt_nome.setText(f.getNome());
+        txt_rg.setText(f.getRg());
+        txt_senha.setText(f.getSenha());
+        cmb_funcao.setSelectedItem(f.getFuncao());
+        txt_login.setText(f.getLogin());
+        //cmb_sexo.setSelectedItem(f.getSexo());
     }
 
 }
