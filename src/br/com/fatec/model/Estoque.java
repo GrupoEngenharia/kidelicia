@@ -1,7 +1,8 @@
 package br.com.fatec.model;
 
 public class Estoque {
-    private Produto p;
+    private int idEstoque;
+    private Produto idProduto;
     private float preco;
     private int qtde;
 
@@ -9,21 +10,24 @@ public class Estoque {
     }
 
     public Estoque(Produto p, float preco, int qtde) {
-        this.p = p;
         this.preco = preco;
         this.qtde = qtde;
     }
 
-    public Produto getP() {
-        return p;
+    public int getIdEstoque() {
+        return idEstoque;
     }
 
-    public void setP(Produto p) {
-        this.p = p;
+    public void setIdEstoque(int idEstoque) {
+        this.idEstoque = idEstoque;
     }
 
-    public float getPreco() {
-        return preco * p.getPrecoUnitario() * 1.4f;
+    public Produto getIdProduto() {
+        return idProduto;
+    }
+
+    public void setIdProduto(Produto idProduto) {
+        this.idProduto = idProduto;
     }
 
     public void setPreco(float preco) {

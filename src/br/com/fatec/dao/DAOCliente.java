@@ -22,13 +22,12 @@ public class DAOCliente implements DAO<Cliente> {
     @Override
     public boolean inserir(Cliente dado) {
         try {
-            String querry = "INSERT into Funcionario (idCliente, nome, telefone, email) values (?, ?, ?, ?);";
+            String querry = "INSERT into Funcionario (nome, telefone, email) values (?, ?, ?);";
             Db.abreConexao();
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
-            pst.setInt(1, dado.getIdCliente());
-            pst.setString(2, dado.getNome());
-            pst.setString(3, dado.getTelefone());
-            pst.setString(4, dado.getEmail());
+            pst.setString(1, dado.getNome());
+            pst.setString(2, dado.getTelefone());
+            pst.setString(3, dado.getEmail());
             pst.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -48,7 +47,7 @@ public class DAOCliente implements DAO<Cliente> {
     @Override
     public boolean alterar(Cliente dado) {
         try {
-            String querry = "UPDATE cliente values(?, ?, ?) where idCliente = ?;";
+            String querry = "UPDATE cliente set nome=?, telefone=?, email=? where idCliente = ?;";
             Db.abreConexao();
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
             pst.setString(1, dado.getNome());
@@ -104,6 +103,7 @@ public class DAOCliente implements DAO<Cliente> {
             ResultSet resp = pst.executeQuery();
             if (resp.next()) {
                 cliente = new Cliente();
+                cliente.setIdCliente(resp.getInt("idCliente"));
                 cliente.setNome(resp.getString("Nome"));
                 cliente.setTelefone(resp.getString("Telefone"));
                 cliente.setEmail(resp.getString("Email"));
