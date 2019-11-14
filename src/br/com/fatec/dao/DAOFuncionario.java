@@ -14,7 +14,7 @@ public class DAOFuncionario implements DAO<Funcionario> {
     public boolean inserir(Funcionario dado) {
 
         try {
-            String querry = "INSERT into Funcionario (rg, login, senha, nome, funcao, telefone, email, cpf) values (?, ?, ?, ?, ?, ?, ?, ?)";
+            String querry = "INSERT into Funcionario (rg, login, senha, nome, funcao, telefone, email, sexo, cpf) values (?, ?, ?, ?, ?, ?, ?, ?,?)";
             Db.abreConexao();
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
             //Não se colca idFuncionario pois no banco esta auto_increment
@@ -25,7 +25,8 @@ public class DAOFuncionario implements DAO<Funcionario> {
             pst.setString(5, dado.getFuncao());
             pst.setString(6, dado.getTelefone());
             pst.setString(7, dado.getEmail());
-            pst.setString(8, dado.getCpf());
+            pst.setString(8, dado.getSexo());
+            pst.setString(9, dado.getCpf());
             pst.executeUpdate();
             
             Db.fecharConexao();
@@ -47,7 +48,7 @@ public class DAOFuncionario implements DAO<Funcionario> {
     @Override
     public boolean alterar(Funcionario dado) {
         try {
-            String querry = "UPDATE funcionario set nome=?, email=?, cpf=?, login=?, senha=?, funcao=?, telefone=?, rg=? where cpf=?";
+            String querry = "UPDATE funcionario set nome=?, email=?, cpf=?, login=?, senha=?, funcao=?, telefone=?, sexo=?, rg=? where cpf=?";
             Db.abreConexao();
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
             pst.setString(1, dado.getNome());
@@ -57,9 +58,9 @@ public class DAOFuncionario implements DAO<Funcionario> {
             pst.setString(5, dado.getSenha());
             pst.setString(6, dado.getFuncao());
             pst.setString(7, dado.getTelefone());
-            //pst.setString(8, dado.getSexo());
-            pst.setString(8, dado.getRg());
-            pst.setString(9, dado.getCpf());
+            pst.setString(8, dado.getSexo());
+            pst.setString(9, dado.getRg());
+            pst.setString(10, dado.getCpf());
             pst.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -118,6 +119,7 @@ public class DAOFuncionario implements DAO<Funcionario> {
                 funcionario.setSenha(resp.getString("senha"));
                 funcionario.setFuncao(resp.getString("funcao"));
                 funcionario.setTelefone(resp.getString("telefone"));
+                funcionario.setSexo(resp.getString("sexo"));
                 funcionario.setRg(resp.getString("rg"));
             }
         } catch (SQLException ex) {
@@ -204,4 +206,42 @@ public class DAOFuncionario implements DAO<Funcionario> {
         }
         return funcionario;
     }
+    
+        public Funcionario buscarLogin(Funcionario dado) {
+        Funcionario funcionario = null;
+        try {
+            String querry = "SELECT * from funcionario where email = ? and senha = ?";
+            Db.abreConexao();
+            PreparedStatement pst = Db.conexao.prepareStatement(querry);
+            pst.setString(1, dado.getEmail());
+            pst.setString(2, dado.getSenha());
+            ResultSet resp = pst.executeQuery();
+            if (resp.next()) {
+                funcionario = new Funcionario();
+                funcionario.setId(resp.getInt("idfuncionario"));
+                funcionario.setNome(resp.getString("nome"));
+                funcionario.setEmail(resp.getString("email"));
+                funcionario.setCpf(resp.getString("cpf"));
+                funcionario.setLogin(resp.getString("login"));
+                funcionario.setSenha(resp.getString("senha"));
+                funcionario.setFuncao(resp.getString("funcao"));
+                funcionario.setTelefone(resp.getString("telefone"));
+                funcionario.setSexo(resp.getString("sexo"));
+                funcionario.setRg(resp.getString("rg"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                Db.fecharConexao();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return funcionario;
+    }
+    
+    
 }

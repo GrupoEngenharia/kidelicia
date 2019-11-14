@@ -183,7 +183,7 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Preencha os campos corretamente!!!");
         else {
             setFuncionario();
-            funcionarioAux = dao.buscar(funcionario);
+            funcionarioAux = dao.buscarLogin(funcionario);
             if (funcionarioAux == null)
                 JOptionPane.showMessageDialog(rootPane, "Funcionário inexistente, tente novamente");
             else {

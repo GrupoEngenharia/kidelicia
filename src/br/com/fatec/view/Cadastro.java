@@ -61,6 +61,8 @@ public class Cadastro extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         lbl_nasc2 = new javax.swing.JLabel();
         txt_login = new javax.swing.JFormattedTextField();
+        lbl_funcao1 = new javax.swing.JLabel();
+        cmb_sexo = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(950, 710));
@@ -162,6 +164,11 @@ public class Cadastro extends javax.swing.JFrame {
         lbl_nasc2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_nasc2.setText("Login");
 
+        lbl_funcao1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lbl_funcao1.setText("Sexo");
+
+        cmb_sexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Masculino", "Feminino" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -189,26 +196,26 @@ public class Cadastro extends javax.swing.JFrame {
                                         .addComponent(lbl_senha))
                                     .addComponent(lbl_rg)
                                     .addComponent(txt_rg, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_celular, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(txt_celular, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl_funcao)
+                                    .addComponent(cmb_funcao, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(404, 404, 404)
                         .addComponent(lbl_cadastro)))
                 .addContainerGap(228, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(104, 104, 104)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lbl_funcao1)
+                        .addComponent(cmb_sexo, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(288, 288, 288)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_funcao)
-                            .addComponent(cmb_funcao, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
                         .addComponent(btn_voltar)
                         .addGap(165, 165, 165)
-                        .addComponent(btn_alterar)
-                        .addGap(140, 140, 140)
-                        .addComponent(btn_salvar)))
+                        .addComponent(btn_alterar)))
+                .addGap(140, 140, 140)
+                .addComponent(btn_salvar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                 .addComponent(btnBuscar)
                 .addGap(124, 124, 124))
@@ -248,9 +255,15 @@ public class Cadastro extends javax.swing.JFrame {
                                 .addGap(10, 10, 10)
                                 .addComponent(txt_senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(40, 40, 40)
-                        .addComponent(lbl_funcao)
-                        .addGap(7, 7, 7)
-                        .addComponent(cmb_funcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lbl_funcao)
+                                .addGap(7, 7, 7)
+                                .addComponent(cmb_funcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lbl_funcao1)
+                                .addGap(7, 7, 7)
+                                .addComponent(cmb_sexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbl_nasc2)
@@ -284,7 +297,7 @@ public class Cadastro extends javax.swing.JFrame {
         } else {
             setFuncionario();
             
-            funcionarioAux = dao.buscar(funcionario);
+            funcionarioAux = dao.buscarCpf(funcionario);
             
             if (funcionarioAux == null)
                 JOptionPane.showMessageDialog(rootPane, "Funcionário não existe");
@@ -368,6 +381,7 @@ public class Cadastro extends javax.swing.JFrame {
     private javax.swing.JButton btn_salvar;
     private javax.swing.JButton btn_voltar;
     private javax.swing.JComboBox<String> cmb_funcao;
+    private javax.swing.JComboBox<String> cmb_sexo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbl_cadastro;
@@ -375,6 +389,7 @@ public class Cadastro extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_comanda;
     private javax.swing.JLabel lbl_email;
     private javax.swing.JLabel lbl_funcao;
+    private javax.swing.JLabel lbl_funcao1;
     private javax.swing.JLabel lbl_kidelicia;
     private javax.swing.JLabel lbl_nasc2;
     private javax.swing.JLabel lbl_nome;
@@ -410,7 +425,7 @@ public class Cadastro extends javax.swing.JFrame {
         txt_rg.setText("");
         txt_senha.setText("");
         cmb_funcao.setSelectedIndex(0);
-        //cmb_sexo.setSelectedIndex(0);
+        cmb_sexo.setSelectedIndex(0);
         txt_cpf.requestFocus();
     }
     
@@ -423,7 +438,7 @@ public class Cadastro extends javax.swing.JFrame {
         funcionario.setNome(txt_nome.getText());
         funcionario.setRg(txt_rg.getText());
         funcionario.setSenha(txt_senha.getText());
-        //funcionario.setSexo(cmb_sexo.getSelectedItem().toString());
+        funcionario.setSexo(cmb_sexo.getSelectedItem().toString());
         funcionario.setTelefone(txt_celular.getText());
         funcionario.setLogin(txt_login.getText());
         funcionario.setSenha(txt_senha.getText());
@@ -438,7 +453,7 @@ public class Cadastro extends javax.swing.JFrame {
         txt_senha.setText(f.getSenha());
         cmb_funcao.setSelectedItem(f.getFuncao());
         txt_login.setText(f.getLogin());
-        //cmb_sexo.setSelectedItem(f.getSexo());
+        cmb_sexo.setSelectedItem(f.getSexo());
     }
 
 }
