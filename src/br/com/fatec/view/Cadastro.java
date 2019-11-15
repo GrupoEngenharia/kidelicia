@@ -57,12 +57,12 @@ public class Cadastro extends javax.swing.JFrame {
         lbl_senha = new javax.swing.JLabel();
         txt_senha = new javax.swing.JPasswordField();
         lbl_funcao = new javax.swing.JLabel();
-        cmb_funcao = new javax.swing.JComboBox<>();
+        cmb_funcao = new javax.swing.JComboBox<String>();
         btnBuscar = new javax.swing.JButton();
         lbl_nasc2 = new javax.swing.JLabel();
         txt_login = new javax.swing.JFormattedTextField();
         lbl_funcao1 = new javax.swing.JLabel();
-        cmb_sexo = new javax.swing.JComboBox<>();
+        cmb_sexo = new javax.swing.JComboBox<String>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(950, 710));
@@ -143,15 +143,31 @@ public class Cadastro extends javax.swing.JFrame {
         btn_voltar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_voltar.setText("VOLTAR");
 
+        try {
+            txt_cpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        txt_cpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_cpfActionPerformed(evt);
+            }
+        });
+
         lbl_senha.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_senha.setText("Senha");
 
         txt_senha.setText("jPasswordField1");
+        txt_senha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_senhaActionPerformed(evt);
+            }
+        });
 
         lbl_funcao.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_funcao.setText("Função");
 
-        cmb_funcao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Caixa", "Cozinheiro", "Garcom", "Gerente" }));
+        cmb_funcao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Caixa", "Cozinheiro", "Garcom", "Gerente" }));
 
         btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBuscar.setText("BUSCAR");
@@ -167,7 +183,7 @@ public class Cadastro extends javax.swing.JFrame {
         lbl_funcao1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_funcao1.setText("Sexo");
 
-        cmb_sexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Masculino", "Feminino" }));
+        cmb_sexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Masculino", "Feminino" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -216,7 +232,7 @@ public class Cadastro extends javax.swing.JFrame {
                         .addComponent(btn_alterar)))
                 .addGap(140, 140, 140)
                 .addComponent(btn_salvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
                 .addComponent(btnBuscar)
                 .addGap(124, 124, 124))
         );
@@ -338,6 +354,14 @@ public class Cadastro extends javax.swing.JFrame {
         
         limparCampos();
     }//GEN-LAST:event_btn_alterarActionPerformed
+
+    private void txt_senhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_senhaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_senhaActionPerformed
+
+    private void txt_cpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cpfActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_cpfActionPerformed
 
     /**
      * @param args the command line arguments

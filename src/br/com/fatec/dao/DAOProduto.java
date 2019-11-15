@@ -77,6 +77,7 @@ public class DAOProduto implements DAO<Produto> {
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
             pst.setInt(1, dado.getId());
             pst.execute();
+            Db.fecharConexao();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(DAOProduto.class.getName()).log(Level.SEVERE, null, ex);

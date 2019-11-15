@@ -32,10 +32,18 @@ public class DAOComanda implements DAO<Comanda> {
             pst.setInt(1, dado.getCliente().getIdCliente());
             pst.setInt(2, dado.getIdComanda());
             pst.execute();
+            Db.fecharConexao();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                Db.fecharConexao();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOComanda.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return false;
     }
@@ -43,13 +51,14 @@ public class DAOComanda implements DAO<Comanda> {
     @Override
     public boolean alterar(Comanda dado) {
         try {
-            String querry = "DELETE from ComandaProduto where idComanda = ?";
+            String querry = "UPDATE from ComandaProduto where idComanda = ?";
             Db.abreConexao();
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
             pst.setInt(1, dado.getIdComanda());
             pst.execute();
             inserir(dado);
-            
+            Db.fecharConexao();
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {

@@ -23,23 +23,23 @@ public class DAOEstoque implements DAO<Estoque> {
     @Override
     public boolean inserir(Estoque dado) {
         try {
-            String querry = "INSERT INTO Estoque (idProduto, qtdProduto) values (?, ?);";
+            String querry = "INSERT INTO Estoque (idProduto, qtdProduto) values (?, ?)";
             Db.abreConexao();
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
-            Produto produto = new Produto();
-            pst.setInt(1, produto.getId());
+            pst.setInt(1, dado.getProduto().getId());
             pst.setInt(2, dado.getQtde());
             pst.execute();
+            Db.fecharConexao();
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOEstoque.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOEstoque.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 Db.fecharConexao();
             } catch (SQLException ex) {
-                Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DAOEstoque.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return false;
@@ -51,12 +51,11 @@ public class DAOEstoque implements DAO<Estoque> {
             String querry = "UPDATE from estoque values(?, ?) where id = ?;";
             Db.abreConexao();
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
-            Produto produto = new Produto();
-            pst.setInt(1, produto.getId());
+            pst.setInt(1, dado.getProduto().getId());
             pst.setInt(2, dado.getQtde());
             pst.setInt(3, dado.getIdEstoque());
-            //pst.setInt(4, );
             pst.execute();
+            Db.fecharConexao();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
@@ -73,13 +72,14 @@ public class DAOEstoque implements DAO<Estoque> {
     }
 
     @Override
-    public boolean excluir(Estoque dado) {
+    public boolean excluir(Estoque dado) {//Exclui um produto da tabela estoque
         try {
-            String querry = "DELETE from estoque where id = ?;";
+            String querry = "DELETE from estoque where idProduto = ?;";
             Db.abreConexao();
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
-            //pst.setInt(1, );
+            pst.setInt(1, dado.getProduto().getId());
             pst.execute();
+            Db.fecharConexao();
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
@@ -105,14 +105,15 @@ public class DAOEstoque implements DAO<Estoque> {
             pst.setInt(1, dado.getIdEstoque());
             ResultSet resp = pst.executeQuery();
             if (resp.next()) {
-                Estoque estoque = new Estoque();
-                dado.setIdEstoque(resp.getInt("idEstoque"));
                 Produto produto = new Produto();
-		produto.setId(resp.getInt("idProduto"));
-		DAOProduto dao = new DAOProduto();
-		dado.setIdProduto(dao.buscar(produto));
-		dado.setQtde(resp.getInt("qtdProduto"));
-                return estoque;
+                dado.setIdEstoque(resp.getInt("idEstoque"));
+                DAOProduto daoProduto = new DAOProduto();
+                produto = daoProduto.buscar(produto);
+                dado.setQtde(resp.getInt("qtdProduto"));
+                Db.fecharConexao();
+                return dado;
+            } else {
+                dado = null;
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
@@ -125,7 +126,7 @@ public class DAOEstoque implements DAO<Estoque> {
                 Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return null;
+        return dado;
     }
 
 }
