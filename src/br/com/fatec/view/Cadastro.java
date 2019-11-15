@@ -470,7 +470,7 @@ public class Cadastro extends javax.swing.JFrame {
     
     public void preencheCamposFuncionario(Funcionario f){
         txt_celular.setText(f.getTelefone());
-        txt_cpf.setText(f.getCpf());
+        txt_cpf.setText(formatarCpf(txt_cpf.getText()));
         txt_email.setText(f.getEmail());
         txt_nome.setText(f.getNome());
         txt_rg.setText(f.getRg());
@@ -478,6 +478,13 @@ public class Cadastro extends javax.swing.JFrame {
         cmb_funcao.setSelectedItem(f.getFuncao());
         txt_login.setText(f.getLogin());
         cmb_sexo.setSelectedItem(f.getSexo());
+    }
+    
+    public String formatarCpf(String cpf){
+        String aux = cpf.replace(".", "");
+        aux += aux.replace("-", "");
+        
+        return aux;
     }
 
 }
