@@ -42,7 +42,7 @@ public class Caixa extends javax.swing.JFrame {
         btn_finalizar = new javax.swing.JButton();
         lbl_forma = new javax.swing.JLabel();
         lbl_comandas = new javax.swing.JLabel();
-        cmb_status1 = new javax.swing.JComboBox<>();
+        cmb_status1 = new javax.swing.JComboBox<String>();
         txt_comanda = new javax.swing.JTextField();
         txt_mesa = new javax.swing.JTextField();
         lbl_mesa = new javax.swing.JLabel();
@@ -129,7 +129,7 @@ public class Caixa extends javax.swing.JFrame {
         lbl_comandas.setText("Comanda:");
 
         cmb_status1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        cmb_status1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Dinheiro", "Débito", "Crédito" }));
+        cmb_status1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Dinheiro", "Débito", "Crédito" }));
         cmb_status1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmb_status1ActionPerformed(evt);
