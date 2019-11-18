@@ -128,5 +128,35 @@ public class DAOEstoque implements DAO<Estoque> {
         }
         return dado;
     }
+    
+    //tela de reposição e controle estoque
+    public Estoque oi(String dado){//recebe String para pesquisa
+        Estoque estoque = null;
+        try{
+            String querry = "select idProduto, qtdProduto from estoque where idProduto = ?;";
+            Db.abreConexao();
+            PreparedStatement pst = Db.conexao.prepareStatement(querry);
+            DAOProduto daoProduto = new DAOProduto();//partiu outra dao...
+            estoque.setProduto(daoProduto.buscarNomev2(dado));//alterei a DAObusca para que recebesse string ao inves de produto
+            pst.setInt(1, estoque.getProduto().getId());//pega o id do produto pesquisado
+            ResultSet resp = pst.executeQuery();
+            if (resp.next()){
+                estoque.setQtde(resp.getInt("qtdProduto"));
+                Db.fecharConexao();
+                return estoque;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOEstoque.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAOEstoque.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                Db.fecharConexao();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return estoque;
+    }
 
 }

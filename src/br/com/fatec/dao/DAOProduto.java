@@ -10,6 +10,7 @@ import br.com.fatec.model.Produto;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -105,8 +106,8 @@ public class DAOProduto implements DAO<Produto> {
             if (resp.next()) {
                 produto = new Produto();
                 produto.setId(resp.getInt("idProduto"));
-                produto.setNomeProduto(resp.getString("nome"));
-                produto.setPrecoUnitario(resp.getFloat("Preco"));
+                produto.setNomeProduto(resp.getString("nomeProduto"));
+                produto.setPrecoUnitario(resp.getFloat("PrecoUnitario"));
                 return produto;
             }
         } catch (SQLException ex) {
@@ -134,8 +135,70 @@ public class DAOProduto implements DAO<Produto> {
             if (resp.next()) {
                 produto = new Produto();
                 produto.setId(resp.getInt("idProduto"));
-                produto.setNomeProduto(resp.getString("nome"));
-                produto.setPrecoUnitario(resp.getFloat("Preco"));
+                produto.setNomeProduto(resp.getString("nomeProduto"));
+                produto.setPrecoUnitario(resp.getFloat("PrecoUnitario"));
+                return produto;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOProduto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAOProduto.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                Db.fecharConexao();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOProduto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return produto;
+    }
+    
+    public Produto buscarNomev2(String envi) {
+        //igual ao buscarNome, porem, ao invés de receber um produto e pegar o nome apartir dele
+        //esse metodo busca o produto 
+        Produto produto = null;
+        try {
+            String querry = "SELECT * from Produto where nomeProduto = ' ? ';";
+            Db.abreConexao();
+            PreparedStatement pst = Db.conexao.prepareStatement(querry);
+            pst.setString(1, envi);
+            ResultSet resp = pst.executeQuery();
+            if (resp.next()) {
+                produto = new Produto();
+                produto.setId(resp.getInt("idProduto"));
+                produto.setNomeProduto(resp.getString("nomeProduto"));
+                produto.setPrecoUnitario(resp.getFloat("PrecoUnitario"));
+                return produto;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOProduto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAOProduto.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                Db.fecharConexao();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOProduto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return produto;
+    }
+    
+    public ArrayList<Produto> buscarNomev3(String envi) {
+        //igual ao buscarNomev2, porem, pega QUALQUER ocorrencia do que vier
+        Produto produto = null;
+        try {
+            String querry = "SELECT * from Produto where nomeProduto like '% ? %';";
+            Db.abreConexao();
+            PreparedStatement pst = Db.conexao.prepareStatement(querry);
+            pst.setString(1, envi);
+            ResultSet resp = pst.executeQuery();
+            if (resp.next()) {
+                produto = new Produto();
+                produto.setId(resp.getInt("idProduto"));
+                produto.setNomeProduto(resp.getString("nomeProduto"));
+                produto.setPrecoUnitario(resp.getFloat("PrecoUnitario"));
+                
                 return produto;
             }
         } catch (SQLException ex) {
