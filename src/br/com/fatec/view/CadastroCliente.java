@@ -5,7 +5,9 @@
  */
 package br.com.fatec.view;
 
+import br.com.fatec.dao.DAOCliente;
 import br.com.fatec.dao.DAOFuncionario;
+import br.com.fatec.model.Cliente;
 import br.com.fatec.model.Funcionario;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -15,9 +17,8 @@ import javax.swing.JOptionPane;
  * @author Simone Velosa
  */
 public class CadastroCliente extends javax.swing.JFrame {
-    private Funcionario funcionario;
-    private DAOFuncionario dao;
-    private int idFuncionario;
+    private Cliente cliente;
+    private DAOCliente dao;
 
     /**
      * Creates new form Comanda
@@ -41,7 +42,6 @@ public class CadastroCliente extends javax.swing.JFrame {
         lbl_kidelicia = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lbl_cadastro = new javax.swing.JLabel();
-        lbl_comanda = new javax.swing.JLabel();
         lbl_nome = new javax.swing.JLabel();
         txt_nome = new javax.swing.JTextField();
         lbl_email = new javax.swing.JLabel();
@@ -52,7 +52,6 @@ public class CadastroCliente extends javax.swing.JFrame {
         btn_salvar = new javax.swing.JButton();
         btn_voltar = new javax.swing.JButton();
         btnBuscar = new javax.swing.JButton();
-        txt_id = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -91,9 +90,6 @@ public class CadastroCliente extends javax.swing.JFrame {
         lbl_cadastro.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         lbl_cadastro.setForeground(new java.awt.Color(255, 0, 0));
         lbl_cadastro.setText("CADASTRO CLIENTE");
-
-        lbl_comanda.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        lbl_comanda.setText("ID");
 
         lbl_nome.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_nome.setText("Nome");
@@ -160,14 +156,12 @@ public class CadastroCliente extends javax.swing.JFrame {
                                 .addComponent(lbl_nome)
                                 .addComponent(txt_nome, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE))
                             .addComponent(lbl_email)
-                            .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(lbl_comanda)
-                                .addGap(424, 424, 424)
+                                .addGap(441, 441, 441)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lbl_celular)
-                                    .addComponent(txt_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(txt_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(371, 371, 371)
                         .addComponent(lbl_cadastro)))
@@ -178,11 +172,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbl_cadastro)
-                .addGap(36, 36, 36)
-                .addComponent(lbl_comanda)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
+                .addGap(111, 111, 111)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_nome)
                     .addComponent(lbl_celular))
@@ -215,20 +205,19 @@ public class CadastroCliente extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
-        Funcionario funcionarioAux;
+        Cliente clienteAux;
         
-        if (txt_cpf.getText().equals("")){
+        if (txt_email.getText().equals("")){
             JOptionPane.showMessageDialog(rootPane,"Preencha os campos corretamente");
         } else {
-            setFuncionario();
+            setCliente();
             
-            funcionarioAux = dao.buscarCpf(funcionario);
+            clienteAux = dao.buscar(cliente);
             
-            if (funcionarioAux == null)
+            if (clienteAux == null)
                 JOptionPane.showMessageDialog(rootPane, "Funcionário não existe");
             else {
-                preencheCamposFuncionario(funcionarioAux);
-                idFuncionario = funcionarioAux.getId();
+                preencheCamposFuncionario(clienteAux);
             }
         }
         
@@ -236,11 +225,11 @@ public class CadastroCliente extends javax.swing.JFrame {
 
     private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
         // TODO add your handling code here:
-        funcionario = new Funcionario();
+        cliente = new Cliente();
         
         if (!validarPreenchimentoCampos()){
-            setFuncionario();
-            if (dao.inserir(funcionario))
+            setCliente();
+            if (dao.inserir(cliente))
                 JOptionPane.showMessageDialog(rootPane, "Funcionário cadastrado com sucesso!!!");
             else
                 JOptionPane.showMessageDialog(rootPane, "Erro ao tentar cadastrar o funcionário!!!");
@@ -253,8 +242,8 @@ public class CadastroCliente extends javax.swing.JFrame {
     private void btn_alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_alterarActionPerformed
         // TODO add your handling code here:
         if (!validarPreenchimentoCampos()){
-            setFuncionario();
-            if (dao.alterar(funcionario))
+            setCliente();
+            if (dao.alterar(cliente))
                 JOptionPane.showMessageDialog(rootPane, "Funcionário atualizado com sucesso!!!");
             else
                 JOptionPane.showMessageDialog(rootPane, "Erro ao atualizar os dados funcionário!!!");
@@ -311,23 +300,21 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbl_cadastro;
     private javax.swing.JLabel lbl_celular;
-    private javax.swing.JLabel lbl_comanda;
     private javax.swing.JLabel lbl_email;
     private javax.swing.JLabel lbl_kidelicia;
     private javax.swing.JLabel lbl_nome;
     private javax.swing.JTextField txt_email;
-    private javax.swing.JTextField txt_id;
     private javax.swing.JTextField txt_nome;
     private javax.swing.JTextField txt_telefone;
     // End of variables declaration//GEN-END:variables
 
     public void prepararFormulario(){
-        dao = new DAOFuncionario();
+        dao = new DAOCliente();
         limparCampos();
     }
     
     public boolean validarPreenchimentoCampos(){
-        if (txt_telefone.getText().equals("") || txt_cpf.getText().equals("") || txt_email.getText().equals("") || txt_nome.getText().equals("") || txt_rg.getText().equals("") || txt_senha.getText().equals("") || (cmb_funcao.getSelectedIndex() == 0))// || (cmb_sexo.getSelectedIndex() == 0))
+        if (txt_telefone.getText().equals("") || txt_email.getText().equals("") || txt_nome.getText().equals(""))
             return true;
         else
             return false;
@@ -335,49 +322,23 @@ public class CadastroCliente extends javax.swing.JFrame {
     
        
     public void limparCampos(){
-        txt_telefone.setText("");
-        txt_cpf.setText("");
         txt_email.setText("");
         txt_nome.setText("");
-        txt_rg.setText("");
-        txt_senha.setText("");
-        cmb_funcao.setSelectedIndex(0);
-        cmb_sexo.setSelectedIndex(0);
-        txt_cpf.requestFocus();
+        txt_telefone.setText("");
     }
     
-    public void setFuncionario(){
-        funcionario = new Funcionario();
+    public void setCliente(){
+        cliente = new Cliente();
         
-        funcionario.setCpf(txt_cpf.getText());
-        funcionario.setEmail(txt_email.getText());
-        funcionario.setFuncao(cmb_funcao.getSelectedItem().toString());
-        funcionario.setNome(txt_nome.getText());
-        funcionario.setRg(txt_rg.getText());
-        funcionario.setSenha(txt_senha.getText());
-        funcionario.setSexo(cmb_sexo.getSelectedItem().toString());
-        funcionario.setTelefone(txt_telefone.getText());
-        funcionario.setLogin(txt_login.getText());
-        funcionario.setSenha(txt_senha.getText());
+        cliente.setEmail(txt_email.getText());
+        cliente.setNome(txt_nome.getText());
+        cliente.setTelefone(txt_telefone.getText());
     }
     
-    public void preencheCamposFuncionario(Funcionario f){
-        txt_telefone.setText(f.getTelefone());
-        txt_cpf.setText(formatarCpf(txt_cpf.getText()));
-        txt_email.setText(f.getEmail());
-        txt_nome.setText(f.getNome());
-        txt_rg.setText(f.getRg());
-        txt_senha.setText(f.getSenha());
-        cmb_funcao.setSelectedItem(f.getFuncao());
-        txt_login.setText(f.getLogin());
-        cmb_sexo.setSelectedItem(f.getSexo());
+    public void preencheCamposFuncionario(Cliente c){
+        txt_telefone.setText(c.getTelefone());
+        txt_email.setText(c.getEmail());
+        txt_nome.setText(c.getNome());
     }
-    
-    public String formatarCpf(String cpf){
-        String aux = cpf.replace(".", "");
-        aux += aux.replace("-", "");
-        
-        return aux;
-    }
-
+   
 }
