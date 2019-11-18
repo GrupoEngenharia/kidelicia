@@ -54,6 +54,7 @@ public class CadastroCliente extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(890, 600));
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(51, 153, 255));
@@ -138,34 +139,34 @@ public class CadastroCliente extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(104, 104, 104)
-                .addComponent(btn_voltar)
-                .addGap(165, 165, 165)
-                .addComponent(btn_alterar)
-                .addGap(140, 140, 140)
-                .addComponent(btn_salvar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
-                .addComponent(btnBuscar)
-                .addGap(124, 124, 124))
-            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lbl_nome)
-                                .addComponent(txt_nome, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE))
                             .addComponent(lbl_email)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(441, 441, 441)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbl_celular)
-                                    .addComponent(txt_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lbl_celular))
+                            .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 443, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lbl_nome)
+                                    .addComponent(txt_nome, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE))
+                                .addGap(81, 81, 81)
+                                .addComponent(txt_telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 323, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(371, 371, 371)
-                        .addComponent(lbl_cadastro)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lbl_cadastro))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(btn_voltar)
+                        .addGap(165, 165, 165)
+                        .addComponent(btn_alterar)
+                        .addGap(140, 140, 140)
+                        .addComponent(btn_salvar)
+                        .addGap(129, 129, 129)
+                        .addComponent(btnBuscar)))
+                .addContainerGap(194, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,13 +185,13 @@ public class CadastroCliente extends javax.swing.JFrame {
                 .addComponent(lbl_email)
                 .addGap(18, 18, 18)
                 .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
+                .addGap(99, 99, 99)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_voltar)
                     .addComponent(btn_salvar)
                     .addComponent(btn_alterar)
                     .addComponent(btnBuscar))
-                .addGap(51, 51, 51))
+                .addContainerGap(173, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2);
@@ -215,7 +216,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             clienteAux = dao.buscar(cliente);
             
             if (clienteAux == null)
-                JOptionPane.showMessageDialog(rootPane, "Funcionário não existe");
+                JOptionPane.showMessageDialog(rootPane, "Cliente não existe");
             else {
                 preencheCamposFuncionario(clienteAux);
             }
@@ -230,9 +231,9 @@ public class CadastroCliente extends javax.swing.JFrame {
         if (!validarPreenchimentoCampos()){
             setCliente();
             if (dao.inserir(cliente))
-                JOptionPane.showMessageDialog(rootPane, "Funcionário cadastrado com sucesso!!!");
+                JOptionPane.showMessageDialog(rootPane, "Cliente cadastrado com sucesso!!!");
             else
-                JOptionPane.showMessageDialog(rootPane, "Erro ao tentar cadastrar o funcionário!!!");
+                JOptionPane.showMessageDialog(rootPane, "Erro ao tentar cadastrar o cliente!!!");
         } else
             JOptionPane.showMessageDialog(rootPane, "Preencha os campos corretamente!!!");
         
@@ -244,9 +245,9 @@ public class CadastroCliente extends javax.swing.JFrame {
         if (!validarPreenchimentoCampos()){
             setCliente();
             if (dao.alterar(cliente))
-                JOptionPane.showMessageDialog(rootPane, "Funcionário atualizado com sucesso!!!");
+                JOptionPane.showMessageDialog(rootPane, "Cliente atualizado com sucesso!!!");
             else
-                JOptionPane.showMessageDialog(rootPane, "Erro ao atualizar os dados funcionário!!!");
+                JOptionPane.showMessageDialog(rootPane, "Erro ao atualizar os dados do cliente!!!");
         } else
             JOptionPane.showMessageDialog(rootPane, "Preencha os campos corretamente!!!");
         
