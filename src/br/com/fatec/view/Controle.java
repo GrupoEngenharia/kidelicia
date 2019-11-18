@@ -99,7 +99,7 @@ public class Controle extends javax.swing.JFrame {
         btn_salvar.setText("REPOR ESTOQUE");
 
         lbl_comandas.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        lbl_comandas.setText("Filtro:");
+        lbl_comandas.setText("Produto:");
 
         btn_salvar1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_salvar1.setText("VOLTAR");

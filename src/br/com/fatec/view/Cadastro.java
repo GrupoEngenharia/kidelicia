@@ -57,12 +57,12 @@ public class Cadastro extends javax.swing.JFrame {
         lbl_senha = new javax.swing.JLabel();
         txt_senha = new javax.swing.JPasswordField();
         lbl_funcao = new javax.swing.JLabel();
-        cmb_funcao = new javax.swing.JComboBox<>();
+        cmb_funcao = new javax.swing.JComboBox<String>();
         btnBuscar = new javax.swing.JButton();
         lbl_nasc2 = new javax.swing.JLabel();
         txt_login = new javax.swing.JFormattedTextField();
         lbl_funcao1 = new javax.swing.JLabel();
-        cmb_sexo = new javax.swing.JComboBox<>();
+        cmb_sexo = new javax.swing.JComboBox<String>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(950, 710));
@@ -101,7 +101,7 @@ public class Cadastro extends javax.swing.JFrame {
 
         lbl_cadastro.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         lbl_cadastro.setForeground(new java.awt.Color(255, 0, 0));
-        lbl_cadastro.setText("CADASTRO FUNCIONÁRIO");
+        lbl_cadastro.setText("CADASTRO");
 
         lbl_comanda.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_comanda.setText("CPF");
@@ -167,7 +167,7 @@ public class Cadastro extends javax.swing.JFrame {
         lbl_funcao.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_funcao.setText("Função");
 
-        cmb_funcao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Caixa", "Cozinheiro", "Garcom", "Gerente" }));
+        cmb_funcao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Caixa", "Cozinheiro", "Garcom", "Gerente" }));
 
         btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBuscar.setText("BUSCAR");
@@ -183,37 +183,42 @@ public class Cadastro extends javax.swing.JFrame {
         lbl_funcao1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_funcao1.setText("Sexo");
 
-        cmb_sexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Masculino", "Feminino" }));
+        cmb_sexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Masculino", "Feminino" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lbl_nome)
-                        .addComponent(txt_nome, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE))
-                    .addComponent(lbl_email)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_comanda)
-                            .addComponent(txt_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_nasc2)
-                            .addComponent(txt_login, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(111, 111, 111)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_celular)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txt_senha, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
-                                .addComponent(lbl_senha))
-                            .addComponent(lbl_rg)
-                            .addComponent(txt_rg, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_celular, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbl_funcao)
-                            .addComponent(cmb_funcao, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(lbl_nome)
+                                .addComponent(txt_nome, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE))
+                            .addComponent(lbl_email)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbl_comanda)
+                                    .addComponent(txt_cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl_nasc2)
+                                    .addComponent(txt_login, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(111, 111, 111)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbl_celular)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txt_senha, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+                                        .addComponent(lbl_senha))
+                                    .addComponent(lbl_rg)
+                                    .addComponent(txt_rg, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_celular, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbl_funcao)
+                                    .addComponent(cmb_funcao, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(404, 404, 404)
+                        .addComponent(lbl_cadastro)))
                 .addContainerGap(228, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(104, 104, 104)
@@ -230,10 +235,6 @@ public class Cadastro extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
                 .addComponent(btnBuscar)
                 .addGap(124, 124, 124))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbl_cadastro)
-                .addGap(321, 321, 321))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -469,7 +470,7 @@ public class Cadastro extends javax.swing.JFrame {
     
     public void preencheCamposFuncionario(Funcionario f){
         txt_celular.setText(f.getTelefone());
-        txt_cpf.setText(formatarCpf(txt_cpf.getText()));
+        txt_cpf.setText(f.getCpf());
         txt_email.setText(f.getEmail());
         txt_nome.setText(f.getNome());
         txt_rg.setText(f.getRg());
@@ -477,13 +478,6 @@ public class Cadastro extends javax.swing.JFrame {
         cmb_funcao.setSelectedItem(f.getFuncao());
         txt_login.setText(f.getLogin());
         cmb_sexo.setSelectedItem(f.getSexo());
-    }
-    
-    public String formatarCpf(String cpf){
-        String aux = cpf.replace(".", "");
-        aux += aux.replace("-", "");
-        
-        return aux;
     }
 
 }
