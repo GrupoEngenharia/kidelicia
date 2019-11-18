@@ -10,7 +10,7 @@ import br.com.fatec.model.Funcionario;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * <i>Testando</i>
  * @author Simone Velosa
  */
 public class Login extends javax.swing.JFrame {
