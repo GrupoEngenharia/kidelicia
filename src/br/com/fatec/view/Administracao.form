@@ -160,6 +160,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="RELAT&#xd3;RIO"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_relatorioActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn_estoque">
           <Properties>
@@ -168,6 +171,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="ESTOQUE"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_estoqueActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btn_cadastro">
           <Properties>
@@ -184,6 +190,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="CAD&#xc1;RPIO"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_cadarpioActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

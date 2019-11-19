@@ -2,10 +2,18 @@ package br.com.fatec.model;
 
 import java.util.LinkedList;
 
-public class Comanda {
+public class ComandaModel {
     private int idComanda;
     private Cliente cliente;
     private LinkedList<Produto> produtos;
+
+    public ComandaModel(int idComanda, Cliente cliente, LinkedList<Produto> produtos) {
+        this.idComanda = idComanda;
+        this.cliente = cliente;
+        this.produtos = produtos;
+    }
+    
+    
 
     public int getIdComanda() {
         return idComanda;
@@ -23,7 +31,7 @@ public class Comanda {
         this.produtos = produtos;
     }
     
-    public Comanda() {
+    public ComandaModel() {
     }
 
     public Cliente getCliente() {

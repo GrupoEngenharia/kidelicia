@@ -11,6 +11,10 @@ package br.com.fatec.view;
  */
 public class Administracao extends javax.swing.JFrame {
 
+    
+    private Relatorio relatorio;
+    private Cardapio cardapio;
+    private Estoque estoque;
     /**
      * Creates new form Comanda
      */
@@ -77,15 +81,30 @@ public class Administracao extends javax.swing.JFrame {
 
         btn_relatorio.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btn_relatorio.setText("RELATÓRIO");
+        btn_relatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_relatorioActionPerformed(evt);
+            }
+        });
 
         btn_estoque.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btn_estoque.setText("ESTOQUE");
+        btn_estoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_estoqueActionPerformed(evt);
+            }
+        });
 
         btn_cadastro.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btn_cadastro.setText("CADASTRO");
 
         btn_cadarpio.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btn_cadarpio.setText("CADÁRPIO");
+        btn_cadarpio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cadarpioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -128,6 +147,33 @@ public class Administracao extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_relatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_relatorioActionPerformed
+        // TODO add your handling code here:
+        relatorio = null;
+        if (relatorio == null){
+         relatorio = new Relatorio();
+         relatorio.setVisible(true);
+        }
+    }//GEN-LAST:event_btn_relatorioActionPerformed
+
+    private void btn_estoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_estoqueActionPerformed
+        // TODO add your handling code here:
+        estoque = null;
+        if (estoque == null){
+            estoque = new Estoque();
+            estoque.setVisible(true);
+        }
+    }//GEN-LAST:event_btn_estoqueActionPerformed
+
+    private void btn_cadarpioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadarpioActionPerformed
+        // TODO add your handling code here:
+        cardapio = null;
+        if (cardapio == null){
+            cardapio = new Cardapio();
+            cardapio.setVisible(true);
+        }
+    }//GEN-LAST:event_btn_cadarpioActionPerformed
 
     /**
      * @param args the command line arguments

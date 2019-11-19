@@ -98,7 +98,7 @@ public class DAOProduto implements DAO<Produto> {
     public Produto buscar(Produto dado) {
         Produto produto = null;
         try {
-            String querry = "SELECT * from Produto where id = ?;";
+            String querry = "SELECT * from Produto where id = ?";
             Db.abreConexao();
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
             pst.setInt(1, dado.getId());
@@ -127,7 +127,7 @@ public class DAOProduto implements DAO<Produto> {
     public Produto buscarNome(Produto dado) {
         Produto produto = null;
         try {
-            String querry = "SELECT * from Produto where nomeProduto = ?;";
+            String querry = "SELECT * from Produto where nomeProduto = ?";
             Db.abreConexao();
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
             pst.setString(1, dado.getNomeProduto());
@@ -199,7 +199,7 @@ public class DAOProduto implements DAO<Produto> {
                 produto.setNomeProduto(resp.getString("nomeProduto"));
                 produto.setPrecoUnitario(resp.getFloat("PrecoUnitario"));
                 
-                return produto;
+                return null;
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAOProduto.class.getName()).log(Level.SEVERE, null, ex);
@@ -212,6 +212,6 @@ public class DAOProduto implements DAO<Produto> {
                 Logger.getLogger(DAOProduto.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        return produto;
+        return null;
     }
 }

@@ -95,7 +95,7 @@ public class DAOCliente implements DAO<Cliente> {
     public Cliente buscar(Cliente dado) {
         Cliente cliente = null;
         try {
-            String quarry = "Select * from Cliente whwre email = ?";
+            String quarry = "Select * from Cliente where email = ?";
             Db.abreConexao();
             PreparedStatement pst = Db.conexao.prepareStatement(quarry);
             pst.setString(1, dado.getEmail());

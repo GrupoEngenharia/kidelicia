@@ -6,7 +6,7 @@
 package br.com.fatec.dao;
 
 import Database.Db;
-import br.com.fatec.model.Comanda;
+import br.com.fatec.model.ComandaModel;
 import br.com.fatec.dao.DAOCliente;
 import br.com.fatec.model.Cliente;
 import br.com.fatec.model.Produto;
@@ -21,10 +21,10 @@ import java.util.logging.Logger;
  *
  * @author CJ
  */
-public class DAOComanda implements DAO<Comanda> {
+public class DAOComanda implements DAO<ComandaModel> {
 
     @Override
-    public boolean inserir(Comanda dado) { 
+    public boolean inserir(ComandaModel dado) { 
         try {
             String querry = "INSERT INTO Comanda (idCliente) values (?) where idComanda = ?;";
             Db.abreConexao();
@@ -49,7 +49,7 @@ public class DAOComanda implements DAO<Comanda> {
     }
 
     @Override
-    public boolean alterar(Comanda dado) {
+    public boolean alterar(ComandaModel dado) {
         try {
             String querry = "UPDATE from ComandaProduto where idComanda = ?";
             Db.abreConexao();
@@ -74,7 +74,7 @@ public class DAOComanda implements DAO<Comanda> {
     }
 
     @Override
-    public boolean excluir(Comanda dado) {
+    public boolean excluir(ComandaModel dado) {
         boolean resp = false;
         try {
             String querry = "DELETE from ComandaProduto where idComanda = ?";
@@ -102,7 +102,7 @@ public class DAOComanda implements DAO<Comanda> {
     }
 
     @Override
-    public Comanda buscar(Comanda dado) {
+    public ComandaModel buscar(ComandaModel dado) {
         try {
             String querry = "SELECT * from comanda where idCliente = ?;";
             Db.abreConexao();
@@ -134,7 +134,7 @@ public class DAOComanda implements DAO<Comanda> {
         return dado;
     }
 
-    private void ColocarProdutos(Comanda comanda) {
+    private void ColocarProdutos(ComandaModel comanda) {
         try {
             LinkedList<Produto> produtos = comanda.getProdutos();
             Db.abreConexao();
@@ -186,7 +186,7 @@ public class DAOComanda implements DAO<Comanda> {
         return list;
     }
     
-    public Comanda InserirProduto(Comanda dado, Produto produto){
+    public ComandaModel InserirProduto(ComandaModel dado, Produto produto){
         try{
             String querry = "INSERT from ComandaProduto(?) where idComanda = ?";
             Db.abreConexao();

@@ -5,17 +5,27 @@
  */
 package br.com.fatec.view;
 
+import br.com.fatec.dao.DAOComanda;
+import br.com.fatec.dao.DAOProduto;
+import br.com.fatec.model.ComandaModel;
+import br.com.fatec.model.Produto;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Simone Velosa
  */
 public class Comanda extends javax.swing.JFrame {
-
+    private ComandaModel comanda;
+    private DAOComanda daoComanda;
+    private DAOProduto daoProduto;
+    private Produto produto;
     /**
      * Creates new form Comanda
      */
     public Comanda() {
         initComponents();
+        preparaFormulario();
     }
 
     /**
@@ -98,6 +108,11 @@ public class Comanda extends javax.swing.JFrame {
         lbl_produto.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_produto.setText("Produto:");
 
+        txt_produto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_produtoFocusLost(evt);
+            }
+        });
         txt_produto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_produtoActionPerformed(evt);
@@ -110,11 +125,22 @@ public class Comanda extends javax.swing.JFrame {
         lbl_qtd.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_qtd.setText("Qtd:");
 
+        txt_qtd.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_qtdFocusLost(evt);
+            }
+        });
+
         lbl_preco.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_preco.setText("Preço:");
 
         btn_adicionar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_adicionar.setText("ADICIONAR");
+        btn_adicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_adicionarActionPerformed(evt);
+            }
+        });
 
         tb_comanda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -142,6 +168,11 @@ public class Comanda extends javax.swing.JFrame {
 
         btn_voltar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_voltar.setText("VOLTAR");
+        btn_voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_voltarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -241,6 +272,47 @@ public class Comanda extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_produtoActionPerformed
 
+    private void btn_voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_voltarActionPerformed
+
+        this.setVisible(false);
+    }//GEN-LAST:event_btn_voltarActionPerformed
+
+    private void btn_adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_adicionarActionPerformed
+        // TODO add your handling code here:
+        if (validarCampos()){
+            JOptionPane.showMessageDialog(rootPane, "Preencha os campos corretamente!!!");
+        } else {
+            
+        }
+    }//GEN-LAST:event_btn_adicionarActionPerformed
+
+    private void txt_produtoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_produtoFocusLost
+        // TODO add your handling code here:
+        produto = new Produto();
+        Produto produtoAux;
+        produto.setNomeProduto(txt_produto.getText().toLowerCase());
+        
+        if (!txt_produto.getText().trim().equals("")){
+            produtoAux = daoProduto.buscarNome(produto);
+            if(produtoAux == null){
+               JOptionPane.showMessageDialog(rootPane, "Este produto não existe!!!");
+                txt_produto.setText("");
+            } else
+                produto = produtoAux;
+        }
+   
+    }//GEN-LAST:event_txt_produtoFocusLost
+
+    private void txt_qtdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_qtdFocusLost
+        // TODO add your handling code here:
+        if (txt_produto.getText().equals("") || txt_qtd.getText().equals(""))
+            JOptionPane.showMessageDialog(rootPane, "Preencha o produto e quantidade para calcular o preço!!!");
+        else {
+            float qtd = Float.parseFloat(txt_qtd.getText());
+            txt_preco.setText(Float.toString(qtd*produto.getPrecoUnitario()));
+        }
+    }//GEN-LAST:event_txt_qtdFocusLost
+
     /**
      * @param args the command line arguments
      */
@@ -300,4 +372,36 @@ public class Comanda extends javax.swing.JFrame {
     private javax.swing.JTextField txt_produto;
     private javax.swing.JTextField txt_qtd;
     // End of variables declaration//GEN-END:variables
+
+    public void preparaFormulario(){
+        daoComanda = new DAOComanda();
+        daoProduto = new DAOProduto();
+        limparCamposComanda();
+        txt_preco.setEnabled(false);
+    }
+    
+    public void limparCamposComanda(){
+        txt_comanda.setText("");
+        txt_id.setText("");
+        txt_mesa.setText("");
+        txt_preco.setText("");
+        txt_produto.setText("");
+        txt_qtd.setText("");
+        txt_comanda.requestFocus();
+    }
+
+    public boolean validarCampos(){
+        if (txt_comanda.getText().equals("") || txt_mesa.getText().equals("") || txt_preco.getText().equals("") ||
+                txt_produto.getText().equals("") || txt_qtd.getText().equals("") || txt_id.getText().equals(""))
+            return true;
+        else
+            return false;
+    }
+    
+    public void setComanda(){
+        comanda = new ComandaModel();
+        
+        comanda.setIdComanda(Integer.parseInt(txt_comanda.getText()));
+        
+    }
 }
