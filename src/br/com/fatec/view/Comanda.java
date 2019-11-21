@@ -102,6 +102,12 @@ public class Comanda extends javax.swing.JFrame {
         lbl_comanda.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_comanda.setText("Comanda:");
 
+        txt_comanda.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_comandaFocusLost(evt);
+            }
+        });
+
         lbl_id.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_id.setText("ID:");
 
@@ -306,12 +312,21 @@ public class Comanda extends javax.swing.JFrame {
     private void txt_qtdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_qtdFocusLost
         // TODO add your handling code here:
         if (txt_produto.getText().equals("") || txt_qtd.getText().equals(""))
-            JOptionPane.showMessageDialog(rootPane, "Preencha o produto e quantidade para calcular o preço!!!");
+            JOptionPane.showMessageDialog(rootPane, "Preencha o produto e a quantidade para calcular o preço!!!");
         else {
             float qtd = Float.parseFloat(txt_qtd.getText());
             txt_preco.setText(Float.toString(qtd*produto.getPrecoUnitario()));
         }
     }//GEN-LAST:event_txt_qtdFocusLost
+
+    private void txt_comandaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_comandaFocusLost
+        // TODO add your handling code here:
+        if (!txt_comanda.getText().equals("")) {
+            comanda = new ComandaModel();
+            comanda.setProdutos(daoComanda.BuscarProdutos(Integer.parseInt(txt_comanda.getText())));
+            preencherGridComanda();
+        }
+    }//GEN-LAST:event_txt_comandaFocusLost
 
     /**
      * @param args the command line arguments
@@ -403,5 +418,9 @@ public class Comanda extends javax.swing.JFrame {
         
         comanda.setIdComanda(Integer.parseInt(txt_comanda.getText()));
         
+    }
+    
+    public void preencherGridComanda() {
+        //PREENCHER O GRID COM OS ITENS DA COMANDA PESQUISADA
     }
 }

@@ -225,6 +225,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txt_comanda">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txt_comandaFocusLost"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_id">
           <Properties>

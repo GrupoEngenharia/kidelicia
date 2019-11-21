@@ -26,7 +26,7 @@ public class DAOComanda implements DAO<ComandaModel> {
     @Override
     public boolean inserir(ComandaModel dado) { 
         try {
-            String querry = "INSERT INTO Comanda (idCliente) values (?) where idComanda = ?;";
+            String querry = "INSERT INTO Comanda (idCliente) values (?) where idComanda = ?";
             Db.abreConexao();
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
             pst.setInt(1, dado.getCliente().getIdCliente());
@@ -104,7 +104,7 @@ public class DAOComanda implements DAO<ComandaModel> {
     @Override
     public ComandaModel buscar(ComandaModel dado) {
         try {
-            String querry = "SELECT * from comanda where idCliente = ?;";
+            String querry = "SELECT * from comanda where idCliente = ?";
             Db.abreConexao();
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
             pst.setInt(1, dado.getCliente().getIdCliente());
@@ -134,12 +134,12 @@ public class DAOComanda implements DAO<ComandaModel> {
         return dado;
     }
 
-    private void ColocarProdutos(ComandaModel comanda) {
+    public void ColocarProdutos(ComandaModel comanda) {
         try {
             LinkedList<Produto> produtos = comanda.getProdutos();
             Db.abreConexao();
             for (Produto produto : produtos) {
-                String querry = "INSERT INTO ComandaProduto (idComanda, idProduto) values(?, ?);";
+                String querry = "INSERT INTO ComandaProduto (idComanda, idProduto) values(?, ?)";
                 PreparedStatement pst = Db.conexao.prepareStatement(querry);
                 pst.setInt(1, comanda.getIdComanda());
                 pst.setInt(2, produto.getId());
@@ -158,7 +158,7 @@ public class DAOComanda implements DAO<ComandaModel> {
         }
     }
 
-    private LinkedList<Produto> BuscarProdutos(int IdComanda) {
+    public LinkedList<Produto> BuscarProdutos(int IdComanda) {
 
         LinkedList<Produto> list = new LinkedList();
         try {
@@ -188,7 +188,7 @@ public class DAOComanda implements DAO<ComandaModel> {
     
     public ComandaModel InserirProduto(ComandaModel dado, Produto produto){
         try{
-            String querry = "INSERT from ComandaProduto(?) where idComanda = ?";
+            String querry = "INSERT INTO ComandaProduto (idComanda, idProduto) values(?, ?)";
             Db.abreConexao();
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
             pst.setInt(1, produto.getId());
