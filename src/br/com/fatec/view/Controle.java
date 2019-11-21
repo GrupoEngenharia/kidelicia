@@ -5,6 +5,11 @@
  */
 package br.com.fatec.view;
 
+import br.com.fatec.dao.DAOEstoque;
+import br.com.fatec.model.Estoque;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Simone Velosa
@@ -40,6 +45,11 @@ public class Controle extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(950, 710));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(51, 153, 255));
@@ -85,9 +95,16 @@ public class Controle extends javax.swing.JFrame {
                 "ID", "PRODUTO", "QTD.", "PREÇO"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, true
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -154,6 +171,19 @@ public class Controle extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        DAOEstoque daoEstoque = new DAOEstoque();
+        ArrayList<Estoque> estoques = daoEstoque.BuscarTodos();
+                
+        for(int i=0; i<estoques.size(); i++){
+            Estoque estoque = estoques.get(i);
+            DefaultTableModel modelo = (DefaultTableModel) tb_reporestoque.getModel();
+            modelo.addRow(new Object[]{estoque.getProduto().getId(), estoque.getProduto().getNomeProduto()
+            , estoque.getQtde(),estoque.getProduto().getPrecoUnitario()});
+        }
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments

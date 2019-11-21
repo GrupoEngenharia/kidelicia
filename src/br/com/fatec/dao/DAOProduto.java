@@ -38,7 +38,7 @@ public class DAOProduto implements DAO<Produto> {
             try {
                 Db.fecharConexao();
             } catch (SQLException ex) {
-                Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DAOProduto.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return false;
@@ -98,7 +98,7 @@ public class DAOProduto implements DAO<Produto> {
     public Produto buscar(Produto dado) {
         Produto produto = null;
         try {
-            String querry = "SELECT * from Produto where id = ?";
+            String querry = "SELECT * from Produto where idProduto = ?";
             Db.abreConexao();
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
             pst.setInt(1, dado.getId());
@@ -125,7 +125,7 @@ public class DAOProduto implements DAO<Produto> {
     }
     
     public Produto buscarNome(Produto dado) {
-        Produto produto = null;
+        Produto produto = new Produto();
         try {
             String querry = "SELECT * from Produto where nomeProduto = ?";
             Db.abreConexao();
@@ -137,11 +137,13 @@ public class DAOProduto implements DAO<Produto> {
                 produto.setId(resp.getInt("idProduto"));
                 produto.setNomeProduto(resp.getString("nomeProduto"));
                 produto.setPrecoUnitario(resp.getFloat("PrecoUnitario"));
-                return produto;
+                
             }
         } catch (SQLException ex) {
+            produto = null;
             Logger.getLogger(DAOProduto.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
+            produto = null;
             Logger.getLogger(DAOProduto.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {

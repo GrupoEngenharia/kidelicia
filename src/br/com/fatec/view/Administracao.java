@@ -14,7 +14,7 @@ public class Administracao extends javax.swing.JFrame {
     
     private Relatorio relatorio;
     private Cardapio cardapio;
-    private Estoque estoque;
+    private Reposicao estoque;
     /**
      * Creates new form Comanda
      */
@@ -161,7 +161,7 @@ public class Administracao extends javax.swing.JFrame {
         // TODO add your handling code here:
         estoque = null;
         if (estoque == null){
-            estoque = new Estoque();
+            estoque = new Reposicao();
             estoque.setVisible(true);
         }
     }//GEN-LAST:event_btn_estoqueActionPerformed

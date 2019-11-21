@@ -11,6 +11,7 @@ import br.com.fatec.model.Produto;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,9 +32,7 @@ public class DAOEstoque implements DAO<Estoque> {
             pst.execute();
             Db.fecharConexao();
             return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(DAOEstoque.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(DAOEstoque.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
@@ -57,15 +56,13 @@ public class DAOEstoque implements DAO<Estoque> {
             pst.execute();
             Db.fecharConexao();
             return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(DAOEstoque.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 Db.fecharConexao();
             } catch (SQLException ex) {
-                Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DAOEstoque.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return false;
@@ -81,15 +78,13 @@ public class DAOEstoque implements DAO<Estoque> {
             pst.execute();
             Db.fecharConexao();
             return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(DAOEstoque.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 Db.fecharConexao();
             } catch (SQLException ex) {
-                Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DAOEstoque.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return false;
@@ -110,53 +105,89 @@ public class DAOEstoque implements DAO<Estoque> {
                 DAOProduto daoProduto = new DAOProduto();
                 produto = daoProduto.buscar(produto);
                 dado.setQtde(resp.getInt("qtdProduto"));
+                dado.setProduto(produto);
                 Db.fecharConexao();
                 return dado;
             } else {
                 dado = null;
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(DAOEstoque.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 Db.fecharConexao();
             } catch (SQLException ex) {
-                Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DAOEstoque.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return dado;
     }
-    
+
     //tela de reposição e controle estoque
-    public Estoque oi(String dado){//recebe String para pesquisa
-        Estoque estoque = null;
-        try{
+    public Estoque BuscaProduto(Estoque dado) {//recebe String para pesquisa
+        Estoque estoque = new Estoque();
+        try {
             String querry = "select idProduto, qtdProduto from estoque where idProduto = ?;";
             Db.abreConexao();
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
             DAOProduto daoProduto = new DAOProduto();//partiu outra dao...
-            estoque.setProduto(daoProduto.buscarNomev2(dado));//alterei a DAObusca para que recebesse string ao inves de produto
-            pst.setInt(1, estoque.getProduto().getId());//pega o id do produto pesquisado
+            Produto produto = new Produto();
+            produto = daoProduto.buscarNome(dado.getProduto());
+            estoque.setProduto(produto);
+            //estoque.setProduto(daoProduto.buscarNome(dado.getProduto()));//busca(e coloca no objeto estoque) um produto pesquisado
+            pst.setInt(1, estoque.getProduto().getId());//caso seja encontrado um produto, coloca o id dele da querry
             ResultSet resp = pst.executeQuery();
-            if (resp.next()){
-                estoque.setQtde(resp.getInt("qtdProduto"));
+            if (resp.next()) {
+                estoque.setQtde(resp.getInt("qtdProduto"));//basicamente o que faltou colocar
                 Db.fecharConexao();
                 return estoque;
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(DAOEstoque.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(DAOEstoque.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 Db.fecharConexao();
             } catch (SQLException ex) {
-                Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(DAOEstoque.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return estoque;
     }
 
+    public ArrayList<Estoque> BuscarTodos() {
+        ArrayList<Estoque> EstoqueList = new ArrayList();
+        try {
+            String querry = "select idProduto,nomeProduto,precoUnitario from produto";
+            Db.abreConexao();
+            PreparedStatement pst = Db.conexao.prepareStatement(querry);
+            ResultSet resp = pst.executeQuery();
+            while (resp.next()) {
+                Produto produto = new Produto();
+                produto.setId(resp.getInt("idProduto"));
+                produto.setNomeProduto(resp.getString("nomeProduto"));
+                produto.setPrecoUnitario(resp.getFloat("precoUnitario"));
+                querry = "SELECT * from estoque where idProduto = ?";
+                pst = Db.conexao.prepareStatement(querry);
+                pst.setInt(1, produto.getId());
+                ResultSet r = pst.executeQuery();
+                Estoque estoque = new Estoque();
+                if (r.next()) {
+                    estoque.setIdEstoque(r.getInt("idProduto"));
+                    estoque.setQtde(r.getInt("qtdProduto"));
+                    estoque.setProduto(produto);
+                    EstoqueList.add(estoque);
+                }
+            }
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                Db.fecharConexao();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOEstoque.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return EstoqueList;
+    }
 }
