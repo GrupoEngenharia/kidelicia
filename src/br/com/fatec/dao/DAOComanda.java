@@ -23,6 +23,11 @@ import java.util.logging.Logger;
  */
 public class DAOComanda implements DAO<ComandaModel> {
 
+    /**
+     *
+     * @param dado
+     * @return
+     */
     @Override
     public boolean inserir(ComandaModel dado) { 
         try {
@@ -48,6 +53,11 @@ public class DAOComanda implements DAO<ComandaModel> {
         return false;
     }
 
+    /**
+     *
+     * @param dado
+     * @return
+     */
     @Override
     public boolean alterar(ComandaModel dado) {
         try {
@@ -73,6 +83,11 @@ public class DAOComanda implements DAO<ComandaModel> {
         return false;
     }
 
+    /**
+     *
+     * @param dado
+     * @return
+     */
     @Override
     public boolean excluir(ComandaModel dado) {
         boolean resp = false;
@@ -101,6 +116,11 @@ public class DAOComanda implements DAO<ComandaModel> {
         return resp;
     }
 
+    /**
+     *
+     * @param dado
+     * @return
+     */
     @Override
     public ComandaModel buscar(ComandaModel dado) {
         try {
@@ -134,6 +154,10 @@ public class DAOComanda implements DAO<ComandaModel> {
         return dado;
     }
 
+    /**
+     *
+     * @param comanda
+     */
     public void ColocarProdutos(ComandaModel comanda) {
         try {
             LinkedList<Produto> produtos = comanda.getProdutos();
@@ -158,6 +182,11 @@ public class DAOComanda implements DAO<ComandaModel> {
         }
     }
 
+    /**
+     *
+     * @param IdComanda
+     * @return
+     */
     public LinkedList<Produto> BuscarProdutos(int IdComanda) {
 
         LinkedList<Produto> list = new LinkedList();
@@ -186,6 +215,12 @@ public class DAOComanda implements DAO<ComandaModel> {
         return list;
     }
     
+    /**
+     *
+     * @param dado
+     * @param produto
+     * @return
+     */
     public ComandaModel InserirProduto(ComandaModel dado, Produto produto){
         try{
             String querry = "INSERT INTO ComandaProduto (idComanda, idProduto) values(?, ?)";

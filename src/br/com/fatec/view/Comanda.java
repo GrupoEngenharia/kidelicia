@@ -419,6 +419,9 @@ public class Comanda extends javax.swing.JFrame {
     private javax.swing.JTextField txt_qtd;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     *
+     */
     public void preparaFormulario(){
         daoComanda = new DAOComanda();
         daoProduto = new DAOProduto();
@@ -427,6 +430,9 @@ public class Comanda extends javax.swing.JFrame {
         txt_preco.setEnabled(false);
     }
     
+    /**
+     *
+     */
     public void limparCamposComanda(){
         txt_comanda.setText("");
         txtEmailCliente.setText("");
@@ -437,6 +443,10 @@ public class Comanda extends javax.swing.JFrame {
         txt_comanda.requestFocus();
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean validarCampos(){
         if (txt_comanda.getText().equals("") || txt_mesa.getText().equals("") || txt_preco.getText().equals("") ||
                 txt_produto.getText().equals("") || txt_qtd.getText().equals("") || txtEmailCliente.getText().equals(""))
@@ -445,6 +455,9 @@ public class Comanda extends javax.swing.JFrame {
             return false;
     }
     
+    /**
+     *
+     */
     public void setComanda(){
         LinkedList<Produto> produtos = new LinkedList<>();
         produtos.add(produto);
@@ -454,6 +467,9 @@ public class Comanda extends javax.swing.JFrame {
         comanda.setProdutos(produtos);
     }
     
+    /**
+     *
+     */
     public void preencherGridComanda() {
         //PREENCHER O GRID COM OS ITENS DA COMANDA PESQUISADA
     }

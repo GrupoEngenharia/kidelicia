@@ -21,6 +21,11 @@ import java.util.logging.Logger;
  */
 public class DAOEstoque implements DAO<Estoque> {
 
+    /**
+     *
+     * @param dado
+     * @return
+     */
     @Override
     public boolean inserir(Estoque dado) {
         try {
@@ -44,6 +49,11 @@ public class DAOEstoque implements DAO<Estoque> {
         return false;
     }
 
+    /**
+     *
+     * @param dado
+     * @return
+     */
     @Override
     public boolean alterar(Estoque dado) {
         try {
@@ -68,6 +78,11 @@ public class DAOEstoque implements DAO<Estoque> {
         return false;
     }
 
+    /**
+     *
+     * @param dado
+     * @return
+     */
     @Override
     public boolean excluir(Estoque dado) {//Exclui um produto da tabela estoque
         try {
@@ -91,6 +106,12 @@ public class DAOEstoque implements DAO<Estoque> {
     }
 
     //METODO RESOLVIDO
+
+    /**
+     *
+     * @param dado
+     * @return
+     */
     @Override
     public Estoque buscar(Estoque dado) {
         try {
@@ -124,6 +145,12 @@ public class DAOEstoque implements DAO<Estoque> {
     }
 
     //tela de reposição e controle estoque
+
+    /**
+     *
+     * @param dado
+     * @return
+     */
     public Estoque BuscaProduto(Estoque dado) {//recebe String para pesquisa
         Estoque estoque = new Estoque();
         try {
@@ -154,6 +181,10 @@ public class DAOEstoque implements DAO<Estoque> {
         return estoque;
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Estoque> BuscarTodos() {
         ArrayList<Estoque> EstoqueList = new ArrayList();
         try {

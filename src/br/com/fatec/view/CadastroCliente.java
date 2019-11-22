@@ -309,11 +309,18 @@ public class CadastroCliente extends javax.swing.JFrame {
     private javax.swing.JTextField txt_telefone;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     *
+     */
     public void prepararFormulario(){
         dao = new DAOCliente();
         limparCampos();
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean validarPreenchimentoCampos(){
         if (txt_telefone.getText().equals("") || txt_email.getText().equals("") || txt_nome.getText().equals(""))
             return true;
@@ -321,13 +328,18 @@ public class CadastroCliente extends javax.swing.JFrame {
             return false;
     }
     
-       
+    /**
+     *
+     */
     public void limparCampos(){
         txt_email.setText("");
         txt_nome.setText("");
         txt_telefone.setText("");
     }
     
+    /**
+     *
+     */
     public void setCliente(){
         cliente = new Cliente();
         
@@ -336,6 +348,10 @@ public class CadastroCliente extends javax.swing.JFrame {
         cliente.setTelefone(txt_telefone.getText());
     }
     
+    /**
+     *
+     * @param c
+     */
     public void preencheCamposFuncionario(Cliente c){
         txt_telefone.setText(c.getTelefone());
         txt_email.setText(c.getEmail());
