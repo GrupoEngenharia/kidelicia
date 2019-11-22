@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class Reposicao extends javax.swing.JFrame {
 
+    int confere = 0;
     /**
      * Creates new form Comanda
      */
@@ -258,28 +259,32 @@ public class Reposicao extends javax.swing.JFrame {
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
 
-        Estoque estoque = new Estoque();
-        Produto produto = new Produto();
         if(!txt_produto.getText().equals("")){
-            produto.setNomeProduto(txt_produto.getText());
-            estoque.setProduto(produto);
-            float total;
-            DAOEstoque daoestoque = new DAOEstoque();
-            estoque = daoestoque.BuscaProduto(estoque);
+            Estoque estoque = new Estoque();
+            estoque = busca();
             txt_produto.setText(estoque.getProduto().getNomeProduto());
             txt_id.setText(String.valueOf(estoque.getProduto().getId()));
             txt_preco.setText(String.valueOf(estoque.getProduto().getPrecoUnitario()));
             txt_qtd.setText(String.valueOf(estoque.getQtde()));
-            //total = estoque.getProduto().getPrecoUnitario() * estoque.getQtde();
-            //txt_precototal.setText(String.valueOf(total));
-            JOptionPane.showMessageDialog(rootPane, "Produto encontrado");
+            Double total;
+            total = (Double.parseDouble(txt_preco.getText()) * Double.parseDouble(txt_qtd.getText()));
+            txt_precototal.setText(String.valueOf(total));
         } else {
             JOptionPane.showMessageDialog(rootPane, "Preencha o campo de produto !!!");
+            limpaCampos();
         }
     }//GEN-LAST:event_btn_buscarActionPerformed
 
     private void btn_atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_atualizarActionPerformed
         // TODO add your handling code here:
+        Estoque estoque;           
+            DAOEstoque daoEstoque = new DAOEstoque();
+            estoque = busca();
+            estoque.setQtde(Integer.parseInt(txt_qtd.getText()));
+            if(daoEstoque.alterar(estoque))
+                JOptionPane.showMessageDialog(rootPane, "Alteração realizada !");
+            else
+                JOptionPane.showMessageDialog(rootPane, "Atualização mal sucedida !");
     }//GEN-LAST:event_btn_atualizarActionPerformed
 
     private void btn_InserirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_InserirMouseClicked
@@ -382,6 +387,15 @@ public class Reposicao extends javax.swing.JFrame {
         txt_id.requestFocus();
     }
     
-    //public void 
+    public Estoque busca(){
+        Estoque estoque = new Estoque();
+        Produto produto = new Produto();
+        produto.setNomeProduto(txt_produto.getText());
+        estoque.setProduto(produto);
+        float total;
+        DAOEstoque daoestoque = new DAOEstoque();
+        estoque = daoestoque.BuscaProduto(estoque);
+        return estoque;
+    }
 
 }

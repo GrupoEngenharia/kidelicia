@@ -47,12 +47,11 @@ public class DAOEstoque implements DAO<Estoque> {
     @Override
     public boolean alterar(Estoque dado) {
         try {
-            String querry = "UPDATE from estoque values(?, ?) where id = ?;";
+            String querry = "UPDATE estoque set qtdProduto = ? where idProduto = ?;";
             Db.abreConexao();
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
-            pst.setInt(1, dado.getProduto().getId());
-            pst.setInt(2, dado.getQtde());
-            pst.setInt(3, dado.getIdEstoque());
+            pst.setInt(1, dado.getQtde());
+            pst.setInt(2, dado.getProduto().getId());
             pst.execute();
             Db.fecharConexao();
             return true;
