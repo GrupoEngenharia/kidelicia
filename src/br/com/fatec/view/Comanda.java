@@ -167,9 +167,19 @@ public class Comanda extends javax.swing.JFrame {
 
         btn_excluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_excluir.setText("EXCLUIR");
+        btn_excluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_excluirActionPerformed(evt);
+            }
+        });
 
         btn_enviar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_enviar.setText("ENVIAR");
+        btn_enviar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_enviarActionPerformed(evt);
+            }
+        });
 
         btn_voltar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_voltar.setText("VOLTAR");
@@ -311,10 +321,11 @@ public class Comanda extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Preencha os campos corretamente!!!");
         } else {
             setComanda();
-            if (daoComanda.inserir(comanda)) {
+            //if (daoComanda.inserirComandaCliente(comanda)) {
                 if (daoComanda.InserirProduto(comanda, produto)) {
                     JOptionPane.showMessageDialog(rootPane, "Produto adicionado com sucesso!!!");
-                }
+                    limparCamposComanda();
+                //}
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Falha ao adicionar o produto!!!");
             }
@@ -372,8 +383,43 @@ public class Comanda extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEmailClienteFocusLost
 
     private void tbComandaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbComandaMouseClicked
-
+        produto = null;
+        produto = new Produto();
+        int linha = tbComanda.getSelectedRow();
+        int idProduto = (Integer) tbComanda.getValueAt(linha, 0);
+        //int idComanda = Integer.parseInt(txt_comanda.getText());
+        produto.setId(idProduto);
+        Produto pAux = daoProduto.buscar(produto);
+        
+        if(!(pAux == null)) {
+            txt_produto.setText(pAux.getNomeProduto());
+        }
     }//GEN-LAST:event_tbComandaMouseClicked
+
+    private void btn_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_excluirActionPerformed
+        // TODO add your handling code here:
+        produto = null;
+        comanda = null;
+        if (!txt_produto.getText().equals("") || !txt_comanda.getText().equals("")) {
+            comanda = new ComandaModel();
+            produto = new Produto();
+            
+            produto.setNomeProduto(txt_produto.getText());
+            comanda.setIdComanda(Integer.parseInt(txt_comanda.getText()));
+            
+            produto = daoProduto.buscarNome(produto);
+            if (daoComanda.excluirProdutoComanda(comanda, produto)) {
+                JOptionPane.showMessageDialog(rootPane, "Produto removido da comanda com sucesso!!!");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Falha ao remover o produto!!!");
+            }
+            limparCamposComanda();
+        }
+    }//GEN-LAST:event_btn_excluirActionPerformed
+
+    private void btn_enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_enviarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_enviarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -484,6 +530,7 @@ public class Comanda extends javax.swing.JFrame {
         comanda.setIdComanda(Integer.parseInt(txt_comanda.getText()));
         comanda.setCliente(cliente);
         comanda.setProdutos(produtos);
+        comanda.setQtd(Integer.parseInt(txt_qtd.getText()));
     }
     
     /**

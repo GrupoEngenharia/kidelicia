@@ -31,7 +31,7 @@ public class DAOComanda implements DAO<ComandaModel> {
     @Override
     public boolean inserir(ComandaModel dado) { 
         try {
-            String querry = "INSERT INTO Comanda (idCliente) values (?) where idComanda = ?";
+            String querry = "INSERT INTO Comanda (idCliente) values (?)";
             Db.abreConexao();
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
             pst.setInt(1, dado.getCliente().getIdCliente());
@@ -223,11 +223,13 @@ public class DAOComanda implements DAO<ComandaModel> {
      */
     public boolean InserirProduto(ComandaModel dado, Produto produto){
         try{
-            String querry = "INSERT INTO ComandaProduto (idComanda, idProduto) values(?, ?)";
+            String querry = "INSERT INTO ComandaProduto (idComanda, idProduto, qtdProduto, status) values(?,?,?,?)";
             Db.abreConexao();
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
-            pst.setInt(1, produto.getId());
-            pst.setInt(2, dado.getIdComanda());
+            pst.setInt(1, dado.getIdComanda());
+            pst.setInt(2, produto.getId());
+            pst.setInt(3,dado.getQtd());
+            pst.setString(4, "Pendente");
             pst.execute();
             dado.adicionar(produto);
             return true;
@@ -241,7 +243,53 @@ public class DAOComanda implements DAO<ComandaModel> {
             } catch (SQLException ex) {
                 Logger.getLogger(DAOComanda.class.getName()).log(Level.SEVERE, null, ex);
             }
-            return false;
         }
+        return false;
+    }
+    
+    public boolean inserirComandaCliente(ComandaModel dado) { 
+        try {
+            String querry = "INSERT INTO Comanda values (?,?)";
+            Db.abreConexao();
+            PreparedStatement pst = Db.conexao.prepareStatement(querry);
+            pst.setInt(1, dado.getIdComanda());
+            pst.setInt(2, dado.getCliente().getIdCliente());
+            pst.execute();
+            Db.fecharConexao();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                Db.fecharConexao();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOComanda.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return false;
+    }
+    
+    public boolean excluirProdutoComanda(ComandaModel dado, Produto produto) {
+        String querry = "delete from bd_lanchonete.comandaproduto where idComanda = ? and idproduto = ? limit 1";
+        try {
+            Db.abreConexao();
+            PreparedStatement pst = Db.conexao.prepareStatement(querry);
+            pst.setInt(1, dado.getIdComanda());
+            pst.setInt(2, produto.getId());
+            if (pst.executeUpdate() > 0){
+                Db.fecharConexao();
+                return true;
+            } else {
+                Db.fecharConexao();
+                return false;
+            }   
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOComanda.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAOComanda.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 }

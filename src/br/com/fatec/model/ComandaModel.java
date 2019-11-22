@@ -10,6 +10,8 @@ public class ComandaModel {
     private int idComanda;
     private Cliente cliente;
     private LinkedList<Produto> produtos;
+    private int qtd;
+    private String status;
 
     /**
      *
@@ -21,6 +23,14 @@ public class ComandaModel {
         this.idComanda = idComanda;
         this.cliente = cliente;
         this.produtos = produtos;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
     
     /**
@@ -39,6 +49,14 @@ public class ComandaModel {
         this.idComanda = idComanda;
     }
 
+    public int getQtd() {
+        return qtd;
+    }
+
+    public void setQtd(int qtd) {
+        this.qtd = qtd;
+    }
+    
     /**
      *
      * @return

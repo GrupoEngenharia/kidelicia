@@ -127,7 +127,7 @@ public class Pedidos extends javax.swing.JFrame {
         lbl_comandas.setText("Comandas:");
 
         cmb_status.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        cmb_status.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Todas", "Em Andamento", "Finalizadas", "Pendentes" }));
+        cmb_status.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Todas", "Em Andamento", "Finalizada", "Pendente" }));
         cmb_status.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmb_statusActionPerformed(evt);

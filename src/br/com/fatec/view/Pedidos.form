@@ -328,8 +328,8 @@
                 <StringItem index="0" value="Selecione"/>
                 <StringItem index="1" value="Todas"/>
                 <StringItem index="2" value="Em Andamento"/>
-                <StringItem index="3" value="Finalizadas"/>
-                <StringItem index="4" value="Pendentes"/>
+                <StringItem index="3" value="Finalizada"/>
+                <StringItem index="4" value="Pendente"/>
               </StringArray>
             </Property>
           </Properties>
