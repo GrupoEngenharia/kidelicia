@@ -51,8 +51,6 @@ public class Reposicao extends javax.swing.JFrame {
         lbl_precototal = new javax.swing.JLabel();
         txt_precototal = new javax.swing.JTextField();
         btn_buscar = new javax.swing.JButton();
-        btn_voltar2 = new javax.swing.JButton();
-        btn_Inserir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(950, 710));
@@ -132,22 +130,6 @@ public class Reposicao extends javax.swing.JFrame {
             }
         });
 
-        btn_voltar2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btn_voltar2.setText("EXCLUIR");
-
-        btn_Inserir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btn_Inserir.setText("INSERIR");
-        btn_Inserir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btn_InserirMouseClicked(evt);
-            }
-        });
-        btn_Inserir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_InserirActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -168,16 +150,16 @@ public class Reposicao extends javax.swing.JFrame {
                                 .addComponent(lbl_qtd)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txt_qtd, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(lbl_produto)
-                                .addGap(18, 18, 18)
-                                .addComponent(txt_produto, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(btn_voltar)
-                                .addGap(68, 68, 68)
-                                .addComponent(btn_buscar)
-                                .addGap(64, 64, 64)
-                                .addComponent(btn_Inserir)))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                    .addGap(62, 62, 62)
+                                    .addComponent(btn_voltar)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btn_buscar))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(lbl_produto)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txt_produto, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
@@ -191,10 +173,9 @@ public class Reposicao extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(txt_precototal, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_voltar2)
-                                .addGap(71, 71, 71)
-                                .addComponent(btn_atualizar)))))
+                                .addGap(181, 181, 181)
+                                .addComponent(btn_atualizar)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addGap(138, 138, 138))
         );
         jPanel2Layout.setVerticalGroup(
@@ -220,9 +201,7 @@ public class Reposicao extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_atualizar)
                     .addComponent(btn_voltar)
-                    .addComponent(btn_buscar)
-                    .addComponent(btn_voltar2)
-                    .addComponent(btn_Inserir))
+                    .addComponent(btn_buscar))
                 .addContainerGap(165, Short.MAX_VALUE))
         );
 
@@ -287,25 +266,6 @@ public class Reposicao extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "Atualização mal sucedida !");
     }//GEN-LAST:event_btn_atualizarActionPerformed
 
-    private void btn_InserirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_InserirMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_InserirMouseClicked
-
-    private void btn_InserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_InserirActionPerformed
-        // TODO add your handling code here:
-        if(!txt_produto.getText().equals("")){
-            Estoque estoque = new Estoque();
-            Produto produto = new Produto();
-            DAOEstoque daoEstoque = new DAOEstoque();
-            produto.setPrecoUnitario(new Integer(txt_preco.getText()).floatValue());
-            produto.setNomeProduto(txt_produto.getText());
-            estoque.setQtde(new Integer(txt_qtd.getText()).intValue());
-            estoque.setProduto(produto);
-            daoEstoque.inserir(estoque);
-            JOptionPane.showMessageDialog(rootPane,"Novo produto cadastrado");
-        } 
-    }//GEN-LAST:event_btn_InserirActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -357,11 +317,9 @@ public class Reposicao extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_Inserir;
     private javax.swing.JButton btn_atualizar;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_voltar;
-    private javax.swing.JButton btn_voltar2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbl_cadarpio;
