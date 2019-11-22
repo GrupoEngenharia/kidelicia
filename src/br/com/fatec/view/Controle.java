@@ -22,7 +22,9 @@ public class Controle extends javax.swing.JFrame {
     public Controle() {
         initComponents();
     }
-
+    
+    public ArrayList<Estoque> estoques = produtosLista();
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -121,6 +123,15 @@ public class Controle extends javax.swing.JFrame {
         btn_salvar1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_salvar1.setText("VOLTAR");
 
+        txt_filtro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_filtroKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txt_filtroKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -174,16 +185,19 @@ public class Controle extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         // TODO add your handling code here:
-        DAOEstoque daoEstoque = new DAOEstoque();
-        ArrayList<Estoque> estoques = daoEstoque.BuscarTodos();
-                
-        for(int i=0; i<estoques.size(); i++){
-            Estoque estoque = estoques.get(i);
-            DefaultTableModel modelo = (DefaultTableModel) tb_reporestoque.getModel();
-            modelo.addRow(new Object[]{estoque.getProduto().getId(), estoque.getProduto().getNomeProduto()
-            , estoque.getQtde(),estoque.getProduto().getPrecoUnitario()});
-        }
+        atualizar(produtosLista());
     }//GEN-LAST:event_formWindowOpened
+
+    private void txt_filtroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_filtroKeyTyped
+        // TODO add your handling code here:
+        //ArrayList<Estoque> estoques = new ArrayList();
+    }//GEN-LAST:event_txt_filtroKeyTyped
+
+    private void txt_filtroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_filtroKeyReleased
+        // TODO add your handling code here:
+        estoques = produtosLista();
+        atualizar(filtrar(estoques, txt_filtro.getText()));
+    }//GEN-LAST:event_txt_filtroKeyReleased
 
     /**
      * @param args the command line arguments
@@ -221,6 +235,34 @@ public class Controle extends javax.swing.JFrame {
                 new Controle().setVisible(true);
             }
         });
+    }
+    
+    public ArrayList<Estoque> produtosLista(){
+        DAOEstoque daoEstoque = new DAOEstoque();
+        estoques = daoEstoque.BuscarTodos();
+        return estoques;
+    }
+    
+    public ArrayList<Estoque> filtrar (ArrayList<Estoque> estoques, String filtro){
+        ArrayList<Estoque> lista = new ArrayList();
+        for (int i=0; i<estoques.size(); i++) {
+            Estoque estoque = estoques.get(i);
+            if(estoque.getProduto().getNomeProduto().contains(filtro)){
+                lista.add(estoque);
+            }
+        }    
+        return lista;
+    }
+    
+    public void atualizar(ArrayList<Estoque> estoques){
+        DefaultTableModel modelo = (DefaultTableModel) tb_reporestoque.getModel();
+        modelo.setRowCount(0);
+        for(int i=0; i<estoques.size(); i++){
+            Estoque estoque = estoques.get(i);
+            modelo = (DefaultTableModel) tb_reporestoque.getModel();
+            modelo.addRow(new Object[]{estoque.getProduto().getId(), estoque.getProduto().getNomeProduto()
+            , estoque.getQtde(),estoque.getProduto().getPrecoUnitario()});
+        } 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
