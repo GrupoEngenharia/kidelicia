@@ -11,8 +11,12 @@ import br.com.fatec.dao.DAOProduto;
 import br.com.fatec.model.Cliente;
 import br.com.fatec.model.ComandaModel;
 import br.com.fatec.model.Produto;
+import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import sun.security.x509.AttributeNameEnumeration;
 
 /**
  *
@@ -58,12 +62,14 @@ public class Comanda extends javax.swing.JFrame {
         txt_qtd = new javax.swing.JTextField();
         lbl_preco = new javax.swing.JLabel();
         btn_adicionar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tb_comanda = new javax.swing.JTable();
         btn_excluir = new javax.swing.JButton();
         txt_preco = new javax.swing.JTextField();
         btn_enviar = new javax.swing.JButton();
         btn_voltar = new javax.swing.JButton();
+        lbl_mesa1 = new javax.swing.JLabel();
+        txtPrecoUnit = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbComanda = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(950, 710));
@@ -159,24 +165,6 @@ public class Comanda extends javax.swing.JFrame {
             }
         });
 
-        tb_comanda.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "QTD.", "ITENS", "PREÇO UNID.", "STATUS"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(tb_comanda);
-
         btn_excluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_excluir.setText("EXCLUIR");
 
@@ -191,59 +179,79 @@ public class Comanda extends javax.swing.JFrame {
             }
         });
 
+        lbl_mesa1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        lbl_mesa1.setText("Preço Unit.");
+
+        tbComanda.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tbComanda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbComandaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbComanda);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_voltar)
-                        .addGap(32, 32, 32)
-                        .addComponent(btn_enviar))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbl_tcomanda, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(lbl_id)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txtEmailCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addGap(27, 27, 27)
-                                                .addComponent(lbl_comanda)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(txt_comanda, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lbl_mesa)
-                                            .addComponent(lbl_qtd))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addComponent(txt_qtd, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(50, 50, 50)
-                                                .addComponent(lbl_preco)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(txt_preco, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(txt_mesa, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(lbl_produto)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txt_produto, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(35, 35, 35)
-                                        .addComponent(btn_adicionar)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btn_excluir)))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addGap(25, 25, 25)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_tcomanda, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(lbl_id)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtEmailCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGap(27, 27, 27)
+                                    .addComponent(lbl_comanda)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txt_comanda, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(lbl_mesa)
+                                .addComponent(lbl_qtd))
+                            .addGap(18, 18, 18)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(txt_qtd, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(50, 50, 50)
+                                    .addComponent(lbl_preco)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(txt_preco, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(txt_mesa, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lbl_mesa1)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txtPrecoUnit, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addComponent(lbl_produto)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                    .addGap(0, 0, Short.MAX_VALUE)
+                                    .addComponent(btn_voltar)
+                                    .addGap(32, 32, 32)
+                                    .addComponent(btn_enviar))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(txt_produto, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(35, 35, 35)
+                                    .addComponent(btn_adicionar)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(btn_excluir)
+                                    .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)))
                 .addContainerGap(260, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -256,7 +264,9 @@ public class Comanda extends javax.swing.JFrame {
                     .addComponent(lbl_comanda)
                     .addComponent(txt_comanda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_mesa)
-                    .addComponent(txt_mesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_mesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbl_mesa1)
+                    .addComponent(txtPrecoUnit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_id)
@@ -271,9 +281,9 @@ public class Comanda extends javax.swing.JFrame {
                     .addComponent(txt_produto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_adicionar)
                     .addComponent(btn_excluir))
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_voltar)
                     .addComponent(btn_enviar))
@@ -302,7 +312,9 @@ public class Comanda extends javax.swing.JFrame {
         } else {
             setComanda();
             if (daoComanda.inserir(comanda)) {
-                JOptionPane.showMessageDialog(rootPane, "Produto adicionado com sucesso!!!");
+                if (daoComanda.InserirProduto(comanda, produto)) {
+                    JOptionPane.showMessageDialog(rootPane, "Produto adicionado com sucesso!!!");
+                }
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Falha ao adicionar o produto!!!");
             }
@@ -313,24 +325,23 @@ public class Comanda extends javax.swing.JFrame {
         // TODO add your handling code here:
         produto = new Produto();
         Produto produtoAux;
-        produto.setNomeProduto(txt_produto.getText().toLowerCase());
+        produto.setNomeProduto(txt_produto.getText());
         
-        if (!txt_produto.getText().trim().equals("")){
+        if (!txt_produto.getText().equals("")){
             produtoAux = daoProduto.buscarNome(produto);
             if(produtoAux == null){
                JOptionPane.showMessageDialog(rootPane, "Este produto não existe!!!");
                 txt_produto.setText("");
             } else
                 produto = produtoAux;
+                txtPrecoUnit.setText(Float.toString(produto.getPrecoUnitario()));
         }
    
     }//GEN-LAST:event_txt_produtoFocusLost
 
     private void txt_qtdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_qtdFocusLost
         // TODO add your handling code here:
-        if (txt_produto.getText().equals("") || txt_qtd.getText().equals(""))
-            JOptionPane.showMessageDialog(rootPane, "Preencha o produto e a quantidade para calcular o preço!!!");
-        else {
+        if (!txt_produto.getText().equals("") || !txt_qtd.getText().equals("")) {
             float qtd = Float.parseFloat(txt_qtd.getText());
             txt_preco.setText(Float.toString(qtd*produto.getPrecoUnitario()));
         }
@@ -340,6 +351,7 @@ public class Comanda extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (!txt_comanda.getText().equals("")) {
             comanda = new ComandaModel();
+            comanda.setIdComanda(Integer.parseInt(txt_comanda.getText()));
             comanda.setProdutos(daoComanda.BuscarProdutos(Integer.parseInt(txt_comanda.getText())));
             preencherGridComanda();
         }
@@ -358,6 +370,10 @@ public class Comanda extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_txtEmailClienteFocusLost
+
+    private void tbComandaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbComandaMouseClicked
+
+    }//GEN-LAST:event_tbComandaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -406,12 +422,14 @@ public class Comanda extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_id;
     private javax.swing.JLabel lbl_kidelicia;
     private javax.swing.JLabel lbl_mesa;
+    private javax.swing.JLabel lbl_mesa1;
     private javax.swing.JLabel lbl_preco;
     private javax.swing.JLabel lbl_produto;
     private javax.swing.JLabel lbl_qtd;
     private javax.swing.JLabel lbl_tcomanda;
-    private javax.swing.JTable tb_comanda;
+    private javax.swing.JTable tbComanda;
     private javax.swing.JTextField txtEmailCliente;
+    private javax.swing.JTextField txtPrecoUnit;
     private javax.swing.JTextField txt_comanda;
     private javax.swing.JTextField txt_mesa;
     private javax.swing.JTextField txt_preco;
@@ -428,6 +446,7 @@ public class Comanda extends javax.swing.JFrame {
         daoCliente = new DAOCliente();
         limparCamposComanda();
         txt_preco.setEnabled(false);
+        txtPrecoUnit.setEnabled(false);
     }
     
     /**
@@ -472,5 +491,34 @@ public class Comanda extends javax.swing.JFrame {
      */
     public void preencherGridComanda() {
         //PREENCHER O GRID COM OS ITENS DA COMANDA PESQUISADA
+        DefaultTableModel tabela;
+        
+        try {
+            Collection<Produto> produtosComanda = daoComanda.BuscarProdutos(comanda.getIdComanda());
+            
+            Vector colunas = new Vector();
+            colunas.add("ID");
+            colunas.add("PRODUTO");
+            colunas.add("PREÇO UNIT.");
+            //colunas.add("QTD.");
+            
+            Vector linhas = new Vector();
+            
+            for (Produto p : produtosComanda) {
+                Vector registro = new Vector();
+                registro.add(p.getId());
+                registro.add(p.getNomeProduto());
+                registro.add(p.getPrecoUnitario());
+                
+                linhas.add(registro);
+            }
+            
+            tabela = new DefaultTableModel(linhas,colunas);
+            
+            tbComanda.setModel(tabela);
+            
+        } catch (Exception ex) {
+            
+        }
     }
 }

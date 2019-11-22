@@ -221,7 +221,7 @@ public class DAOComanda implements DAO<ComandaModel> {
      * @param produto
      * @return
      */
-    public ComandaModel InserirProduto(ComandaModel dado, Produto produto){
+    public boolean InserirProduto(ComandaModel dado, Produto produto){
         try{
             String querry = "INSERT INTO ComandaProduto (idComanda, idProduto) values(?, ?)";
             Db.abreConexao();
@@ -230,6 +230,7 @@ public class DAOComanda implements DAO<ComandaModel> {
             pst.setInt(2, dado.getIdComanda());
             pst.execute();
             dado.adicionar(produto);
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(DAOComanda.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -240,7 +241,7 @@ public class DAOComanda implements DAO<ComandaModel> {
             } catch (SQLException ex) {
                 Logger.getLogger(DAOComanda.class.getName()).log(Level.SEVERE, null, ex);
             }
+            return false;
         }
-        return dado;
     }
 }
