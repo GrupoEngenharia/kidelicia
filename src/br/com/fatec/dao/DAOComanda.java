@@ -13,6 +13,7 @@ import br.com.fatec.model.Produto;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +30,7 @@ public class DAOComanda implements DAO<ComandaModel> {
      * @return
      */
     @Override
-    public boolean inserir(ComandaModel dado) { 
+    public boolean inserir(ComandaModel dado) {
         try {
             String querry = "INSERT INTO Comanda (idCliente) values (?)";
             Db.abreConexao();
@@ -214,21 +215,21 @@ public class DAOComanda implements DAO<ComandaModel> {
         }
         return list;
     }
-    
+
     /**
      *
      * @param dado
      * @param produto
      * @return
      */
-    public boolean InserirProduto(ComandaModel dado, Produto produto){
-        try{
+    public boolean InserirProduto(ComandaModel dado, Produto produto) {
+        try {
             String querry = "INSERT INTO ComandaProduto (idComanda, idProduto, qtdProduto,status) values(?,?,?,?)";
             Db.abreConexao();
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
             pst.setInt(1, dado.getIdComanda());
             pst.setInt(2, produto.getId());
-            pst.setInt(3,dado.getQtd());
+            pst.setInt(3, dado.getQtd());
             pst.setString(4, "x");
             pst.execute();
             dado.adicionar(produto);
@@ -246,8 +247,8 @@ public class DAOComanda implements DAO<ComandaModel> {
         }
         return false;
     }
-    
-    public boolean inserirComandaCliente(ComandaModel dado) { 
+
+    public boolean inserirComandaCliente(ComandaModel dado) {
         try {
             String querry = "INSERT INTO Comanda values (?,?)";
             Db.abreConexao();
@@ -270,7 +271,7 @@ public class DAOComanda implements DAO<ComandaModel> {
         }
         return false;
     }
-    
+
     public boolean excluirProdutoComanda(ComandaModel dado, Produto produto) {
         String querry = "delete from bd_lanchonete.comandaproduto where idComanda = ? and idproduto = ? limit 1";
         try {
@@ -278,18 +279,43 @@ public class DAOComanda implements DAO<ComandaModel> {
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
             pst.setInt(1, dado.getIdComanda());
             pst.setInt(2, produto.getId());
-            if (pst.executeUpdate() > 0){
+            if (pst.executeUpdate() > 0) {
                 Db.fecharConexao();
                 return true;
             } else {
                 Db.fecharConexao();
                 return false;
-            }   
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DAOComanda.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DAOComanda.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+
+    public ArrayList<ComandaModel> buscaTodasComandas() {
+        ArrayList<ComandaModel> comandas = new ArrayList();
+        String querry = "Select idProduto, idComanda, status from ComandaProduto";
+        try {
+            Db.abreConexao();
+            PreparedStatement pst = Db.conexao.prepareStatement(querry);
+            ResultSet resp = pst.executeQuery();
+            while (resp.next()) {
+                ComandaModel comanda = new ComandaModel();
+                Produto produto = new Produto();
+                comanda.setIdComanda(resp.getInt("idComanda"));
+                //produto.getId(resp.getInt("idProduto"));
+                comanda.setStatus(resp.getString("status"));
+                comandas.add(comanda);
+            }
+            Db.fecharConexao();
+            return comandas;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOComanda.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAOComanda.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return comandas;
     }
 }

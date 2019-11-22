@@ -57,12 +57,12 @@ public class Cadastro extends javax.swing.JFrame {
         lbl_senha = new javax.swing.JLabel();
         txt_senha = new javax.swing.JPasswordField();
         lbl_funcao = new javax.swing.JLabel();
-        cmb_funcao = new javax.swing.JComboBox<>();
+        cmb_funcao = new javax.swing.JComboBox<String>();
         btnBuscar = new javax.swing.JButton();
         lbl_nasc2 = new javax.swing.JLabel();
         txt_login = new javax.swing.JFormattedTextField();
         lbl_funcao1 = new javax.swing.JLabel();
-        cmb_sexo = new javax.swing.JComboBox<>();
+        cmb_sexo = new javax.swing.JComboBox<String>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(950, 710));
@@ -167,7 +167,7 @@ public class Cadastro extends javax.swing.JFrame {
         lbl_funcao.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_funcao.setText("Função");
 
-        cmb_funcao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Caixa", "Cozinheiro", "Garcom", "Gerente" }));
+        cmb_funcao.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Caixa", "Cozinheiro", "Garcom", "Gerente" }));
 
         btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBuscar.setText("BUSCAR");
@@ -183,7 +183,7 @@ public class Cadastro extends javax.swing.JFrame {
         lbl_funcao1.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_funcao1.setText("Sexo");
 
-        cmb_sexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Masculino", "Feminino" }));
+        cmb_sexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Masculino", "Feminino" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

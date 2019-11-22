@@ -5,6 +5,8 @@
  */
 package br.com.fatec.view;
 
+import br.com.fatec.model.Produto;
+
 /**
  *
  * @author Simone Velosa
@@ -42,7 +44,7 @@ public class Pedidos extends javax.swing.JFrame {
         btn_salvar = new javax.swing.JButton();
         lbl_email2 = new javax.swing.JLabel();
         lbl_comandas = new javax.swing.JLabel();
-        cmb_status = new javax.swing.JComboBox<String>();
+        cmb_filtro = new javax.swing.JComboBox<String>();
         cmb_status1 = new javax.swing.JComboBox<String>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -104,11 +106,11 @@ public class Pedidos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "PRODUTO", "QTD.", "COMANDA", "STATUS"
+                "ID", "PRODUTO", "COMANDA", "STATUS"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -126,11 +128,11 @@ public class Pedidos extends javax.swing.JFrame {
         lbl_comandas.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_comandas.setText("Comandas:");
 
-        cmb_status.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        cmb_status.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Todas", "Em Andamento", "Finalizada", "Pendente" }));
-        cmb_status.addActionListener(new java.awt.event.ActionListener() {
+        cmb_filtro.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        cmb_filtro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todas", "Em Andamento", "Finalizada", "Pendente" }));
+        cmb_filtro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmb_statusActionPerformed(evt);
+                cmb_filtroActionPerformed(evt);
             }
         });
 
@@ -174,7 +176,7 @@ public class Pedidos extends javax.swing.JFrame {
                         .addGap(215, 215, 215)
                         .addComponent(lbl_comandas)
                         .addGap(18, 18, 18)
-                        .addComponent(cmb_status, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cmb_filtro, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 167, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,7 +196,7 @@ public class Pedidos extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_comandas)
-                    .addComponent(cmb_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmb_filtro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(51, 51, 51)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(61, 61, 61)
@@ -230,9 +232,33 @@ public class Pedidos extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_produtoActionPerformed
 
-    private void cmb_statusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_statusActionPerformed
+    private void cmb_filtroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_filtroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmb_statusActionPerformed
+        String escolha = cmb_filtro.getItemAt(cmb_filtro.getSelectedIndex());
+
+        switch (escolha) {
+            case "Todas":
+                //deve trazer ID(Produto), NomeProduto(Produto), Comanda(ComandaProduto) e Status(ComandaProduto)
+                Produto produto = new Produto();
+                Comanda comanda = new Comanda();
+                
+                break;
+
+            case "Em Andamento":
+                System.out.println("voce escolheu : Em Andamento");
+                break;
+                
+            case "Finalizada":
+                System.out.println("voce escolheu : Finalizada");
+                break;
+                    
+            case "Pendente":
+                System.out.println("voce escolheu : Pendente");
+                break;
+        }
+
+
+    }//GEN-LAST:event_cmb_filtroActionPerformed
 
     private void cmb_status1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_status1ActionPerformed
         // TODO add your handling code here:
@@ -252,16 +278,32 @@ public class Pedidos extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                }
+                
+
+}
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Pedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Pedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Pedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Pedidos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Pedidos.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } 
+
+catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Pedidos.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } 
+
+catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Pedidos.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } 
+
+catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Pedidos.class  
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -276,7 +318,7 @@ public class Pedidos extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_salvar;
-    private javax.swing.JComboBox<String> cmb_status;
+    private javax.swing.JComboBox<String> cmb_filtro;
     private javax.swing.JComboBox<String> cmb_status1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
