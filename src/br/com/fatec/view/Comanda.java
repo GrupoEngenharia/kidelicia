@@ -419,6 +419,20 @@ public class Comanda extends javax.swing.JFrame {
 
     private void btn_enviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_enviarActionPerformed
         // TODO add your handling code here:
+        if(comanda == null)
+            comanda = new ComandaModel();
+        
+        if (!txt_comanda.getText().equals("")) {
+            comanda.setStatus("Pendente");
+            if(daoComanda.alterar(comanda)) {
+                JOptionPane.showMessageDialog(rootPane, "Pedido realizado com sucesso!!!");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Erro ao enviar o pedido!!!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(rootPane,"Preencha os campos corretamente!!!");
+        }
+        limparCamposComanda();
     }//GEN-LAST:event_btn_enviarActionPerformed
 
     /**

@@ -61,12 +61,12 @@ public class DAOComanda implements DAO<ComandaModel> {
     @Override
     public boolean alterar(ComandaModel dado) {
         try {
-            String querry = "UPDATE from ComandaProduto where idComanda = ?";
+            String querry = "UPDATE ComandaProduto set status=? where idComanda = ?";
             Db.abreConexao();
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
-            pst.setInt(1, dado.getIdComanda());
-            pst.execute();
-            inserir(dado);
+            pst.setString(1, dado.getStatus());
+            pst.setInt(2, dado.getIdComanda());
+            pst.executeUpdate();
             Db.fecharConexao();
             return true;
         } catch (SQLException ex) {
@@ -223,13 +223,13 @@ public class DAOComanda implements DAO<ComandaModel> {
      */
     public boolean InserirProduto(ComandaModel dado, Produto produto){
         try{
-            String querry = "INSERT INTO ComandaProduto (idComanda, idProduto, qtdProduto, status) values(?,?,?,?)";
+            String querry = "INSERT INTO ComandaProduto (idComanda, idProduto, qtdProduto,status) values(?,?,?,?)";
             Db.abreConexao();
             PreparedStatement pst = Db.conexao.prepareStatement(querry);
             pst.setInt(1, dado.getIdComanda());
             pst.setInt(2, produto.getId());
             pst.setInt(3,dado.getQtd());
-            pst.setString(4, "Pendente");
+            pst.setString(4, "x");
             pst.execute();
             dado.adicionar(produto);
             return true;
