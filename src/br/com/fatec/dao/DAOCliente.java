@@ -19,6 +19,11 @@ import java.util.logging.Logger;
  */
 public class DAOCliente implements DAO<Cliente> {
 
+    /**
+     *
+     * @param dado
+     * @return
+     */
     @Override
     public boolean inserir(Cliente dado) {
         try {
@@ -44,6 +49,11 @@ public class DAOCliente implements DAO<Cliente> {
         return false;
     }
 
+    /**
+     *
+     * @param dado
+     * @return
+     */
     @Override
     public boolean alterar(Cliente dado) {
         try {
@@ -69,6 +79,11 @@ public class DAOCliente implements DAO<Cliente> {
         return false;
     }
 
+    /**
+     *
+     * @param dado
+     * @return
+     */
     @Override
     public boolean excluir(Cliente dado) {
         try {
@@ -91,6 +106,11 @@ public class DAOCliente implements DAO<Cliente> {
         return false;
     }
 
+    /**
+     *
+     * @param dado
+     * @return
+     */
     @Override
     public Cliente buscar(Cliente dado) {
         Cliente cliente = null;

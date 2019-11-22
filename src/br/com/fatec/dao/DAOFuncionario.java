@@ -8,8 +8,17 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ *
+ * @author matheus.marinelli
+ */
 public class DAOFuncionario implements DAO<Funcionario> {
     
+    /**
+     *
+     * @param dado
+     * @return
+     */
     @Override
     public boolean inserir(Funcionario dado) {
 
@@ -45,6 +54,11 @@ public class DAOFuncionario implements DAO<Funcionario> {
         return false;
     }
 
+    /**
+     *
+     * @param dado
+     * @return
+     */
     @Override
     public boolean alterar(Funcionario dado) {
         try {
@@ -77,6 +91,11 @@ public class DAOFuncionario implements DAO<Funcionario> {
         return false;
     }
 
+    /**
+     *
+     * @param dado
+     * @return
+     */
     @Override
     public boolean excluir(Funcionario dado) {
         try {
@@ -100,6 +119,11 @@ public class DAOFuncionario implements DAO<Funcionario> {
         return false;
     }
 
+    /**
+     *
+     * @param dado
+     * @return
+     */
     @Override
     public Funcionario buscar(Funcionario dado) {
         Funcionario funcionario = null;
@@ -136,6 +160,11 @@ public class DAOFuncionario implements DAO<Funcionario> {
         return funcionario;
     }
 
+    /**
+     *
+     * @param dado
+     * @return
+     */
     public Funcionario buscarFuncao(Funcionario dado) {
         Funcionario funcionario = null;
         try {
@@ -171,6 +200,11 @@ public class DAOFuncionario implements DAO<Funcionario> {
         return funcionario;
     }
 
+    /**
+     *
+     * @param dado
+     * @return
+     */
     public Funcionario buscarCpf(Funcionario dado) {
         Funcionario funcionario = null;
         try {
@@ -207,7 +241,12 @@ public class DAOFuncionario implements DAO<Funcionario> {
         return funcionario;
     }
     
-        public Funcionario buscarLogin(Funcionario dado) {
+    /**
+     *
+     * @param dado
+     * @return
+     */
+    public Funcionario buscarLogin(Funcionario dado) {
         Funcionario funcionario = null;
         try {
             String querry = "SELECT * from funcionario where email = ? and senha = ?";

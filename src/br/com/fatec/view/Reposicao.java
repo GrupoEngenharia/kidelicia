@@ -336,6 +336,9 @@ public class Reposicao extends javax.swing.JFrame {
     private javax.swing.JTextField txt_qtd;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     *
+     */
     public void limpaCampos() {
         txt_id.setText("");
         txt_preco.setText("");

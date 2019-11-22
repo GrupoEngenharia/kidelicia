@@ -5,10 +5,13 @@
  */
 package br.com.fatec.view;
 
+import br.com.fatec.dao.DAOCliente;
 import br.com.fatec.dao.DAOComanda;
 import br.com.fatec.dao.DAOProduto;
+import br.com.fatec.model.Cliente;
 import br.com.fatec.model.ComandaModel;
 import br.com.fatec.model.Produto;
+import java.util.LinkedList;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,7 +22,9 @@ public class Comanda extends javax.swing.JFrame {
     private ComandaModel comanda;
     private DAOComanda daoComanda;
     private DAOProduto daoProduto;
+    private DAOCliente daoCliente;
     private Produto produto;
+    private Cliente cliente;
     /**
      * Creates new form Comanda
      */
@@ -44,7 +49,7 @@ public class Comanda extends javax.swing.JFrame {
         lbl_comanda = new javax.swing.JLabel();
         txt_comanda = new javax.swing.JTextField();
         lbl_id = new javax.swing.JLabel();
-        txt_id = new javax.swing.JTextField();
+        txtEmailCliente = new javax.swing.JTextField();
         lbl_produto = new javax.swing.JLabel();
         txt_produto = new javax.swing.JTextField();
         txt_mesa = new javax.swing.JTextField();
@@ -109,7 +114,13 @@ public class Comanda extends javax.swing.JFrame {
         });
 
         lbl_id.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
-        lbl_id.setText("ID:");
+        lbl_id.setText("Email Cliente:");
+
+        txtEmailCliente.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEmailClienteFocusLost(evt);
+            }
+        });
 
         lbl_produto.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_produto.setText("Produto:");
@@ -197,42 +208,43 @@ public class Comanda extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_tcomanda, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(lbl_id)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                        .addComponent(lbl_comanda)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(lbl_id)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtEmailCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addGap(27, 27, 27)
+                                                .addComponent(lbl_comanda)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txt_comanda, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(18, 18, 18)
-                                        .addComponent(txt_comanda, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(143, 143, 143)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbl_mesa)
-                                    .addComponent(lbl_qtd))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(lbl_mesa)
+                                            .addComponent(lbl_qtd))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addComponent(txt_qtd, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(50, 50, 50)
+                                                .addComponent(lbl_preco)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(txt_preco, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(txt_mesa, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(txt_qtd, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(50, 50, 50)
-                                        .addComponent(lbl_preco)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txt_preco, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txt_mesa, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(lbl_produto)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt_produto, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35)
-                                .addComponent(btn_adicionar)
-                                .addGap(18, 18, 18)
-                                .addComponent(btn_excluir))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(lbl_tcomanda)
-                                .addGap(203, 203, 203)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(280, Short.MAX_VALUE))
+                                        .addComponent(lbl_produto)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txt_produto, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(35, 35, 35)
+                                        .addComponent(btn_adicionar)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btn_excluir)))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap(260, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,7 +260,7 @@ public class Comanda extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_id)
-                    .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEmailCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_qtd)
                     .addComponent(txt_qtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbl_preco)
@@ -288,7 +300,12 @@ public class Comanda extends javax.swing.JFrame {
         if (validarCampos()){
             JOptionPane.showMessageDialog(rootPane, "Preencha os campos corretamente!!!");
         } else {
-            
+            setComanda();
+            if (daoComanda.inserir(comanda)) {
+                JOptionPane.showMessageDialog(rootPane, "Produto adicionado com sucesso!!!");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Falha ao adicionar o produto!!!");
+            }
         }
     }//GEN-LAST:event_btn_adicionarActionPerformed
 
@@ -327,6 +344,20 @@ public class Comanda extends javax.swing.JFrame {
             preencherGridComanda();
         }
     }//GEN-LAST:event_txt_comandaFocusLost
+
+    private void txtEmailClienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailClienteFocusLost
+        // TODO add your handling code here:
+        if (!txtEmailCliente.getText().equals("")) {
+            cliente = new Cliente();
+            cliente.setEmail(txtEmailCliente.getText());
+            cliente = daoCliente.buscar(cliente);
+            if (cliente == null) {
+                JOptionPane.showMessageDialog(rootPane, "Cliente não possui cadastro!!!");
+                txtEmailCliente.setText("");
+                txtEmailCliente.requestFocus();
+            }
+        }
+    }//GEN-LAST:event_txtEmailClienteFocusLost
 
     /**
      * @param args the command line arguments
@@ -380,24 +411,31 @@ public class Comanda extends javax.swing.JFrame {
     private javax.swing.JLabel lbl_qtd;
     private javax.swing.JLabel lbl_tcomanda;
     private javax.swing.JTable tb_comanda;
+    private javax.swing.JTextField txtEmailCliente;
     private javax.swing.JTextField txt_comanda;
-    private javax.swing.JTextField txt_id;
     private javax.swing.JTextField txt_mesa;
     private javax.swing.JTextField txt_preco;
     private javax.swing.JTextField txt_produto;
     private javax.swing.JTextField txt_qtd;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     *
+     */
     public void preparaFormulario(){
         daoComanda = new DAOComanda();
         daoProduto = new DAOProduto();
+        daoCliente = new DAOCliente();
         limparCamposComanda();
         txt_preco.setEnabled(false);
     }
     
+    /**
+     *
+     */
     public void limparCamposComanda(){
         txt_comanda.setText("");
-        txt_id.setText("");
+        txtEmailCliente.setText("");
         txt_mesa.setText("");
         txt_preco.setText("");
         txt_produto.setText("");
@@ -405,21 +443,33 @@ public class Comanda extends javax.swing.JFrame {
         txt_comanda.requestFocus();
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean validarCampos(){
         if (txt_comanda.getText().equals("") || txt_mesa.getText().equals("") || txt_preco.getText().equals("") ||
-                txt_produto.getText().equals("") || txt_qtd.getText().equals("") || txt_id.getText().equals(""))
+                txt_produto.getText().equals("") || txt_qtd.getText().equals("") || txtEmailCliente.getText().equals(""))
             return true;
         else
             return false;
     }
     
+    /**
+     *
+     */
     public void setComanda(){
-        comanda = new ComandaModel();
-        
+        LinkedList<Produto> produtos = new LinkedList<>();
+        produtos.add(produto);
+        comanda = new ComandaModel();       
         comanda.setIdComanda(Integer.parseInt(txt_comanda.getText()));
-        
+        comanda.setCliente(cliente);
+        comanda.setProdutos(produtos);
     }
     
+    /**
+     *
+     */
     public void preencherGridComanda() {
         //PREENCHER O GRID COM OS ITENS DA COMANDA PESQUISADA
     }

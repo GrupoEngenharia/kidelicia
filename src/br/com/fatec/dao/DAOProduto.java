@@ -20,6 +20,11 @@ import java.util.logging.Logger;
  */
 public class DAOProduto implements DAO<Produto> {
 
+    /**
+     *
+     * @param dado
+     * @return
+     */
     @Override
     public boolean inserir(Produto dado) {
         try {
@@ -44,6 +49,11 @@ public class DAOProduto implements DAO<Produto> {
         return false;
     }
 
+    /**
+     *
+     * @param dado
+     * @return
+     */
     @Override
     public boolean alterar(Produto dado) {
         try {
@@ -70,6 +80,11 @@ public class DAOProduto implements DAO<Produto> {
         return false;
     }
 
+    /**
+     *
+     * @param dado
+     * @return
+     */
     @Override
     public boolean excluir(Produto dado) {
         try {
@@ -94,6 +109,11 @@ public class DAOProduto implements DAO<Produto> {
         return false;
     }
 
+    /**
+     *
+     * @param dado
+     * @return
+     */
     @Override
     public Produto buscar(Produto dado) {
         Produto produto = null;
@@ -124,6 +144,11 @@ public class DAOProduto implements DAO<Produto> {
         return produto;
     }
     
+    /**
+     *
+     * @param dado
+     * @return
+     */
     public Produto buscarNome(Produto dado) {
         Produto produto = new Produto();
         try {
@@ -155,6 +180,11 @@ public class DAOProduto implements DAO<Produto> {
         return produto;
     }
     
+    /**
+     *
+     * @param envi
+     * @return
+     */
     public Produto buscarNomev2(String envi) {
         //igual ao buscarNome, porem, ao invés de receber um produto e pegar o nome apartir dele
         //esse metodo busca o produto 
@@ -186,6 +216,11 @@ public class DAOProduto implements DAO<Produto> {
         return produto;
     }
     
+    /**
+     *
+     * @param envi
+     * @return
+     */
     public ArrayList<Produto> buscarNomev3(String envi) {
         //igual ao buscarNomev2, porem, pega QUALQUER ocorrencia do que vier
         Produto produto = null;

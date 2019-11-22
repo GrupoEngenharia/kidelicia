@@ -428,11 +428,18 @@ public class Cadastro extends javax.swing.JFrame {
     private javax.swing.JPasswordField txt_senha;
     // End of variables declaration//GEN-END:variables
 
+    /**
+     *
+     */
     public void prepararFormulario(){
         dao = new DAOFuncionario();
         limparCampos();
     }
     
+    /**
+     *
+     * @return
+     */
     public boolean validarPreenchimentoCampos(){
         if (txt_celular.getText().equals("") || txt_cpf.getText().equals("") || txt_email.getText().equals("") || txt_nome.getText().equals("") || txt_rg.getText().equals("") || txt_senha.getText().equals("") || (cmb_funcao.getSelectedIndex() == 0))// || (cmb_sexo.getSelectedIndex() == 0))
             return true;
@@ -440,7 +447,9 @@ public class Cadastro extends javax.swing.JFrame {
             return false;
     }
     
-       
+    /**
+     *
+     */
     public void limparCampos(){
         txt_celular.setText("");
         txt_cpf.setText("");
@@ -453,6 +462,9 @@ public class Cadastro extends javax.swing.JFrame {
         txt_cpf.requestFocus();
     }
     
+    /**
+     *
+     */
     public void setFuncionario(){
         funcionario = new Funcionario();
         
@@ -468,6 +480,10 @@ public class Cadastro extends javax.swing.JFrame {
         funcionario.setSenha(txt_senha.getText());
     }
     
+    /**
+     *
+     * @param f
+     */
     public void preencheCamposFuncionario(Funcionario f){
         txt_celular.setText(f.getTelefone());
         txt_cpf.setText(f.getCpf());
