@@ -294,6 +294,30 @@ public class DAOComanda implements DAO<ComandaModel> {
         return false;
     }
 
+    
+    public ComandaModel buscaComanda(ComandaModel comanda){
+        LinkedList<Produto> produto = comanda.getProdutos();
+        try{
+        String querry = "SELECT * from comandaProduto where idComanda = ? and idProduto = ?";
+        Db.abreConexao();
+        PreparedStatement pst = Db.conexao.prepareStatement(querry);
+        pst.setInt(1, comanda.getIdComanda());
+        pst.setInt(2, produto.indexOf(0));
+        ResultSet resp = pst.executeQuery();
+        if(resp.next()){
+            comanda.setIdComanda(resp.getInt("idComanda"));
+            comanda.setStatus(resp.getString("status"));
+        }
+        Db.fecharConexao();
+        return comanda;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOComanda.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAOComanda.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return comanda;
+    }
+    
     public ArrayList<ComandaModel> buscaTodasComandas() {
         ArrayList<ComandaModel> comandas = new ArrayList();
         String querry = "Select idProduto, idComanda, status from ComandaProduto";
@@ -304,8 +328,13 @@ public class DAOComanda implements DAO<ComandaModel> {
             while (resp.next()) {
                 ComandaModel comanda = new ComandaModel();
                 Produto produto = new Produto();
-                comanda.setIdComanda(resp.getInt("idComanda"));
-                //produto.getId(resp.getInt("idProduto"));
+                DAOProduto daoProduto = new DAOProduto();
+                LinkedList<Produto> produtos = new LinkedList();
+                produto.setId(resp.getInt("idProduto"));//pega soment o ID do produto
+                produto = daoProduto.buscar(produto);//busca o resto dos dados do produto(a partir do ID)
+                produtos.add(produto);
+                comanda.setProdutos(produtos);
+                comanda.setIdComanda(resp.getInt("idComanda"));              
                 comanda.setStatus(resp.getString("status"));
                 comandas.add(comanda);
             }
@@ -317,5 +346,31 @@ public class DAOComanda implements DAO<ComandaModel> {
             Logger.getLogger(DAOComanda.class.getName()).log(Level.SEVERE, null, ex);
         }
         return comandas;
+    }
+    
+    public boolean alterarStatus(ComandaModel dado) {
+        try {
+            String querry = "UPDATE ComandaProduto set status=? where idComanda = ? and idProduto = ?";
+            Db.abreConexao();
+            PreparedStatement pst = Db.conexao.prepareStatement(querry);
+            Produto produto = dado.getProdutos().get(0);
+            pst.setString(1, dado.getStatus());
+            pst.setInt(2, dado.getIdComanda());
+            pst.setInt(3, produto.getId());
+            pst.executeUpdate();
+            Db.fecharConexao();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DAOFuncionario.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                Db.fecharConexao();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOComanda.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return false;
     }
 }

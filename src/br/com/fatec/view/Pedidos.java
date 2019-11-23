@@ -5,7 +5,13 @@
  */
 package br.com.fatec.view;
 
+import br.com.fatec.dao.DAOComanda;
+import br.com.fatec.model.ComandaModel;
 import br.com.fatec.model.Produto;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,6 +25,7 @@ public class Pedidos extends javax.swing.JFrame {
     public Pedidos() {
         initComponents();
     }
+    ArrayList<ComandaModel> comandas = new ArrayList();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,6 +56,11 @@ public class Pedidos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(950, 710));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(51, 153, 255));
@@ -117,10 +129,20 @@ public class Pedidos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tb_comanda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tb_comandaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tb_comanda);
 
         btn_salvar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_salvar.setText("SALVAR");
+        btn_salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_salvarActionPerformed(evt);
+            }
+        });
 
         lbl_email2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_email2.setText("Status:");
@@ -129,7 +151,7 @@ public class Pedidos extends javax.swing.JFrame {
         lbl_comandas.setText("Comandas:");
 
         cmb_filtro.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        cmb_filtro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todas", "Em Andamento", "Finalizada", "Pendente" }));
+        cmb_filtro.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Todas", "Em Andamento", "Finalizado", "Pendente" }));
         cmb_filtro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmb_filtroActionPerformed(evt);
@@ -236,24 +258,54 @@ public class Pedidos extends javax.swing.JFrame {
         // TODO add your handling code here:
         String escolha = cmb_filtro.getItemAt(cmb_filtro.getSelectedIndex());
 
+        DefaultTableModel modelo = (DefaultTableModel) tb_comanda.getModel();
+        modelo.setRowCount(0);
+
         switch (escolha) {
             case "Todas":
                 //deve trazer ID(Produto), NomeProduto(Produto), Comanda(ComandaProduto) e Status(ComandaProduto)
-                Produto produto = new Produto();
-                Comanda comanda = new Comanda();
-                
+
+                comandas = mostrarFiltrado("Todas");//envia o filto
+
+                for (int i = 0; i < comandas.size(); i++) {//coloca na tabela os dados (ja filtrados)
+                    ComandaModel comanda = comandas.get(i);
+                    Produto produto = comanda.getProdutos().get(0);
+                    modelo = (DefaultTableModel) tb_comanda.getModel();
+                    modelo.addRow(new Object[]{produto.getId(), produto.getNomeProduto(), comanda.getIdComanda(), comanda.getStatus()});
+                }
                 break;
 
             case "Em Andamento":
-                System.out.println("voce escolheu : Em Andamento");
+                comandas = mostrarFiltrado("Em Andamento");//envia o filto
+
+                for (int i = 0; i < comandas.size(); i++) {//coloca na tabela os dados (ja filtrados)
+                    ComandaModel comanda = comandas.get(i);
+                    Produto produto = comanda.getProdutos().get(0);
+                    modelo = (DefaultTableModel) tb_comanda.getModel();
+                    modelo.addRow(new Object[]{produto.getId(), produto.getNomeProduto(), comanda.getIdComanda(), comanda.getStatus()});
+                }
                 break;
-                
-            case "Finalizada":
-                System.out.println("voce escolheu : Finalizada");
+
+            case "Finalizado":
+                comandas = mostrarFiltrado("Finalizado");//envia o filto
+
+                for (int i = 0; i < comandas.size(); i++) {//coloca na tabela os dados (ja filtrados)
+                    ComandaModel comanda = comandas.get(i);
+                    Produto produto = comanda.getProdutos().get(0);
+                    modelo = (DefaultTableModel) tb_comanda.getModel();
+                    modelo.addRow(new Object[]{produto.getId(), produto.getNomeProduto(), comanda.getIdComanda(), comanda.getStatus()});
+                }
                 break;
-                    
+
             case "Pendente":
-                System.out.println("voce escolheu : Pendente");
+                comandas = mostrarFiltrado("Pendente");//envia o filto
+
+                for (int i = 0; i < comandas.size(); i++) {//coloca na tabela os dados (ja filtrados)
+                    ComandaModel comanda = comandas.get(i);
+                    Produto produto = comanda.getProdutos().get(0);
+                    modelo = (DefaultTableModel) tb_comanda.getModel();
+                    modelo.addRow(new Object[]{produto.getId(), produto.getNomeProduto(), comanda.getIdComanda(), comanda.getStatus()});
+                }
                 break;
         }
 
@@ -263,6 +315,81 @@ public class Pedidos extends javax.swing.JFrame {
     private void cmb_status1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_status1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmb_status1ActionPerformed
+
+    private void tb_comandaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tb_comandaMouseClicked
+        // TODO add your handling code here:
+        txt_id.setText(String.valueOf(tb_comanda.getValueAt(tb_comanda.getSelectedRow(), 0)));
+        txt_produto.setText(String.valueOf(tb_comanda.getValueAt(tb_comanda.getSelectedRow(), 1)));
+        txt_comanda.setText(String.valueOf(tb_comanda.getValueAt(tb_comanda.getSelectedRow(), 2)));
+
+        String filtro = String.valueOf(tb_comanda.getValueAt(tb_comanda.getSelectedRow(), 3));
+
+        switch (filtro) {
+            case "Em Andamento":
+                cmb_status1.setSelectedIndex(1);
+                break;
+
+            case "Finalizado":
+                cmb_status1.setSelectedIndex(2);
+                break;
+
+            case "Pendente":
+                cmb_status1.setSelectedIndex(3);
+                break;
+        }
+    }//GEN-LAST:event_tb_comandaMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        DefaultTableModel modelo = (DefaultTableModel) tb_comanda.getModel();
+        modelo.setRowCount(0);
+        comandas = mostrarFiltrado("Todas");//envia o filto
+
+        for (int i = 0; i < comandas.size(); i++) {//coloca na tabela os dados (ja filtrados)
+            ComandaModel comanda = comandas.get(i);
+            Produto produto = comanda.getProdutos().get(0);
+            modelo = (DefaultTableModel) tb_comanda.getModel();
+            modelo.addRow(new Object[]{produto.getId(), produto.getNomeProduto(), comanda.getIdComanda(), comanda.getStatus()});
+        }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
+        // TODO add your handling code here:   
+        if (cmb_status1.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(rootPane, "Selecione uma opção !");
+        } else {
+            DAOComanda daoComanda = new DAOComanda();
+            ComandaModel comanda = new ComandaModel();
+            Produto produto = new Produto();
+            LinkedList<Produto> produtos = new LinkedList();
+
+            produto.setId(Integer.parseInt(txt_id.getText()));//atribui ID do produto
+            produto.setNomeProduto(txt_produto.getText());//atribui o nome do produto
+            produtos.add(produto);//adiciona produto em peodutos(LinkedList)
+
+            comanda.setIdComanda(Integer.parseInt(txt_comanda.getText()));
+            comanda.setProdutos(produtos);//adiciona o produtos(linked) a comanda
+            comanda.setStatus(cmb_status1.getItemAt(cmb_status1.getSelectedIndex()));//atribui o status ESCOLHIDO NA COMBO       
+            daoComanda.alterarStatus(daoComanda.buscaComanda(comanda));//Altera o status no Banco e Procura comanda(status pq o resto ja tem...)
+            JOptionPane.showMessageDialog(rootPane, "Alteração realizada com sucesso !");
+
+            /*TABELA VOLTA A SER O QUE ERA */
+            
+            DefaultTableModel modelo = (DefaultTableModel) tb_comanda.getModel();
+            modelo.setRowCount(0);
+            comandas = mostrarFiltrado(cmb_status1.getItemAt(cmb_status1.getSelectedIndex()));//mostra o item que alterou
+            cmb_filtro.setSelectedIndex(cmb_status1.getSelectedIndex());
+
+            /*
+            for (int i = 0; i < comandas.size(); i++) {//coloca na tabela os dados (ja filtrados)
+                comanda = comandas.get(i);
+                produto = comanda.getProdutos().get(0);
+                modelo = (DefaultTableModel) tb_comanda.getModel();
+                modelo.addRow(new Object[]{produto.getId(), produto.getNomeProduto(), comanda.getIdComanda(), comanda.getStatus()});
+            }
+            */
+        }
+    }//GEN-LAST:event_btn_salvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -278,32 +405,21 @@ public class Pedidos extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                
 
-}
+                }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Pedidos.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } 
-
-catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Pedidos.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } 
-
-catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Pedidos.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } 
-
-catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Pedidos.class  
-
-.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Pedidos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Pedidos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Pedidos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Pedidos.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -315,6 +431,20 @@ catch (javax.swing.UnsupportedLookAndFeelException ex) {
             }
         });
     }
+
+    public ArrayList<ComandaModel> mostrarFiltrado(String filtro) {
+        DAOComanda daoComanda = new DAOComanda();
+        ArrayList<ComandaModel> comandas = daoComanda.buscaTodasComandas();//adiciona todas as comandas do sistema
+        ArrayList<ComandaModel> filtrado = new ArrayList();
+        for (int i = 0; i < comandas.size(); i++) {
+            ComandaModel comanda = comandas.get(i);
+            if (comanda.getStatus().equals(filtro) || "Todas".equals(filtro)) {
+                filtrado.add(comanda);//adiciona somente as comandas com filtro
+            }
+        }
+        return filtrado;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_salvar;

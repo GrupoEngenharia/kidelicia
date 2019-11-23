@@ -78,7 +78,7 @@ public class Login extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 1000, 84);
+        jPanel1.setBounds(0, 0, 1000, 80);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 0));
 
