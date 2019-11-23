@@ -429,7 +429,7 @@ public class Cadastro extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     /**
-     *
+     *<b>Prepara o formulário antes de ser instanciado</b>
      */
     public void prepararFormulario(){
         dao = new DAOFuncionario();
@@ -437,7 +437,7 @@ public class Cadastro extends javax.swing.JFrame {
     }
     
     /**
-     *
+     * <b>Valida se os campos do formulário estão preenchidos</b>
      * @return
      */
     public boolean validarPreenchimentoCampos(){
@@ -448,7 +448,7 @@ public class Cadastro extends javax.swing.JFrame {
     }
     
     /**
-     *
+     * <b>Limpa os campos do formulário</b>
      */
     public void limparCampos(){
         txt_celular.setText("");
@@ -463,7 +463,7 @@ public class Cadastro extends javax.swing.JFrame {
     }
     
     /**
-     *
+     *<b>Seta os atributos de um objeto funcionário</b>
      */
     public void setFuncionario(){
         funcionario = new Funcionario();
@@ -481,7 +481,7 @@ public class Cadastro extends javax.swing.JFrame {
     }
     
     /**
-     *
+     * <b>Preenche os campos do formulário com os dados de um funcionário</b>
      * @param f
      */
     public void preencheCamposFuncionario(Funcionario f){

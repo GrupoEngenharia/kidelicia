@@ -17,7 +17,7 @@ public class Cliente {
     }
 
     /**
-     *
+     * <b>Instancia um Cliente com todos os parametros</b>
      * @param idCliente
      * @param nome
      * @param telefone

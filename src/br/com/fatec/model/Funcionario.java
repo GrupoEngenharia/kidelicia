@@ -18,7 +18,7 @@ public class Funcionario {
     private String dataNasc;
 
     /**
-     *
+     * <b>Instancia um funcionário com todos os parâmetros</b>
      * @param id
      * @param nome
      * @param email

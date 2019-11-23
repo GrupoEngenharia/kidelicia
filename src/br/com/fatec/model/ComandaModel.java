@@ -14,7 +14,7 @@ public class ComandaModel {
     private String status;
 
     /**
-     *
+     * <b>Instancia uma comanda com todos os parâmetros</b>
      * @param idComanda
      * @param cliente
      * @param produtos
@@ -96,7 +96,7 @@ public class ComandaModel {
     }
     
     /**
-     *
+     * <b>Verifica se a comanda possui um produto</b>
      * @param produto
      * @return
      */
@@ -105,7 +105,7 @@ public class ComandaModel {
     }
     
     /**
-     *
+     * <b>Remove um produto da comanda</b>
      * @param produto
      */
     public void remover(Produto produto){
@@ -114,7 +114,7 @@ public class ComandaModel {
     }
     
     /**
-     *
+     *<b>Remove um produto da comanda</b>
      * @param produto
      */
     public void adicionar(Produto produto){
@@ -122,7 +122,7 @@ public class ComandaModel {
     }
     
     /**
-     *
+     * <b>Remove a quantidade desejada de um produto</b>
      * @param produto
      * @param qtd
      */
