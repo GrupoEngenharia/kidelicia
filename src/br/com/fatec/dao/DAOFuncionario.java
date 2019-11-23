@@ -16,8 +16,7 @@ public class DAOFuncionario implements DAO<Funcionario> {
     
     /**
      *
-     * @param dado
-     * @return
+     * <b> Insere um funcionario no banco </b>
      */
     @Override
     public boolean inserir(Funcionario dado) {
@@ -56,8 +55,7 @@ public class DAOFuncionario implements DAO<Funcionario> {
 
     /**
      *
-     * @param dado
-     * @return
+     * <b> altera os dados(nome, email, login, senha, funcao, telefone, sexo e rg) de um funcionario no sistema </b>
      */
     @Override
     public boolean alterar(Funcionario dado) {
@@ -93,8 +91,7 @@ public class DAOFuncionario implements DAO<Funcionario> {
 
     /**
      *
-     * @param dado
-     * @return
+     * <b> Exclui um funcionario do banco </b>
      */
     @Override
     public boolean excluir(Funcionario dado) {
@@ -121,8 +118,7 @@ public class DAOFuncionario implements DAO<Funcionario> {
 
     /**
      *
-     * @param dado
-     * @return
+     * <b> busca os dados(nome, email, login, senha, funcao, telefone, sexo e rg) de um funcionario no banco </b>
      */
     @Override
     public Funcionario buscar(Funcionario dado) {
@@ -162,8 +158,7 @@ public class DAOFuncionario implements DAO<Funcionario> {
 
     /**
      *
-     * @param dado
-     * @return
+     * <b> busca os dados de um funcionario no banco, a partir de sua funçao </b>
      */
     public Funcionario buscarFuncao(Funcionario dado) {
         Funcionario funcionario = null;
@@ -202,8 +197,7 @@ public class DAOFuncionario implements DAO<Funcionario> {
 
     /**
      *
-     * @param dado
-     * @return
+     * <b> busca os dados de um funcionario no banco, a partir de seu CPF </b>
      */
     public Funcionario buscarCpf(Funcionario dado) {
         Funcionario funcionario = null;
@@ -243,8 +237,7 @@ public class DAOFuncionario implements DAO<Funcionario> {
     
     /**
      *
-     * @param dado
-     * @return
+     * <b> busca os dados de um funcionario no banco, a partir de seu email e senha </b>
      */
     public Funcionario buscarLogin(Funcionario dado) {
         Funcionario funcionario = null;

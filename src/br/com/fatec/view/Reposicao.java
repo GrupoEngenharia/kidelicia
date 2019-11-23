@@ -337,6 +337,7 @@ public class Reposicao extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     /**
+     * <b> Altera todas os campos para "" </b>
      *
      */
     public void limpaCampos() {
@@ -348,6 +349,10 @@ public class Reposicao extends javax.swing.JFrame {
         txt_id.requestFocus();
     }
     
+    /**
+     * 
+     * <b> Busca todos os dados de produto um estoque </b>
+     */
     public Estoque busca(){
         Estoque estoque = new Estoque();
         Produto produto = new Produto();

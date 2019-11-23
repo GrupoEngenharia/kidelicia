@@ -432,6 +432,10 @@ public class Pedidos extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * 
+     * <b> Devovlve uma lista de acordo com o filtro imposto no status </b>
+     */
     public ArrayList<ComandaModel> mostrarFiltrado(String filtro) {
         DAOComanda daoComanda = new DAOComanda();
         ArrayList<ComandaModel> comandas = daoComanda.buscaTodasComandas();//adiciona todas as comandas do sistema

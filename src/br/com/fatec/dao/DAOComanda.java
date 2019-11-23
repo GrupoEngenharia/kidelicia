@@ -26,8 +26,7 @@ public class DAOComanda implements DAO<ComandaModel> {
 
     /**
      *
-     * @param dado
-     * @return
+     * <b> Insere uma comanda no banco(idCliente e ID da Comanda) </b>
      */
     @Override
     public boolean inserir(ComandaModel dado) {
@@ -56,6 +55,7 @@ public class DAOComanda implements DAO<ComandaModel> {
 
     /**
      *
+     * <b> altera um cliente no banco (status) </b>
      * @param dado
      * @return
      */
@@ -86,8 +86,7 @@ public class DAOComanda implements DAO<ComandaModel> {
 
     /**
      *
-     * @param dado
-     * @return
+     * <b> Deleta um cliente do banco </b>
      */
     @Override
     public boolean excluir(ComandaModel dado) {
@@ -118,9 +117,7 @@ public class DAOComanda implements DAO<ComandaModel> {
     }
 
     /**
-     *
-     * @param dado
-     * @return
+     * <b> Busca uma comanda apartir do ID do cliente </b>
      */
     @Override
     public ComandaModel buscar(ComandaModel dado) {
@@ -157,7 +154,7 @@ public class DAOComanda implements DAO<ComandaModel> {
 
     /**
      *
-     * @param comanda
+     * <b> adiciona um pedido ma comanda do cliente </b>
      */
     public void ColocarProdutos(ComandaModel comanda) {
         try {
@@ -185,8 +182,7 @@ public class DAOComanda implements DAO<ComandaModel> {
 
     /**
      *
-     * @param IdComanda
-     * @return
+     * <b> Busca um pedido(produto) em uma comanda </b>
      */
     public LinkedList<Produto> BuscarProdutos(int IdComanda) {
 
@@ -218,9 +214,7 @@ public class DAOComanda implements DAO<ComandaModel> {
 
     /**
      *
-     * @param dado
-     * @param produto
-     * @return
+     * <b> busca um pedido(produto em uma comanda, a quantidade pedida, e o status inicial </b>
      */
     public boolean InserirProduto(ComandaModel dado, Produto produto) {
         try {
@@ -248,6 +242,10 @@ public class DAOComanda implements DAO<ComandaModel> {
         return false;
     }
 
+    /**
+     * 
+     * <b> insere uma comanda no banco </b> 
+     */
     public boolean inserirComandaCliente(ComandaModel dado) {
         try {
             String querry = "INSERT INTO Comanda values (?,?)";
@@ -272,6 +270,10 @@ public class DAOComanda implements DAO<ComandaModel> {
         return false;
     }
 
+    /**
+     * 
+     * <b> exclui um pedido da comanda </b>
+     */
     public boolean excluirProdutoComanda(ComandaModel dado, Produto produto) {
         String querry = "delete from bd_lanchonete.comandaproduto where idComanda = ? and idproduto = ? limit 1";
         try {
@@ -294,7 +296,10 @@ public class DAOComanda implements DAO<ComandaModel> {
         return false;
     }
 
-    
+    /**
+     * 
+     * <b> busca os dados de um pedido(ID, nome e status do produto) </b> 
+     */
     public ComandaModel buscaComanda(ComandaModel comanda){
         LinkedList<Produto> produto = comanda.getProdutos();
         try{
@@ -318,6 +323,10 @@ public class DAOComanda implements DAO<ComandaModel> {
         return comanda;
     }
     
+    /**
+     * 
+     * <b> Busca todos os pedidos de todas as comandas </b>
+     */
     public ArrayList<ComandaModel> buscaTodasComandas() {
         ArrayList<ComandaModel> comandas = new ArrayList();
         String querry = "Select idProduto, idComanda, status from ComandaProduto";
@@ -348,6 +357,10 @@ public class DAOComanda implements DAO<ComandaModel> {
         return comandas;
     }
     
+    /**
+     * 
+     * <b> altera o status do produto em uma comanda </b> 
+     */
     public boolean alterarStatus(ComandaModel dado) {
         try {
             String querry = "UPDATE ComandaProduto set status=? where idComanda = ? and idProduto = ?";

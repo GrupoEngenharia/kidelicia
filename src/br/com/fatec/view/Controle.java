@@ -237,12 +237,20 @@ public class Controle extends javax.swing.JFrame {
         });
     }
     
+    /**
+     * 
+     * <b> retorna um lista com todos os produtos no estoque </b>
+     */
     public ArrayList<Estoque> produtosLista(){
         DAOEstoque daoEstoque = new DAOEstoque();
         estoques = daoEstoque.BuscarTodos();
         return estoques;
     }
     
+    /**
+     * 
+     * <b> pega a lista com todos os produtos e retorna a mesma lista apenas com os itens separados por um filtro escolhido </b> 
+     */
     public ArrayList<Estoque> filtrar (ArrayList<Estoque> estoques, String filtro){
         ArrayList<Estoque> lista = new ArrayList();
         for (int i=0; i<estoques.size(); i++) {
@@ -254,6 +262,10 @@ public class Controle extends javax.swing.JFrame {
         return lista;
     }
     
+    /**
+     * 
+     * <b> pega a lista de produto e coloca no grid(tb_reporestoque) </b> 
+     */
     public void atualizar(ArrayList<Estoque> estoques){
         DefaultTableModel modelo = (DefaultTableModel) tb_reporestoque.getModel();
         modelo.setRowCount(0);

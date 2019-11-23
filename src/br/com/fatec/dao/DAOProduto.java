@@ -22,8 +22,7 @@ public class DAOProduto implements DAO<Produto> {
 
     /**
      *
-     * @param dado
-     * @return
+     * <b> Insere um Produto no Banco </b>
      */
     @Override
     public boolean inserir(Produto dado) {
@@ -51,8 +50,7 @@ public class DAOProduto implements DAO<Produto> {
 
     /**
      *
-     * @param dado
-     * @return
+     * <b> Altera os dados(nome e preço) de um produto no banco </b>
      */
     @Override
     public boolean alterar(Produto dado) {
@@ -82,8 +80,7 @@ public class DAOProduto implements DAO<Produto> {
 
     /**
      *
-     * @param dado
-     * @return
+     * <b> exclui um produto no banco </b>
      */
     @Override
     public boolean excluir(Produto dado) {
@@ -111,8 +108,7 @@ public class DAOProduto implements DAO<Produto> {
 
     /**
      *
-     * @param dado
-     * @return
+     * <b> busca us dados de um produto no banco, a partir do ID </b>
      */
     @Override
     public Produto buscar(Produto dado) {
@@ -146,8 +142,7 @@ public class DAOProduto implements DAO<Produto> {
     
     /**
      *
-     * @param dado
-     * @return
+     * <b> busca us dados de um produto no banco, a partir do nome </b>
      */
     public Produto buscarNome(Produto dado) {
         Produto produto = new Produto();
@@ -182,8 +177,7 @@ public class DAOProduto implements DAO<Produto> {
     
     /**
      *
-     * @param envi
-     * @return
+     * <b> busca us dados de um produto no banco, a partir de um caractere (que pode estar em qualquer lugar do nome) </b>
      */
     public Produto buscarNomev2(String envi) {
         //igual ao buscarNome, porem, ao invés de receber um produto e pegar o nome apartir dele
@@ -218,8 +212,7 @@ public class DAOProduto implements DAO<Produto> {
     
     /**
      *
-     * @param envi
-     * @return
+     * <b> busca us dados de um produto no banco, a partir de uma palavra (que pode estar em qualquer lugar do nome) </b>
      */
     public ArrayList<Produto> buscarNomev3(String envi) {
         //igual ao buscarNomev2, porem, pega QUALQUER ocorrencia do que vier

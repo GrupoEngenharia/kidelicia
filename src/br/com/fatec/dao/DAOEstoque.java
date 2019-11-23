@@ -23,8 +23,7 @@ public class DAOEstoque implements DAO<Estoque> {
 
     /**
      *
-     * @param dado
-     * @return
+     * <b> insere um produto no banco </b>
      */
     @Override
     public boolean inserir(Estoque dado) {
@@ -51,8 +50,7 @@ public class DAOEstoque implements DAO<Estoque> {
 
     /**
      *
-     * @param dado
-     * @return
+     * <b> altera a quantidade de um produto no estoque
      */
     @Override
     public boolean alterar(Estoque dado) {
@@ -79,8 +77,7 @@ public class DAOEstoque implements DAO<Estoque> {
 
     /**
      *
-     * @param dado
-     * @return
+     * <b> exclui um produto do estoque </b>
      */
     @Override
     public boolean excluir(Estoque dado) {//Exclui um produto da tabela estoque
@@ -108,8 +105,7 @@ public class DAOEstoque implements DAO<Estoque> {
 
     /**
      *
-     * @param dado
-     * @return
+     * <b> busca os dados(quantidade e ID do produto) de um produto no estue </b>
      */
     @Override
     public Estoque buscar(Estoque dado) {
@@ -147,8 +143,7 @@ public class DAOEstoque implements DAO<Estoque> {
 
     /**
      *
-     * @param dado
-     * @return
+     * <b> Busca os dados(ID e quantidade) de um produto no Estoque </b>
      */
     public Estoque BuscaProduto(Estoque dado) {//recebe String para pesquisa
         Estoque estoque = new Estoque();
@@ -160,7 +155,6 @@ public class DAOEstoque implements DAO<Estoque> {
             Produto produto = new Produto();
             produto = daoProduto.buscarNome(dado.getProduto());
             estoque.setProduto(produto);
-            //estoque.setProduto(daoProduto.buscarNome(dado.getProduto()));//busca(e coloca no objeto estoque) um produto pesquisado
             pst.setInt(1, estoque.getProduto().getId());//caso seja encontrado um produto, coloca o id dele da querry
             ResultSet resp = pst.executeQuery();
             if (resp.next()) {
@@ -182,7 +176,7 @@ public class DAOEstoque implements DAO<Estoque> {
 
     /**
      *
-     * @return
+     * <b> busca os dados(ID, nome e preço) de todos os produtos no estoque </b>
      */
     public ArrayList<Estoque> BuscarTodos() {
         ArrayList<Estoque> EstoqueList = new ArrayList();

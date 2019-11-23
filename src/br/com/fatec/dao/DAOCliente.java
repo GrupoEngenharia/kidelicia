@@ -21,8 +21,7 @@ public class DAOCliente implements DAO<Cliente> {
 
     /**
      *
-     * @param dado
-     * @return
+     * <b> Insere um cliente no banco com os valores (nome, telefone e email) </b>
      */
     @Override
     public boolean inserir(Cliente dado) {
@@ -51,8 +50,7 @@ public class DAOCliente implements DAO<Cliente> {
 
     /**
      *
-     * @param dado
-     * @return
+     * <b> Altera no banco nome e telefone tendo como pararametro de busca o email </b>
      */
     @Override
     public boolean alterar(Cliente dado) {
@@ -81,8 +79,7 @@ public class DAOCliente implements DAO<Cliente> {
 
     /**
      *
-     * @param dado
-     * @return
+     * <b> Exclui um cliente do banco, busca pelo ID </b>
      */
     @Override
     public boolean excluir(Cliente dado) {
@@ -108,8 +105,7 @@ public class DAOCliente implements DAO<Cliente> {
 
     /**
      *
-     * @param dado
-     * @return
+     * <b> busca todos os dados de um cliente do banco, buscando pelo ID </b>
      */
     @Override
     public Cliente buscar(Cliente dado) {
