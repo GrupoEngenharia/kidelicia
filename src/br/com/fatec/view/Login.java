@@ -245,7 +245,7 @@ public class Login extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     /**
-     *
+     * 
      */
     public void limpaCampos(){
     txt_email.setText("");
@@ -254,7 +254,7 @@ public class Login extends javax.swing.JFrame {
 }
 
     /**
-     *
+     *<b>Valida se os campos do formulário estão preenchidos</b>
      * @return
      */
     public boolean validarPreenchimentoCamposLogin(){
@@ -265,7 +265,7 @@ public class Login extends javax.swing.JFrame {
 }
 
     /**
-     *
+     * <b>Prepara o formulário antes de ser instanciado</b>
      */
     public void preparaFormulario(){
     dao = new DAOFuncionario();
@@ -276,7 +276,7 @@ public class Login extends javax.swing.JFrame {
 }
 
     /**
-     *
+     * <b>Seta os atributos de um objeto funcionário</b>
      */
     public void setFuncionario(){
     funcionario = new Funcionario();
@@ -286,7 +286,7 @@ public class Login extends javax.swing.JFrame {
 }
 
     /**
-     *
+     * <b>Define o perfil do funcionário através do retorno de um SELECT</b>
      * @param funcao
      */
     public void definirPerfil(String funcao){

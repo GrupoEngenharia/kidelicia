@@ -218,7 +218,7 @@ public class CadastroCliente extends javax.swing.JFrame {
             if (clienteAux == null)
                 JOptionPane.showMessageDialog(rootPane, "Cliente não existe");
             else {
-                preencheCamposFuncionario(clienteAux);
+                preencheCamposCliente(clienteAux);
             }
         }
         
@@ -310,7 +310,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     /**
-     *
+     * <b>Prepara o formulário antes de ser instanciado</b>
      */
     public void prepararFormulario(){
         dao = new DAOCliente();
@@ -318,7 +318,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     }
     
     /**
-     *
+     * <b>Valida se os campos do formulário estão preenchidos</b>
      * @return
      */
     public boolean validarPreenchimentoCampos(){
@@ -329,7 +329,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     }
     
     /**
-     *
+     * <b>Limpa os campos do formulário</b>
      */
     public void limparCampos(){
         txt_email.setText("");
@@ -338,7 +338,7 @@ public class CadastroCliente extends javax.swing.JFrame {
     }
     
     /**
-     *
+     *<b>Seta os atributos de um objeto cliente</b>
      */
     public void setCliente(){
         cliente = new Cliente();
@@ -349,10 +349,10 @@ public class CadastroCliente extends javax.swing.JFrame {
     }
     
     /**
-     *
+     * <b>Preenche os campos do formulário com os dados de um cliente</b>
      * @param c
      */
-    public void preencheCamposFuncionario(Cliente c){
+    public void preencheCamposCliente(Cliente c){
         txt_telefone.setText(c.getTelefone());
         txt_email.setText(c.getEmail());
         txt_nome.setText(c.getNome());

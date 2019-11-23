@@ -498,7 +498,7 @@ public class Comanda extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     /**
-     *
+     * <b>Prepara o formulário antes de ser instanciado</b>
      */
     public void preparaFormulario(){
         daoComanda = new DAOComanda();
@@ -510,7 +510,7 @@ public class Comanda extends javax.swing.JFrame {
     }
     
     /**
-     *
+     * <b>Limpa os campos do formulário</b>
      */
     public void limparCamposComanda(){
         txt_comanda.setText("");
@@ -523,7 +523,7 @@ public class Comanda extends javax.swing.JFrame {
     }
 
     /**
-     *
+     *<b>Valida se os campos do formulário estão preenchidos</b>
      * @return
      */
     public boolean validarCampos(){
@@ -535,7 +535,7 @@ public class Comanda extends javax.swing.JFrame {
     }
     
     /**
-     *
+     * <b>Seta os atributos de um objeto comanda</b>
      */
     public void setComanda(){
         LinkedList<Produto> produtos = new LinkedList<>();
@@ -548,7 +548,7 @@ public class Comanda extends javax.swing.JFrame {
     }
     
     /**
-     *
+     * <b>Preenche o GRID com os itens de uma comanda</b>
      */
     public void preencherGridComanda() {
         //PREENCHER O GRID COM OS ITENS DA COMANDA PESQUISADA
