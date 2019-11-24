@@ -50,7 +50,8 @@ public class DAOEstoque implements DAO<Estoque> {
 
     /**
      *
-     * <b> altera a quantidade de um produto no estoque
+     * <b> altera a quantidade de um produto no estoque </b>
+     * 
      */
     @Override
     public boolean alterar(Estoque dado) {
