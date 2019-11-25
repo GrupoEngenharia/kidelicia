@@ -14,7 +14,8 @@ public class Administracao extends javax.swing.JFrame {
     
     private Relatorio relatorio;
     private Cardapio cardapio;
-    private Reposicao estoque;
+    private Controle estoque;
+    private CadastroCliente cadastro;
     /**
      * Creates new form Comanda
      */
@@ -39,6 +40,7 @@ public class Administracao extends javax.swing.JFrame {
         btn_estoque = new javax.swing.JButton();
         btn_cadastro = new javax.swing.JButton();
         btn_cadarpio = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(950, 710));
@@ -97,12 +99,24 @@ public class Administracao extends javax.swing.JFrame {
 
         btn_cadastro.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btn_cadastro.setText("CADASTRO");
+        btn_cadastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cadastroActionPerformed(evt);
+            }
+        });
 
         btn_cadarpio.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         btn_cadarpio.setText("CADÁRPIO");
         btn_cadarpio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_cadarpioActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("SAIR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -123,7 +137,10 @@ public class Administracao extends javax.swing.JFrame {
                             .addComponent(btn_cadarpio)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(369, 369, 369)
-                        .addComponent(lbl_pedido)))
+                        .addComponent(lbl_pedido))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(jButton1)))
                 .addContainerGap(335, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -139,7 +156,9 @@ public class Administracao extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_estoque)
                     .addComponent(btn_cadarpio))
-                .addContainerGap(246, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(58, 58, 58))
         );
 
         getContentPane().add(jPanel2);
@@ -161,7 +180,7 @@ public class Administracao extends javax.swing.JFrame {
         // TODO add your handling code here:
         estoque = null;
         if (estoque == null){
-            estoque = new Reposicao();
+            estoque = new Controle();
             estoque.setVisible(true);
         }
     }//GEN-LAST:event_btn_estoqueActionPerformed
@@ -174,6 +193,22 @@ public class Administracao extends javax.swing.JFrame {
             cardapio.setVisible(true);
         }
     }//GEN-LAST:event_btn_cadarpioActionPerformed
+
+    private void btn_cadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cadastroActionPerformed
+        // TODO add your handling code here:
+        cadastro = null;
+        if (cadastro == null){
+            cadastro = new CadastroCliente();
+            cadastro.setVisible(true);
+        }
+    }//GEN-LAST:event_btn_cadastroActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        Login login = new Login();
+        login.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,6 +253,7 @@ public class Administracao extends javax.swing.JFrame {
     private javax.swing.JButton btn_cadastro;
     private javax.swing.JButton btn_estoque;
     private javax.swing.JButton btn_relatorio;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbl_kidelicia;

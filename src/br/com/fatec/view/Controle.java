@@ -116,6 +116,11 @@ public class Controle extends javax.swing.JFrame {
 
         btn_salvar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_salvar.setText("REPOR ESTOQUE");
+        btn_salvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_salvarActionPerformed(evt);
+            }
+        });
 
         lbl_comandas.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_comandas.setText("Produto:");
@@ -206,7 +211,16 @@ public class Controle extends javax.swing.JFrame {
 
     private void btn_salvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvar1ActionPerformed
         // TODO add your handling code here:
+        
+        this.setVisible(false);
     }//GEN-LAST:event_btn_salvar1ActionPerformed
+
+    private void btn_salvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvarActionPerformed
+        // TODO add your handling code here:
+        Reposicao reposicao = new Reposicao();
+        reposicao.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btn_salvarActionPerformed
 
     /**
      * @param args the command line arguments

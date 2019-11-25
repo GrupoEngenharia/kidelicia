@@ -142,6 +142,11 @@ public class Cadastro extends javax.swing.JFrame {
 
         btn_voltar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_voltar.setText("VOLTAR");
+        btn_voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_voltarActionPerformed(evt);
+            }
+        });
 
         try {
             txt_cpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -295,7 +300,7 @@ public class Cadastro extends javax.swing.JFrame {
         );
 
         getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 80, 980, 590);
+        jPanel2.setBounds(20, 90, 980, 590);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -362,6 +367,11 @@ public class Cadastro extends javax.swing.JFrame {
     private void txt_cpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cpfActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_cpfActionPerformed
+
+    private void btn_voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_voltarActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_btn_voltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -457,6 +467,7 @@ public class Cadastro extends javax.swing.JFrame {
         txt_nome.setText("");
         txt_rg.setText("");
         txt_senha.setText("");
+        txt_login.setText("");
         cmb_funcao.setSelectedIndex(0);
         cmb_sexo.setSelectedIndex(0);
         txt_cpf.requestFocus();

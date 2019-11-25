@@ -125,6 +125,11 @@ public class CadastroCliente extends javax.swing.JFrame {
 
         btn_voltar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_voltar.setText("VOLTAR");
+        btn_voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_voltarActionPerformed(evt);
+            }
+        });
 
         btnBuscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnBuscar.setText("BUSCAR");
@@ -253,6 +258,12 @@ public class CadastroCliente extends javax.swing.JFrame {
         
         limparCampos();
     }//GEN-LAST:event_btn_alterarActionPerformed
+
+    private void btn_voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_voltarActionPerformed
+        // TODO add your handling code here:
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_btn_voltarActionPerformed
 
     /**
      * @param args the command line arguments

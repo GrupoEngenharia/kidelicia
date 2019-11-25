@@ -5,6 +5,9 @@
  */
 package br.com.fatec.view;
 
+import br.com.fatec.dao.DAOProduto;
+import br.com.fatec.model.Produto;
+
 /**
  *
  * @author Simone Velosa
@@ -36,11 +39,9 @@ public class Cardapio extends javax.swing.JFrame {
         txt_nome = new javax.swing.JTextField();
         txt_rg = new javax.swing.JTextField();
         lbl_rg = new javax.swing.JLabel();
-        btn_excluir = new javax.swing.JButton();
-        btn_atualizar = new javax.swing.JButton();
         btn_voltar = new javax.swing.JButton();
         txt_cpf = new javax.swing.JFormattedTextField();
-        btn_inserir = new javax.swing.JButton();
+        btn_Buscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(950, 710));
@@ -90,17 +91,20 @@ public class Cardapio extends javax.swing.JFrame {
         lbl_rg.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_rg.setText("Preço Unit.");
 
-        btn_excluir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btn_excluir.setText("EXCLUIR");
-
-        btn_atualizar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btn_atualizar.setText("ATUALIZAR");
-
         btn_voltar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_voltar.setText("VOLTAR");
+        btn_voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_voltarActionPerformed(evt);
+            }
+        });
 
-        btn_inserir.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        btn_inserir.setText("INSERIR");
+        btn_Buscar.setText("BUSCAR");
+        btn_Buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_BuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -109,15 +113,10 @@ public class Cardapio extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(117, 117, 117)
+                        .addGap(198, 198, 198)
                         .addComponent(btn_voltar)
-                        .addGap(110, 110, 110)
-                        .addComponent(btn_excluir))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(485, 485, 485)
-                        .addComponent(btn_atualizar)
-                        .addGap(98, 98, 98)
-                        .addComponent(btn_inserir))
+                        .addGap(154, 154, 154)
+                        .addComponent(btn_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(381, 381, 381)
                         .addComponent(lbl_cadarpio))
@@ -156,10 +155,8 @@ public class Cardapio extends javax.swing.JFrame {
                 .addGap(222, 222, 222)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_voltar)
-                    .addComponent(btn_atualizar)
-                    .addComponent(btn_excluir)
-                    .addComponent(btn_inserir))
-                .addContainerGap(104, Short.MAX_VALUE))
+                    .addComponent(btn_Buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2);
@@ -167,6 +164,22 @@ public class Cardapio extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_BuscarActionPerformed
+        // TODO add your handling code here:
+        DAOProduto daoProduto = new DAOProduto();
+        Produto produto = new Produto();
+        
+        produto.setId(Integer.parseInt(txt_cpf.getText()));
+        produto = daoProduto.buscar(produto);
+        txt_nome.setText(produto.getNomeProduto());
+        txt_rg.setText(String.valueOf(produto.getPrecoUnitario()));
+    }//GEN-LAST:event_btn_BuscarActionPerformed
+
+    private void btn_voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_voltarActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_btn_voltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -207,9 +220,7 @@ public class Cardapio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_atualizar;
-    private javax.swing.JButton btn_excluir;
-    private javax.swing.JButton btn_inserir;
+    private javax.swing.JButton btn_Buscar;
     private javax.swing.JButton btn_voltar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

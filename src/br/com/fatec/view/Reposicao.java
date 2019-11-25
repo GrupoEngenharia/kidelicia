@@ -118,6 +118,8 @@ public class Reposicao extends javax.swing.JFrame {
             }
         });
 
+        txt_id.setEditable(false);
+
         lbl_qtd.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_qtd.setText("Qtd.");
 
@@ -277,6 +279,9 @@ public class Reposicao extends javax.swing.JFrame {
 
     private void btn_voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_voltarActionPerformed
         // TODO add your handling code here:
+        Controle controle = new Controle();
+        controle.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btn_voltarActionPerformed
 
     /**

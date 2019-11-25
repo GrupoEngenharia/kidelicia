@@ -256,6 +256,9 @@
           </Events>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="txt_id">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_qtd">
           <Properties>

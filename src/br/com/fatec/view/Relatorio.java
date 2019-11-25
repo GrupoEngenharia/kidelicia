@@ -5,6 +5,8 @@
  */
 package br.com.fatec.view;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Simone Velosa
@@ -38,6 +40,11 @@ public class Relatorio extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(950, 710));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
         getContentPane().setLayout(null);
 
         jPanel1.setBackground(new java.awt.Color(51, 153, 255));
@@ -77,6 +84,11 @@ public class Relatorio extends javax.swing.JFrame {
 
         btn_grealatorio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_grealatorio.setText("GERAR RELATÓRIO");
+        btn_grealatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_grealatorioActionPerformed(evt);
+            }
+        });
 
         cmb_status1.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         cmb_status1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione", "Relatório de Vendas" }));
@@ -91,6 +103,11 @@ public class Relatorio extends javax.swing.JFrame {
 
         btn_voltar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_voltar.setText("VOLTAR");
+        btn_voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_voltarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -138,6 +155,22 @@ public class Relatorio extends javax.swing.JFrame {
     private void cmb_status1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_status1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmb_status1ActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(rootPane, "**** Tela em obras ****\n aguarde as proximas atualizações\n Desculpe o incomodo, Obrigado :( ");
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btn_voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_voltarActionPerformed
+        // TODO add your handling code here:
+
+        this.setVisible(false);
+    }//GEN-LAST:event_btn_voltarActionPerformed
+
+    private void btn_grealatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_grealatorioActionPerformed
+        // TODO add your handling code here:
+        //JOptionPane.showMessageDialog(rootPane, "EU DISSE QUE ESTA EM OBRAS !!!");
+    }//GEN-LAST:event_btn_grealatorioActionPerformed
 
     /**
      * @param args the command line arguments

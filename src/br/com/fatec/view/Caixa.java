@@ -53,6 +53,7 @@ public class Caixa extends javax.swing.JFrame {
         cmb_status1 = new javax.swing.JComboBox<String>();
         txt_comanda = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        btn_sair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(950, 710));
@@ -164,6 +165,13 @@ public class Caixa extends javax.swing.JFrame {
             }
         });
 
+        btn_sair.setText("SAIR");
+        btn_sair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_sairActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -210,6 +218,10 @@ public class Caixa extends javax.swing.JFrame {
                         .addGap(83, 83, 83)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 695, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btn_sair)
+                .addGap(177, 177, 177))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,7 +255,9 @@ public class Caixa extends javax.swing.JFrame {
                     .addComponent(lbl_troco)
                     .addComponent(tx_troco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn_finalizar))
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addComponent(btn_sair)
+                .addContainerGap())
         );
 
         getContentPane().add(jPanel2);
@@ -328,6 +342,13 @@ public class Caixa extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btn_finalizarActionPerformed
 
+    private void btn_sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sairActionPerformed
+        // TODO add your handling code here:
+        Login login = new Login();
+        login.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btn_sairActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -373,6 +394,7 @@ public class Caixa extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_finalizar;
+    private javax.swing.JButton btn_sair;
     private javax.swing.JComboBox<String> cmb_status1;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;

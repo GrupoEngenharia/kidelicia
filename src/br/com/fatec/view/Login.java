@@ -294,18 +294,22 @@ public class Login extends javax.swing.JFrame {
         case "CAIXA":
             c = new Caixa();
             c.setVisible(true);
+            this.setVisible(false);
             break;
         case "GERENTE":
             adm = new Administracao();
             adm.setVisible(true);
+            this.setVisible(false);
             break;
         case "GARCOM":
             comanda = new Comanda();
             comanda.setVisible(true);
+            this.setVisible(false);
             break;
         case "COZINHEIRO":
             p = new Pedidos();
             p.setVisible(true);
+            this.setVisible(false);
             break;
         default:
             break;
