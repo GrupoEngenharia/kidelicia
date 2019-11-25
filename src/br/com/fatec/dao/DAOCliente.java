@@ -80,6 +80,7 @@ public class DAOCliente implements DAO<Cliente> {
     /**
      *
      * <b> Exclui um cliente do banco, busca pelo ID </b>
+     * @return retorna true se o cliente foi excluído
      */
     @Override
     public boolean excluir(Cliente dado) {

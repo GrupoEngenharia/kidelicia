@@ -438,7 +438,7 @@ public class Cadastro extends javax.swing.JFrame {
     
     /**
      * <b>Valida se os campos do formulário estão preenchidos</b>
-     * @return
+     * @return true se os campos estiverem vazios, false se estiverem preenchidos
      */
     public boolean validarPreenchimentoCampos(){
         if (txt_celular.getText().equals("") || txt_cpf.getText().equals("") || txt_email.getText().equals("") || txt_nome.getText().equals("") || txt_rg.getText().equals("") || txt_senha.getText().equals("") || (cmb_funcao.getSelectedIndex() == 0))// || (cmb_sexo.getSelectedIndex() == 0))
@@ -482,7 +482,7 @@ public class Cadastro extends javax.swing.JFrame {
     
     /**
      * <b>Preenche os campos do formulário com os dados de um funcionário</b>
-     * @param f
+     * @param f dados de um Funcionario
      */
     public void preencheCamposFuncionario(Funcionario f){
         txt_celular.setText(f.getTelefone());
