@@ -221,6 +221,9 @@
         <Component class="javax.swing.JTextField" name="txt_produto">
         </Component>
         <Component class="javax.swing.JTextField" name="txt_preco">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_preco">
           <Properties>
@@ -248,6 +251,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="VOLTAR"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_voltarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="txt_id">
         </Component>
@@ -270,6 +276,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txt_precototal">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btn_buscar">
           <Properties>

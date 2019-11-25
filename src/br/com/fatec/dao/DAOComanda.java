@@ -56,6 +56,7 @@ public class DAOComanda implements DAO<ComandaModel> {
     /**
      *
      * <b> altera um cliente no banco (status) </b>
+     *
      * @param dado
      * @return
      */
@@ -214,7 +215,8 @@ public class DAOComanda implements DAO<ComandaModel> {
 
     /**
      *
-     * <b> busca um pedido(produto em uma comanda, a quantidade pedida, e o status inicial </b>
+     * <b> busca um pedido(produto em uma comanda, a quantidade pedida, e o
+     * status inicial </b>
      */
     public boolean InserirProduto(ComandaModel dado, Produto produto) {
         try {
@@ -243,8 +245,8 @@ public class DAOComanda implements DAO<ComandaModel> {
     }
 
     /**
-     * 
-     * <b> insere uma comanda no banco </b> 
+     *
+     * <b> insere uma comanda no banco </b>
      */
     public boolean inserirComandaCliente(ComandaModel dado) {
         try {
@@ -271,7 +273,7 @@ public class DAOComanda implements DAO<ComandaModel> {
     }
 
     /**
-     * 
+     *
      * <b> exclui um pedido da comanda </b>
      */
     public boolean excluirProdutoComanda(ComandaModel dado, Produto produto) {
@@ -297,24 +299,24 @@ public class DAOComanda implements DAO<ComandaModel> {
     }
 
     /**
-     * 
-     * <b> busca os dados de um pedido(ID, nome e status do produto) </b> 
+     *
+     * <b> busca os dados de um pedido(ID, nome e status do produto) </b>
      */
-    public ComandaModel buscaComanda(ComandaModel comanda){
+    public ComandaModel buscaComanda(ComandaModel comanda) {
         LinkedList<Produto> produto = comanda.getProdutos();
-        try{
-        String querry = "SELECT * from comandaProduto where idComanda = ? and idProduto = ?";
-        Db.abreConexao();
-        PreparedStatement pst = Db.conexao.prepareStatement(querry);
-        pst.setInt(1, comanda.getIdComanda());
-        pst.setInt(2, produto.indexOf(0));
-        ResultSet resp = pst.executeQuery();
-        if(resp.next()){
-            comanda.setIdComanda(resp.getInt("idComanda"));
-            comanda.setStatus(resp.getString("status"));
-        }
-        Db.fecharConexao();
-        return comanda;
+        try {
+            String querry = "SELECT * from comandaProduto where idComanda = ? and idProduto = ?";
+            Db.abreConexao();
+            PreparedStatement pst = Db.conexao.prepareStatement(querry);
+            pst.setInt(1, comanda.getIdComanda());
+            pst.setInt(2, produto.indexOf(0));
+            ResultSet resp = pst.executeQuery();
+            if (resp.next()) {
+                comanda.setIdComanda(resp.getInt("idComanda"));
+                comanda.setStatus(resp.getString("status"));
+            }
+            Db.fecharConexao();
+            return comanda;
         } catch (SQLException ex) {
             Logger.getLogger(DAOComanda.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -322,9 +324,9 @@ public class DAOComanda implements DAO<ComandaModel> {
         }
         return comanda;
     }
-    
+
     /**
-     * 
+     *
      * <b> Busca todos os pedidos de todas as comandas </b>
      */
     public ArrayList<ComandaModel> buscaTodasComandas() {
@@ -343,7 +345,7 @@ public class DAOComanda implements DAO<ComandaModel> {
                 produto = daoProduto.buscar(produto);//busca o resto dos dados do produto(a partir do ID)
                 produtos.add(produto);
                 comanda.setProdutos(produtos);
-                comanda.setIdComanda(resp.getInt("idComanda"));              
+                comanda.setIdComanda(resp.getInt("idComanda"));
                 comanda.setStatus(resp.getString("status"));
                 comandas.add(comanda);
             }
@@ -356,10 +358,10 @@ public class DAOComanda implements DAO<ComandaModel> {
         }
         return comandas;
     }
-    
+
     /**
-     * 
-     * <b> altera o status do produto em uma comanda </b> 
+     *
+     * <b> altera o status do produto em uma comanda </b>
      */
     public boolean alterarStatus(ComandaModel dado) {
         try {
@@ -385,5 +387,86 @@ public class DAOComanda implements DAO<ComandaModel> {
             }
         }
         return false;
+    }
+
+    public LinkedList<Produto> BuscarProdutos(ComandaModel comanda) {
+
+        LinkedList<Produto> list = new LinkedList();
+        try {
+            String quarry = "Select idProduto, qtdProduto from ComandaProduto where idComanda = ?";
+            Db.abreConexao();
+            PreparedStatement pst = Db.conexao.prepareStatement(quarry);
+            pst.setInt(1, comanda.getIdComanda());
+            ResultSet resp = pst.executeQuery();
+            DAOProduto dao = new DAOProduto();
+            while (resp.next()) {
+                Produto produto = new Produto();
+                produto.setId(resp.getInt("idProduto"));
+                comanda.setQtd(resp.getInt("qtdProduto"));
+                produto = dao.buscar(produto);
+                list.add(produto);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(DAOComanda.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                Db.fecharConexao();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOComanda.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
+    }
+
+    public LinkedList<String> BuscarComandaStatus(ComandaModel comanda) {
+
+        LinkedList<String> list = new LinkedList();
+        String status = "";
+        try {
+            String quarry = "Select status from ComandaProduto where idComanda = ?";
+            Db.abreConexao();
+            PreparedStatement pst = Db.conexao.prepareStatement(quarry);
+            pst.setInt(1, comanda.getIdComanda());
+            ResultSet resp = pst.executeQuery();
+            while (resp.next()) {
+                status = resp.getString("status");
+                list.add(status);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(DAOComanda.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                Db.fecharConexao();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOComanda.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
+    }
+
+    public LinkedList<Integer> BuscarComandaQtd(ComandaModel comanda) {
+
+        LinkedList<Integer> list = new LinkedList();
+        Integer qtd = 0;
+        try {
+            String quarry = "Select qtdProduto from ComandaProduto where idComanda = ?";
+            Db.abreConexao();
+            PreparedStatement pst = Db.conexao.prepareStatement(quarry);
+            pst.setInt(1, comanda.getIdComanda());
+            ResultSet resp = pst.executeQuery();
+            while (resp.next()) {
+                qtd = resp.getInt("qtdProduto");
+                list.add(qtd);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(DAOComanda.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                Db.fecharConexao();
+            } catch (SQLException ex) {
+                Logger.getLogger(DAOComanda.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return list;
     }
 }

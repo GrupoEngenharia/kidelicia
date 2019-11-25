@@ -101,12 +101,17 @@ public class Pedidos extends javax.swing.JFrame {
         lbl_comanda.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_comanda.setText("Comanda:");
 
+        txt_comanda.setEditable(false);
+
         lbl_id.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_id.setText("ID:");
+
+        txt_id.setEditable(false);
 
         lbl_produto.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_produto.setText("Produto:");
 
+        txt_produto.setEditable(false);
         txt_produto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_produtoActionPerformed(evt);

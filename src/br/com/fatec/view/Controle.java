@@ -122,6 +122,11 @@ public class Controle extends javax.swing.JFrame {
 
         btn_salvar1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_salvar1.setText("VOLTAR");
+        btn_salvar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_salvar1ActionPerformed(evt);
+            }
+        });
 
         txt_filtro.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -198,6 +203,10 @@ public class Controle extends javax.swing.JFrame {
         estoques = produtosLista();
         atualizar(filtrar(estoques, txt_filtro.getText()));
     }//GEN-LAST:event_txt_filtroKeyReleased
+
+    private void btn_salvar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_salvar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_salvar1ActionPerformed
 
     /**
      * @param args the command line arguments

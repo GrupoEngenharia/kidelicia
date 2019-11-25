@@ -97,6 +97,8 @@ public class Reposicao extends javax.swing.JFrame {
         lbl_produto.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_produto.setText("Produto");
 
+        txt_preco.setEditable(false);
+
         lbl_preco.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_preco.setText("Preço R$");
 
@@ -110,12 +112,19 @@ public class Reposicao extends javax.swing.JFrame {
 
         btn_voltar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_voltar.setText("VOLTAR");
+        btn_voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_voltarActionPerformed(evt);
+            }
+        });
 
         lbl_qtd.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_qtd.setText("Qtd.");
 
         lbl_precototal.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         lbl_precototal.setText("Preço Total R$");
+
+        txt_precototal.setEditable(false);
 
         btn_buscar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btn_buscar.setText("BUSCAR");
@@ -265,6 +274,10 @@ public class Reposicao extends javax.swing.JFrame {
             else
                 JOptionPane.showMessageDialog(rootPane, "Atualização mal sucedida !");
     }//GEN-LAST:event_btn_atualizarActionPerformed
+
+    private void btn_voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_voltarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_voltarActionPerformed
 
     /**
      * @param args the command line arguments
