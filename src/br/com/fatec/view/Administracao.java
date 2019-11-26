@@ -15,7 +15,7 @@ public class Administracao extends javax.swing.JFrame {
     private Relatorio relatorio;
     private Cardapio cardapio;
     private Controle estoque;
-    private CadastroCliente cadastro;
+    private Cadastro cadastro;
     /**
      * Creates new form Comanda
      */
@@ -198,7 +198,7 @@ public class Administracao extends javax.swing.JFrame {
         // TODO add your handling code here:
         cadastro = null;
         if (cadastro == null){
-            cadastro = new CadastroCliente();
+            cadastro = new Cadastro();
             cadastro.setVisible(true);
         }
     }//GEN-LAST:event_btn_cadastroActionPerformed
